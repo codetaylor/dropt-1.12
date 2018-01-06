@@ -6,6 +6,7 @@ import com.codetaylor.mc.dropt.modules.dropt.command.Command;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.parser.LoggerWrapper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -47,7 +48,7 @@ public class ModuleDropt
     LOGGER = LogManager.getLogger(MOD_ID + "." + this.getClass().getSimpleName());
 
     RULE_PATH = event.getModConfigurationDirectory();
-    RuleLoader.loadRuleLists(MOD_ID, RULE_PATH, RULE_LISTS, LOGGER);
+    RuleLoader.loadRuleLists(MOD_ID, RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER));
   }
 
   @Override
@@ -55,7 +56,7 @@ public class ModuleDropt
 
     super.onLoadCompleteEvent(event);
 
-    RuleLoader.parseRuleLists(RULE_LISTS, LOGGER);
+    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER));
   }
 
   @Override

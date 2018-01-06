@@ -3,7 +3,6 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -40,18 +39,13 @@ public class ParserRuleDropItem
           NonNullList<ItemStack> ores = OreDictionary.getOres(parse.getPath());
 
           if (ores.isEmpty()) {
-            logger.warn("No entries found for oreDict entry <" + parse.toString() + "> in file: " + ruleList._filename);
+            logger.warn("No entries found for oreDict entry <" + "ore:" + parse.getPath() + "> in file: " + ruleList._filename);
           }
 
           for (ItemStack ore : ores) {
 
             if (ore.getItem().getHasSubtypes()) {
-              NonNullList<ItemStack> items = NonNullList.create();
-              ore.getItem().getSubItems(CreativeTabs.SEARCH, items);
-
-              for (ItemStack item : items) {
-                drop.item._items.add(new ItemStack(item.getItem(), 1, item.getMetadata()));
-              }
+              ParserUtil.addSubItemsToList(ore.getItem(), drop.item._items);
 
             } else {
               drop.item._items.add(new ItemStack(ore.getItem(), 1, ore.getMetadata()));
@@ -70,6 +64,9 @@ public class ParserRuleDropItem
 
             if (!item.getHasSubtypes()) {
               logger.error("Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+
+            } else {
+              ParserUtil.addSubItemsToList(item, drop.item._items);
             }
 
           } else {
