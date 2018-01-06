@@ -50,7 +50,10 @@
             "silktouch": "ANY"
           },
           "item": {
-            "item": "minecraft:dye:4",
+            "item": [
+              "minecraft:dye:4",
+              "minecraft:dye:5"
+            ],
             "quantity": {
               "min": 1,
               "max": 5,
@@ -64,11 +67,13 @@
               "value": 100,
               "fortuneModifier": 10
             },
-            "silktouch": "ANY",
+            "silktouch": "REQUIRED",
             "fortuneLevelRequired": 0
           },
           "item": {
-            "item": "minecraft:dye:8",
+            "item": [
+              "ore:logWood"
+            ],
             "quantity": {
               "min": 1,
               "max": 5,

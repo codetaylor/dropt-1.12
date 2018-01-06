@@ -25,6 +25,10 @@ public class RuleMatch {
 
   private boolean matchBlockState(BlockEvent.HarvestDropsEvent event) {
 
+    if (this.blocks.length == 0) {
+      return true;
+    }
+
     boolean blockMatched = false;
     IBlockState eventBlockState = event.getState();
 

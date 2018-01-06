@@ -11,7 +11,7 @@ public class Rule {
 
   public RuleMatch match = new RuleMatch();
   public EnumMergeStrategy mergeStrategy = EnumMergeStrategy.ADD;
-  public RangeInt dropCount = new RangeInt();
+  public RandomFortuneInt dropCount = new RandomFortuneInt();
   public RuleDrop[] drops = new RuleDrop[0];
 
   public List<ItemStack> modifyDrops(List<ItemStack> currentDrops, boolean isSilkTouching, int fortuneLevel) {
@@ -44,7 +44,7 @@ public class Rule {
       int itemQuantity = ruleDropItem.quantity.get(ModuleDropt.RANDOM, fortuneLevel);
 
       if (itemQuantity > 0) {
-        ItemStack copy = ruleDropItem._item.copy();
+        ItemStack copy = ruleDropItem._items.get(ModuleDropt.RANDOM.nextInt(ruleDropItem._items.size())).copy();
         copy.setCount(itemQuantity);
         newDrops.add(copy);
       }
