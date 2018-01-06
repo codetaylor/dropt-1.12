@@ -2,22 +2,26 @@ All parameters are required unless explicitly marked *Optional*.
 
 ## IRuleList
 
-<big><pre>{
+<big><pre>
+{
   "priority": int,
   "rules": [IRule](#IRule)[]
-}</pre></big>
+}
+</pre></big>
 
 * `priority`: `int`
   * *Optional* - if omitted, defaults to `0`.
   * Files with a higher priority will have their rules matched first.
 
 ## IRule
-<big><pre>{
+<big><pre>
+{
   "match": [IRuleMatch](#IRuleMatch),
   "mergeStrategy": "REPLACE" | "ADD" | "REPLACE_IF_SELECTED",
   "dropCount": [IRangeInt](#IRangeInt),
   "drops": [IRuleDrop](#IRuleDrop)[]
-}</pre></big>
+}
+</pre></big>
 
 Each `IRule` is matched in the same order it is read from the file.
 
@@ -28,12 +32,14 @@ Each `IRule` is matched in the same order it is read from the file.
   * `REPLACE_IF_SELECTED`: All block drops will be replaced by drops from this rule if and only if drops are selected from this rule.
   
 ## IRuleMatch
-<big><pre>{
+<big><pre>
+{
   "blocks": String[],
   "harvester": [IRuleMatchHarvester](#IRuleMatchHarvester),
   "biomes": [IRuleMatchBiome](#IRuleMatchBiome),
   "dimensions": [IRuleMatchDimension](#IRuleMatchDimension)
-}</pre></big>
+}
+</pre></big>
 
 The `IRuleMatch` is responsible for matching the rule to the block. When a block is broken, the first `IRule` to successfully satisfy the requirements of the `IRuleMatch` is selected.
 
@@ -42,11 +48,13 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
   * Example: `minecraft:dye:4`
 
 ## IRuleMatchHarvester
-<big><pre>{
+<big><pre>
+{
   "type": "PLAYER" | "NON_PLAYER" | "ANY",
   "heldItemMainHand": String[],
   "gamestages": [IRuleMatchHarvesterGameStage](#IRuleMatchHarvesterGameStage)
-}</pre></big>
+}
+</pre></big>
 
 * `type`: `enum`
   * *Optional* - if omitted, defaults to `ANY`.
@@ -59,10 +67,12 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
   * Syntax: `domain:path:meta`, `meta` can be a wildcard `*`. It is advised to use the meta wildcard `*` when matching tools.
 
 ## IRuleMatchHarvesterGameStage
-<big><pre>{
+<big><pre>
+{
   "type": "ALL" | "ANY",
   "stages": String[]
-}</pre></big>
+}
+</pre></big>
 
 * `type`: `enum`
   * *Optional* - if omitted, defaults to `ANY`.
@@ -72,10 +82,12 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
 * `stages`: `String[]`
 
 ## IRuleMatchBiome
-<big><pre>{
+<big><pre>
+{
   "type": "WHITELIST" | "BLACKLIST",
   "ids": String[]
-}</pre></big>
+}
+</pre></big>
 
 * `type`: `enum`
   * *Optional* - if omitted, defaults to `WHITELIST`.
@@ -87,10 +99,12 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
   * Example: `minecraft:birch_forest_hills`
   
 ## IRuleMatchDimension
-<big><pre>{
+<big><pre>
+{
   "type": "WHITELIST" | "BLACKLIST",
   "ids": int[]
-}</pre></big>
+}
+</pre></big>
 
 * `type`: `enum`
   * *Optional* - if omitted, defaults to `WHITELIST`.
@@ -101,11 +115,13 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
   * An array containing the integer id's of dimensions.
   
 ## IRangeInt
-<big><pre>{
+<big><pre>
+{
   "min": int,
   "max": int,
   "fortuneModifier": int
-}</pre></big>
+}
+</pre></big>
 
 Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
 
@@ -122,10 +138,12 @@ Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
 
 ## IRuleDrop
 
-<big><pre>{
+<big><pre>
+{
   "selector": [IRuleDropSelector](#IRuleDropSelector),
   "item": [IRuleDropItem](#IRuleDropItem)
-}</pre></big>
+}
+</pre></big>
 
 This defines what the rule can potentially drop. The `IRuleDropSelector` acts as a predicate to identify drop candidates and the `IRuleDropItem` defines the actual drop.
 
@@ -133,11 +151,13 @@ If a rule is matched, the `IRuleDropSelector` for each `IRuleDrop` is queried to
 
 ## IRuleDropSelector
 
-<big><pre>{
+<big><pre>
+{
   "weight": [IRuleDropSelectorWeight](#IRuleDropSelectorWeight),
   "silktouch": "REQUIRED" | "EXCLUDED" | "ANY",
   "fortuneLevelRequired": int
-}</pre></big>
+}
+</pre></big>
 
 * `silktouch`: `enum`
   * *Optional* - if omitted, defaults to `ANY`.
@@ -151,10 +171,12 @@ If a rule is matched, the `IRuleDropSelector` for each `IRuleDrop` is queried to
 
 ## IRuleDropSelectorWeight
 
-<big><pre>{
+<big><pre>
+{
   "value": int,
   "fortuneModifier": int
-}</pre></big>
+}
+</pre></big>
 
 Calculation: `value + fortuneModifier * fortuneLevel`
 
@@ -168,10 +190,12 @@ Calculation: `value + fortuneModifier * fortuneLevel`
   
 ## IRuleDropItem
 
-<big><pre>{
+<big><pre>
+{
   "item": string
   "quantity": [IRangeInt](#IRuleDropSelectorWeight)
-}</pre></big>
+}
+</pre></big>
 
 This defines the item for the `IRuleDrop`.
 
