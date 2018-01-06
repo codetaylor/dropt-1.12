@@ -1,0 +1,16 @@
+[
+{
+  "modid": "dropt",
+  "name": "Dropt",
+  "description": "Configurable block drop rules.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["codetaylor"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
