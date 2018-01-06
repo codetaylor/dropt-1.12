@@ -278,8 +278,8 @@ This defines the item for the `IRuleDrop`.
 * `item`: `String[]`
   * This array contains a list of items, of which one will be randomly selected for the drop. Each item in the list has an equal chance of being selected for the drop.
   * Syntax: `domain:path:meta`, meta may be a wildcard `*`, see experimental feature below.
-  * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. <br/>*This feature is experimental and may not produce the desired results.*
-  * &#x1F538;*Experimental*: If a wildcard value `*` is supplied for the meta, the system will attempt to expand that item into all of its valid subtypes. <br/>*This feature is experimental and may not produce the desired results.*
+  * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. *This feature is experimental and may not produce the desired results.*
+  * &#x1F538;*Experimental*: If a wildcard value `*` is supplied for the meta, the system will attempt to expand that item into all of its valid subtypes. *This feature is experimental and may not produce the desired results.*
 
 * `quantity`: [IRandomFortuneInt](#irandomfortuneint)
   * &#x1F539;*Optional* - if omitted, defaults to `1`
