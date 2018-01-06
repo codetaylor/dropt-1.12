@@ -47,15 +47,19 @@ The `IRule` defines match and replace behavior.
   * This object defines how many times the weighted picker will be queried for drops.
 
 * `drops`: <code>[IRuleDrop](#iruledrop)[]</code>
+  * &#x1F539;*Optional* - if omitted, no drops will be processed.
   * This array defines the potential drops for this rule.
 
 ## IRuleMatch
 
-The `IRuleMatch` is responsible for matching the rule to the block. When a block is broken, the first <code>[IRule](#irule)</code> to successfully satisfy the requirements of the `IRuleMatch` is selected.
+The `IRuleMatch` is responsible for matching a rule using defined conditions. 
+
+When a block is broken, the first <code>[IRule](#irule)</code> to successfully satisfy the requirements of the `IRuleMatch` is selected.
 
 <big><pre>
 {
   "blocks": String[],
+  "items": String[],
   "harvester": [IRuleMatchHarvester](#irulematchharvester),
   "biomes": [IRuleMatchBiome](#irulematchbiome),
   "dimensions": [IRuleMatchDimension](#irulematchdimension)
@@ -64,6 +68,13 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
 
 * `blocks`: `String[]`
   * &#x1F539;*Optional* - if omitted, all blocks will be matched.
+  * This string array defines blocks to be matched against the block broken.
+  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
+  * Example: `minecraft:stone:0`
+
+* `items`: `String[]`
+  * &#x1F539;*Optional* - if omitted, all item drops will be matched.
+  * This string array defines items to be matched against the items dropped.
   * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
   * Example: `minecraft:stone:0`
 

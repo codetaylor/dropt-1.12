@@ -83,8 +83,11 @@ public class RuleLoader {
 
       for (Rule rule : ruleList.rules) {
 
-        // Parse block strings
+        // Parse rule match block strings
         new ParserRuleMatchBlocks().parse(parser, ruleList, rule, logger);
+
+        // Parse rule match item strings
+        new ParserRuleMatchItems().parse(parser, ruleList, rule, logger);
 
         // Parse item held in main hand strings
         new ParserRuleMatchHarvesterHeldItemMainHand().parse(parser, ruleList, rule, logger);
