@@ -7,7 +7,7 @@ This is the main object of any `.json` rule files.
 <big><pre>
 {
 &nbsp;&nbsp;"priority": int,
-  "rules": [IRule](#irule)[]
+&nbsp;&nbsp;"rules": [IRule](#irule)[]
 }
 </pre></big>
 
@@ -25,10 +25,10 @@ The `IRule` defines match and replace behavior.
 
 <big><pre>
 {
-  "match": [IRuleMatch](#irulematch),
-  "replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED",
-  "dropCount": [IRandomFortuneInt](#irandomfortuneint),
-  "drops": [IRuleDrop](#iruledrop)[]
+&nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
+&nbsp;&nbsp;"replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED",
+&nbsp;&nbsp;"dropCount": [IRandomFortuneInt](#irandomfortuneint),
+&nbsp;&nbsp;"drops": [IRuleDrop](#iruledrop)[]
 }
 </pre></big>
 
@@ -58,11 +58,11 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 
 <big><pre>
 {
-  "blocks": String[],
-  "items": String[],
-  "harvester": [IRuleMatchHarvester](#irulematchharvester),
-  "biomes": [IRuleMatchBiome](#irulematchbiome),
-  "dimensions": [IRuleMatchDimension](#irulematchdimension)
+&nbsp;&nbsp;"blocks": String[],
+&nbsp;&nbsp;"items": String[],
+&nbsp;&nbsp;"harvester": [IRuleMatchHarvester](#irulematchharvester),
+&nbsp;&nbsp;"biomes": [IRuleMatchBiome](#irulematchbiome),
+&nbsp;&nbsp;"dimensions": [IRuleMatchDimension](#irulematchdimension)
 }
 </pre></big>
 
@@ -96,9 +96,9 @@ This object defines conditions specific to the entity that broke the block.
 
 <big><pre>
 {
-  "type": "PLAYER" | "NON_PLAYER" | "ANY",
-  "heldItemMainHand": String[],
-  "gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)
+&nbsp;&nbsp;"type": "PLAYER" | "NON_PLAYER" | "ANY",
+&nbsp;&nbsp;"heldItemMainHand": String[],
+&nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)
 }
 </pre></big>
 
@@ -122,8 +122,8 @@ This object defines conditions for matching gamestages.
 
 <big><pre>
 {
-  "type": "ALL" | "ANY",
-  "stages": String[]
+&nbsp;&nbsp;"type": "ALL" | "ANY",
+&nbsp;&nbsp;"stages": String[]
 }
 </pre></big>
 
@@ -141,8 +141,8 @@ This object defines conditions for matching biomes.
 
 <big><pre>
 {
-  "type": "WHITELIST" | "BLACKLIST",
-  "ids": String[]
+&nbsp;&nbsp;"type": "WHITELIST" | "BLACKLIST",
+&nbsp;&nbsp;"ids": String[]
 }
 </pre></big>
 
@@ -162,8 +162,8 @@ This object defines conditions for matching dimensions.
 
 <big><pre>
 {
-  "type": "WHITELIST" | "BLACKLIST",
-  "ids": int[]
+&nbsp;&nbsp;"type": "WHITELIST" | "BLACKLIST",
+&nbsp;&nbsp;"ids": int[]
 }
 </pre></big>
 
@@ -181,10 +181,10 @@ This object defines a range used to select a fortune modified random number.
 
 <big><pre>
 {
-  "fixed": int,
-  "min": int,
-  "max": int,
-  "fortuneModifier": int
+&nbsp;&nbsp;"fixed": int,
+&nbsp;&nbsp;"min": int,
+&nbsp;&nbsp;"max": int,
+&nbsp;&nbsp;"fortuneModifier": int
 }
 </pre></big>
 
@@ -214,8 +214,8 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 
 <big><pre>
 {
-  "selector": [IRuleDropSelector](#iruledropselector),
-  "item": [IRuleDropItem](#iruledropitem)
+&nbsp;&nbsp;"selector": [IRuleDropSelector](#iruledropselector),
+&nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem)
 }
 </pre></big>
 
@@ -234,9 +234,9 @@ If a rule is matched, the `IRuleDropSelector` is queried to determine a drop's c
 
 <big><pre>
 {
-  "weight": [IRuleDropSelectorWeight](#iruledropselectorweight),
-  "silktouch": "REQUIRED" | "EXCLUDED" | "ANY",
-  "fortuneLevelRequired": int
+&nbsp;&nbsp;"weight": [IRuleDropSelectorWeight](#iruledropselectorweight),
+&nbsp;&nbsp;"silktouch": "REQUIRED" | "EXCLUDED" | "ANY",
+&nbsp;&nbsp;"fortuneLevelRequired": int
 }
 </pre></big>
 
@@ -260,8 +260,8 @@ This object defines the fortune modified weight to use when adding a drop to the
 
 <big><pre>
 {
-  "value": int,
-  "fortuneModifier": int
+&nbsp;&nbsp;"value": int,
+&nbsp;&nbsp;"fortuneModifier": int
 }
 </pre></big>
 
@@ -279,8 +279,8 @@ Calculation: `value + fortuneModifier * fortuneLevel`
 
 <big><pre>
 {
-  "item": String[]
-  "quantity": [IRandomFortuneInt](#irandomfortuneint)
+&nbsp;&nbsp;"item": String[]
+&nbsp;&nbsp;"quantity": [IRandomFortuneInt](#irandomfortuneint)
 }
 </pre></big>
 
