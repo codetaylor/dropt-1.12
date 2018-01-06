@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.BlockMatcher;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class RuleMatch {
 
-  public transient List<IBlockState> _blocks = new ArrayList<>();
+  public transient List<BlockMatcher> _blocks = new ArrayList<>();
 
   public String[] blocks = new String[0];
   public RuleMatchHarvester harvester = new RuleMatchHarvester();
@@ -29,17 +30,15 @@ public class RuleMatch {
       return true;
     }
 
-    boolean blockMatched = false;
     IBlockState eventBlockState = event.getState();
 
-    for (IBlockState blockState : this._blocks) {
+    for (BlockMatcher blockMatcher : this._blocks) {
 
-      if (eventBlockState == blockState) {
-        blockMatched = true;
-        break;
+      if (blockMatcher.matches(eventBlockState)) {
+        return true;
       }
     }
 
-    return blockMatched;
+    return false;
   }
 }

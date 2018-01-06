@@ -79,6 +79,7 @@ public class Command
 
       super.error(message, error);
       sender.sendMessage(new TextComponentString(message));
+      sender.sendMessage(new TextComponentString(error.getMessage()));
     }
   }
 }

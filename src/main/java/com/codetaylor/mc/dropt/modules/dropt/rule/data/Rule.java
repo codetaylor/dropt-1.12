@@ -10,13 +10,13 @@ import java.util.List;
 public class Rule {
 
   public RuleMatch match = new RuleMatch();
-  public EnumMergeStrategy mergeStrategy = EnumMergeStrategy.ADD;
+  public EnumReplaceStrategy replaceStrategy = EnumReplaceStrategy.REPLACE_ALL;
   public RandomFortuneInt dropCount = new RandomFortuneInt();
   public RuleDrop[] drops = new RuleDrop[0];
 
   public List<ItemStack> modifyDrops(List<ItemStack> currentDrops, boolean isSilkTouching, int fortuneLevel) {
 
-    if (this.mergeStrategy == EnumMergeStrategy.REPLACE) {
+    if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL) {
       currentDrops.clear();
     }
 
@@ -50,7 +50,7 @@ public class Rule {
       }
     }
 
-    if (this.mergeStrategy == EnumMergeStrategy.REPLACE_IF_SELECTED
+    if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL_IF_SELECTED
         && !newDrops.isEmpty()) {
       currentDrops.clear();
     }

@@ -26,7 +26,7 @@ The `IRule` defines match and replace behavior.
 <big><pre>
 {
   "match": [IRuleMatch](#irulematch),
-  "mergeStrategy": "REPLACE" | "ADD" | "REPLACE_IF_SELECTED",
+  "replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED",
   "dropCount": [IRandomFortuneInt](#irandomfortuneint),
   "drops": [IRuleDrop](#iruledrop)[]
 }
@@ -36,11 +36,11 @@ The `IRule` defines match and replace behavior.
   * &#x1F539;*Optional* - if omitted, all blocks will be matched.
   * This object defines the conditions used to match this rule. 
 
-* `mergeStrategy`: `enum`
-  * &#x1F539;*Optional* - if omitted, defaults to `ADD`.
-  * `REPLACE`: All block drops will be replaced by drops from this rule.
+* `replaceStrategy`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `REPLACE_ALL`.
+  * `REPLACE_ALL`: All block drops will be replaced by drops from this rule.
+  * `REPLACE_ALL_IF_SELECTED`: All block drops will be replaced by drops from this rule if and only if drops are selected from this rule.
   * `ADD`: Any selected drops from this rule will be added to the block's existing drops. If this rule is matched and no drops are selected, the block will drop nothing.
-  * `REPLACE_IF_SELECTED`: All block drops will be replaced by drops from this rule if and only if drops are selected from this rule.
 
 * `dropCount`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `1`.
@@ -64,8 +64,8 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
 
 * `blocks`: `String[]`
   * &#x1F539;*Optional* - if omitted, all blocks will be matched.
-  * Syntax: `domain:path:meta`
-  * Example: `minecraft:dye:4`
+  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
+  * Example: `minecraft:stone:0`
 
 * `harvester`: <code>[IRuleMatchHarvester](#irulematchharvester)</code>
   * &#x1F539;*Optional* - if omitted, any harvester will be matched.

@@ -11,10 +11,10 @@ public class ParserUtil {
 
   public static void addSubItemsToList(Item item, List<ItemStack> list) {
 
-    NonNullList<ItemStack> items = NonNullList.create();
-    item.getSubItems(CreativeTabs.SEARCH, items);
+    NonNullList<ItemStack> tempList = NonNullList.create();
+    item.getSubItems(CreativeTabs.SEARCH, tempList);
 
-    for (ItemStack subItem : items) {
+    for (ItemStack subItem : tempList) {
       list.add(new ItemStack(subItem.getItem(), 1, subItem.getMetadata()));
     }
   }
