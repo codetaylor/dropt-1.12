@@ -47,7 +47,7 @@ The `IRule` defines match and replace behavior.
   * This object defines how many times the weighted picker will be queried for drops.
 
 * `drops`: <code>[IRuleDrop](#iruledrop)[]</code>
-  * This array lists the potential drops for this rule.
+  * This array defines the potential drops for this rule.
 
 ## IRuleMatch
 
@@ -204,7 +204,7 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 </pre></big>
 
 * `selector`: <code>[IRuleDropSelector](#iruledropselector)</code>
-  * *Optional* - if omitted, no selection conditions will apply to the drop's candidacy and the weight will default to `1`.
+  * &#x1F539;*Optional* - if omitted, no selection conditions will apply to the drop's candidacy and the weight will default to `1`.
   * This object defines conditions for the drop's candidacy as well as its chance to drop.
   
 * `item`: <code>[IRuleDropItem](#iruledropitem)</code>
@@ -230,8 +230,8 @@ If a rule is matched, the `IRuleDropSelector` is queried to determine a drop's c
 
 * `silktouch`: `enum`
   * &#x1F539;*Optional* - if omitted, defaults to `ANY`.
-  * `REQUIRED`: Silk touch is required on the tool the player is using to break the block to have a chance of getting this drop.
-  * `EXCLUDED`: Silk touch must not be on the tool the player is using to break the block to have a chance of getting this drop.
+  * `REQUIRED`: Silk touch is required on the tool the player is using.
+  * `EXCLUDED`: Silk touch must not be on the tool the player is using.
   * `ANY`: Silk touch is overlooked.
   
 * `fortuneLevelRequired`: `int`
@@ -273,7 +273,7 @@ This defines the item for the `IRuleDrop`.
 * `item`: `String[]`
   * This array contains a list of items, of which one will be randomly selected for the drop. Each item in the list has an equal chance of being selected for the drop.
   * Syntax: `domain:path:meta`, *meta must not be a wildcard*.
-  * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, will be expanded to the best of the system's ability. This feature is experimental and may not produce the desired results.
+  * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. This feature is experimental and may not produce the desired results.
 
 * `quantity`: [IRandomFortuneInt](#irandomfortuneint)
   * &#x1F539;*Optional* - if omitted, defaults to `1`
