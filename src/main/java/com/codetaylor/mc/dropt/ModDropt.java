@@ -1,11 +1,9 @@
 package com.codetaylor.mc.dropt;
 
-import com.codetaylor.mc.athenaeum.gui.GuiHandler;
 import com.codetaylor.mc.athenaeum.module.ModuleManager;
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod(
     modid = ModDropt.MOD_ID,
@@ -42,8 +40,6 @@ public class ModDropt {
 
   @Mod.EventHandler
   public void onPreInitializationEvent(FMLPreInitializationEvent event) {
-
-    NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
     this.moduleManager.routeFMLStateEvent(event);
   }
