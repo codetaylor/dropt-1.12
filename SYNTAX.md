@@ -6,7 +6,7 @@ This is the main object of any `.json` rule files.
 
 <big><pre>
 {
-  "priority": int,
+&nbsp;&nbsp;"priority": int,
   "rules": [IRule](#irule)[]
 }
 </pre></big>
