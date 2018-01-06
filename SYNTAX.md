@@ -1,4 +1,4 @@
-All parameters are required unless explicitly marked *Optional*.
+All parameters are required unless explicitly marked &#x1F539;*Optional*.
 
 ## IRuleList
 
@@ -170,6 +170,7 @@ This object defines a range used to select a fortune modified random number.
 
 <big><pre>
 {
+  "fixed": int,
   "min": int,
   "max": int,
   "fortuneModifier": int
@@ -178,6 +179,10 @@ This object defines a range used to select a fortune modified random number.
 
 Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
 
+* `fixed`: `int`
+  * &#x1F539;*Optional* - if omitted, defaults to using `min` and `max`.
+  * The fixed value that will always be used. If a value `> 0` is supplied, it will be used in the calculation instead of a randomly selected value.
+  
 * `min`: `int`
   * &#x1F539;*Optional* - if omitted, defaults to `1`.
   * The minimum value that will be randomly selected (inclusive).
