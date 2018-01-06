@@ -5,14 +5,13 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import org.apache.logging.log4j.Logger;
 
 public class ParserRuleMatchBiome
     implements IRuleListParser {
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, Logger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
   ) {
 
     if (rule.match == null || rule.match.biomes == null) {

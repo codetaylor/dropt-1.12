@@ -10,14 +10,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.logging.log4j.Logger;
 
 public class ParserRuleDropItem
     implements IRuleListParser {
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, Logger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
   ) {
 
     for (RuleDrop drop : rule.drops) {
@@ -57,18 +56,25 @@ public class ParserRuleDropItem
             } else {
               drop.item._items.add(new ItemStack(ore.getItem(), 1, ore.getMetadata()));
             }
-
           }
 
         } else { // not an ore dict entry
           Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
           if (item == null) {
-            logger.error("Unable to find registered item: " + parse.toString());
+            logger.error("Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
             continue;
           }
 
-          drop.item._items.add(new ItemStack(item, 1, parse.getMeta()));
+          if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
+
+            if (!item.getHasSubtypes()) {
+              logger.error("Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+            }
+
+          } else {
+            drop.item._items.add(new ItemStack(item, 1, parse.getMeta()));
+          }
         }
       }
     }

@@ -6,14 +6,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import org.apache.logging.log4j.Logger;
 
 public class ParserRuleMatchHarvesterHeldItemMainHand
     implements IRuleListParser {
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, Logger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
   ) {
 
     if (rule.match == null) {

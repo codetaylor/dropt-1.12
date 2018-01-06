@@ -5,7 +5,6 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.parser.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -22,7 +21,7 @@ public class RuleLoader {
 
   private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-  public static void loadRuleLists(String modId, File file, List<RuleList> ruleLists, Logger logger) {
+  public static void loadRuleLists(String modId, File file, List<RuleList> ruleLists, ILogger logger) {
 
     Path path = file.toPath().resolve(modId);
 
@@ -76,7 +75,7 @@ public class RuleLoader {
     Collections.sort(ruleLists);
   }
 
-  public static void parseRuleLists(List<RuleList> ruleLists, Logger logger) {
+  public static void parseRuleLists(List<RuleList> ruleLists, ILogger logger) {
 
     RecipeItemParser parser = new RecipeItemParser();
 

@@ -6,14 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import org.apache.logging.log4j.Logger;
 
 public class ParserRuleMatchBlocks
     implements IRuleListParser {
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, Logger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
   ) {
 
     if (rule.match == null) {
