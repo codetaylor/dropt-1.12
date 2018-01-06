@@ -5,7 +5,7 @@ All parameters are required unless explicitly marked *Optional*.
 <big><pre>
 {
   "priority": int,
-  "rules": [IRule](#IRule)[]
+  "rules": [IRule](#irule)[]
 }
 </pre></big>
 
@@ -16,10 +16,10 @@ All parameters are required unless explicitly marked *Optional*.
 ## IRule
 <big><pre>
 {
-  "match": [IRuleMatch](#IRuleMatch),
+  "match": [IRuleMatch](#irulematch),
   "mergeStrategy": "REPLACE" | "ADD" | "REPLACE_IF_SELECTED",
-  "dropCount": [IRangeInt](#IRangeInt),
-  "drops": [IRuleDrop](#IRuleDrop)[]
+  "dropCount": [IRangeInt](#irangeint),
+  "drops": [IRuleDrop](#iruledrop)[]
 }
 </pre></big>
 
@@ -35,9 +35,9 @@ Each `IRule` is matched in the same order it is read from the file.
 <big><pre>
 {
   "blocks": String[],
-  "harvester": [IRuleMatchHarvester](#IRuleMatchHarvester),
-  "biomes": [IRuleMatchBiome](#IRuleMatchBiome),
-  "dimensions": [IRuleMatchDimension](#IRuleMatchDimension)
+  "harvester": [IRuleMatchHarvester](#irulematchharvester),
+  "biomes": [IRuleMatchBiome](#irulematchbiome),
+  "dimensions": [IRuleMatchDimension](#irulematchdimension)
 }
 </pre></big>
 
@@ -52,7 +52,7 @@ The `IRuleMatch` is responsible for matching the rule to the block. When a block
 {
   "type": "PLAYER" | "NON_PLAYER" | "ANY",
   "heldItemMainHand": String[],
-  "gamestages": [IRuleMatchHarvesterGameStage](#IRuleMatchHarvesterGameStage)
+  "gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)
 }
 </pre></big>
 
@@ -140,8 +140,8 @@ Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
 
 <big><pre>
 {
-  "selector": [IRuleDropSelector](#IRuleDropSelector),
-  "item": [IRuleDropItem](#IRuleDropItem)
+  "selector": [IRuleDropSelector](#iruledropselector),
+  "item": [IRuleDropItem](#iruledropitem)
 }
 </pre></big>
 
@@ -153,7 +153,7 @@ If a rule is matched, the `IRuleDropSelector` for each `IRuleDrop` is queried to
 
 <big><pre>
 {
-  "weight": [IRuleDropSelectorWeight](#IRuleDropSelectorWeight),
+  "weight": [IRuleDropSelectorWeight](#iruledropselectorweight),
   "silktouch": "REQUIRED" | "EXCLUDED" | "ANY",
   "fortuneLevelRequired": int
 }
@@ -193,7 +193,7 @@ Calculation: `value + fortuneModifier * fortuneLevel`
 <big><pre>
 {
   "item": string
-  "quantity": [IRangeInt](#IRuleDropSelectorWeight)
+  "quantity": [IRangeInt](#irangeint)
 }
 </pre></big>
 
