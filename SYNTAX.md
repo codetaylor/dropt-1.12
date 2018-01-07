@@ -314,14 +314,14 @@ Calculation: `value + fortuneModifier * fortuneLevel`
 
 <big><pre>
 {
-&nbsp;&nbsp;"item": String[]
+&nbsp;&nbsp;"items": String[]
 &nbsp;&nbsp;"quantity": [IRandomFortuneInt](#irandomfortuneint)
 }
 </pre></big>
 
 This defines the item for the `IRuleDrop`.
 
-* `item`: `String[]`
+* `items`: `String[]`
   * This array contains a list of items, of which one will be randomly selected for the drop. Each item in the list has an equal chance of being selected for the drop.
   * Syntax: `domain:path:meta`, meta may be a wildcard `*`, see experimental feature below.
   * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. *This feature is experimental and may not produce the desired results.*
