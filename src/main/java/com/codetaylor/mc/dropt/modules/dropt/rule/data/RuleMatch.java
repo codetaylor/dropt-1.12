@@ -19,14 +19,23 @@ public class RuleMatch {
   public RuleMatchHarvester harvester = new RuleMatchHarvester();
   public RuleMatchBiome biomes = new RuleMatchBiome();
   public RuleMatchDimension dimensions = new RuleMatchDimension();
+  public RangeInt verticalRange = new RangeInt(0, 255);
 
   public boolean matches(BlockEvent.HarvestDropsEvent event) {
 
-    return this.matchBlockState(event)
+    return this.matchVerticalRange(event)
+        && this.matchBlockState(event)
         && this.matchItem(event)
         && this.harvester.matches(event.getHarvester())
         && this.biomes.matches(event.getWorld().getBiome(event.getPos()))
         && this.dimensions.matches(event.getWorld().provider.getDimension());
+  }
+
+  private boolean matchVerticalRange(BlockEvent.HarvestDropsEvent event) {
+
+    int y = event.getPos().getY();
+
+    return y <= this.verticalRange.max && y >= this.verticalRange.min;
   }
 
   private boolean matchItem(BlockEvent.HarvestDropsEvent event) {
@@ -65,6 +74,5 @@ public class RuleMatch {
 
     return false;
   }
-
 
 }

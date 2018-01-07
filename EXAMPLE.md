@@ -1,83 +1,34 @@
+## Example #1
+
+Replace all dropped `ore:logWood` from any block with a single random dye 75% of the time.
+
 ```json
 {
-  "priority": 100,
   "rules": [
     {
       "match": {
-        "blocks": [
-          "minecraft:stone:0"
-        ],
-        "harvester": {
-          "type": "PLAYER",
-          "heldItemMainHand": [
-            "minecraft:wooden_pickaxe:*",
-            "minecraft:stone_pickaxe:*"
-          ],
-          "gamestages": {
-            "type": "ALL",
-            "stages": [
-              "one",
-              "two"
-            ]
-          }
-        },
-        "biomes": {
-          "type": "BLACKLIST",
-          "ids": [
-            "minecraft:birch_forest_hills"
-          ]
-        },
-        "dimensions": {
-          "type": "WHITELIST",
-          "ids": [
-            0
-          ]
-        }
+        "items": [
+          "ore:logWood"
+        ]
       },
-      "mergeStrategy": "REPLACE_IF_SELECTED",
-      "dropCount": {
-        "min": 1,
-        "max": 5,
-        "fortuneModifier": 1
-      },
+      "replaceStrategy": "REPLACE_ITEMS_IF_SELECTED",
       "drops": [
         {
           "selector": {
             "weight": {
-              "value": 100,
-              "fortuneModifier": 10
-            },
-            "silktouch": "ANY"
+              "value": 25
+            }
           },
           "item": {
-            "item": [
-              "minecraft:dye:4",
-              "minecraft:dye:5"
-            ],
-            "quantity": {
-              "min": 1,
-              "max": 5,
-              "fortuneModifier": 2
-            }
+            "items": [
+              "minecraft:dye:*"
+            ]
           }
         },
         {
           "selector": {
             "weight": {
-              "value": 100,
-              "fortuneModifier": 10
-            },
-            "silktouch": "REQUIRED",
-            "fortuneLevelRequired": 0
-          },
-          "item": {
-            "item": [
-              "ore:logWood"
-            ],
-            "quantity": {
-              "min": 1,
-              "max": 5,
-              "fortuneModifier": 1
+              "value": 75
             }
           }
         }

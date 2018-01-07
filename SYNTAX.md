@@ -38,6 +38,8 @@ The `IRule` defines match and replace behavior.
 
 * `replaceStrategy`: `enum`
   * &#x1F539;*Optional* - if omitted, defaults to `REPLACE_ALL`.
+  * `REPLACE_ITEMS`: All items defined in the <code>[IRuleMatch](#irulematch)</code> will be removed.
+  * `REPLACE_ITEMS_IF_SELECTED`: All items defined in the <code>[IRuleMatch](#irulematch)</code> will be removed if and only if drops are selected from this rule.
   * `REPLACE_ALL`: All block drops will be replaced by drops from this rule.
   * `REPLACE_ALL_IF_SELECTED`: All block drops will be replaced by drops from this rule if and only if drops are selected from this rule.
   * `ADD`: Any selected drops from this rule will be added to the block's existing drops. If this rule is matched and no drops are selected, the block will drop nothing.
@@ -62,7 +64,8 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 &nbsp;&nbsp;"items": String[],
 &nbsp;&nbsp;"harvester": [IRuleMatchHarvester](#irulematchharvester),
 &nbsp;&nbsp;"biomes": [IRuleMatchBiome](#irulematchbiome),
-&nbsp;&nbsp;"dimensions": [IRuleMatchDimension](#irulematchdimension)
+&nbsp;&nbsp;"dimensions": [IRuleMatchDimension](#irulematchdimension),
+&nbsp;&nbsp;"verticalRange": [IRangeInt](#irangeint)
 }
 </pre></big>
 
@@ -89,6 +92,10 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 * `dimensions`: <code>[IRuleMatchDimension](#irulematchdimension)</code>
   * &#x1F539;*Optional* - if omitted, all dimensions will match. 
   * This object defines dimension conditions.
+
+* `verticalRange`: <code>[IRangeInt](#irangeint)</code>
+  * &#x1F539;*Optional* - if omitted, defaults to full height range.
+  * This object defines the vertical range condition.
 
 ## IRuleMatchHarvester
 
@@ -175,6 +182,25 @@ This object defines conditions for matching dimensions.
 * `ids`: `int[]`
   * This array contains the integer id's of the dimensions required to match.
   
+## IRangeInt
+
+This object defines a range between a min and max integer value.
+
+<big><pre>
+{
+&nbsp;&nbsp;"min": int,
+&nbsp;&nbsp;"max": int
+}
+</pre></big>
+
+* `min`: `int`
+  * &#x1F539;*Optional* - if omitted, defaults to the minimum value of the enclosing context.
+  * This integer defines the minimum value of this range (inclusive).
+
+* `max`: `int`
+  * &#x1F539;*Optional* - if omitted, defaults to the maximum value of the enclosing context.
+  * This integer defines the maximum value of this range (inclusive).
+
 ## IRandomFortuneInt
 
 This object defines a range used to select a fortune modified random number.

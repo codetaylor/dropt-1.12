@@ -1,10 +1,12 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
+import com.codetaylor.mc.dropt.modules.dropt.rule.ItemMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.WeightedPicker;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Rule {
@@ -53,6 +55,35 @@ public class Rule {
     if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL_IF_SELECTED
         && !newDrops.isEmpty()) {
       currentDrops.clear();
+    }
+
+    boolean removeMatchedItems = false;
+
+    if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ITEMS
+        && !this.match._items.isEmpty()) {
+      removeMatchedItems = true;
+    }
+
+    if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ITEMS_IF_SELECTED
+        && !newDrops.isEmpty()
+        && !this.match._items.isEmpty()) {
+      removeMatchedItems = true;
+    }
+
+    if (removeMatchedItems) {
+      // Remove all items specified in the item matcher.
+
+      for (Iterator<ItemStack> it = currentDrops.iterator(); it.hasNext(); ) {
+        ItemStack itemStack = it.next();
+
+        for (ItemMatcher itemMatcher : this.match._items) {
+
+          if (itemMatcher.matches(itemStack)) {
+            it.remove();
+            break;
+          }
+        }
+      }
     }
 
     currentDrops.addAll(newDrops);
