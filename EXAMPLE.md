@@ -87,7 +87,11 @@ below Y level `20` for a player named `codetaylor`, who has the gamestages
             "items": [
               "minecraft:emerald",
               "minecraft:diamond"
-            ]
+            ],
+            "quantity": {
+              "min": 2,
+              "max": 6
+            }
           }
         },
         {
