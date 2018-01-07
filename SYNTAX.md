@@ -224,6 +224,7 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
   * This object defines conditions for the drop's candidacy as well as its chance to drop.
   
 * `item`: <code>[IRuleDropItem](#iruledropitem)</code>
+  * &#x1F539;*Optional* - if omitted, no item will be dropped if this `IRuleDrop` is selected from the weighted picker.
   * This object defines the item to drop.
 
 ## IRuleDropSelector

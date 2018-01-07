@@ -33,7 +33,7 @@ public class Command
       sender.sendMessage(new TextComponentString("Starting rule list reload..."));
       CommandLoggerWrapper wrapper = new CommandLoggerWrapper(ModuleDropt.LOGGER, sender);
       ModuleDropt.RULE_LISTS.clear();
-      RuleLoader.loadRuleLists(ModuleDropt.MOD_ID, ModuleDropt.RULE_PATH, ModuleDropt.RULE_LISTS, wrapper);
+      RuleLoader.loadRuleLists(ModuleDropt.RULE_PATH, ModuleDropt.RULE_LISTS, wrapper);
       RuleLoader.parseRuleLists(ModuleDropt.RULE_LISTS, wrapper);
       sender.sendMessage(new TextComponentString("[" + ModuleDropt.RULE_LISTS.size() + "] files processed"));
     }
@@ -56,7 +56,7 @@ public class Command
 
     public CommandLoggerWrapper(Logger logger, ICommandSender sender) {
 
-      super(logger);
+      super(logger, ModuleDropt.LOG_FILE_WRITER);
       this.sender = sender;
     }
 

@@ -12,10 +12,15 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +35,8 @@ public class ModuleDropt
 
   public static Logger LOGGER;
   public static boolean MOD_GAMESTAGES;
-  public static File RULE_PATH;
+  public static Path RULE_PATH;
+  public static FileWriter LOG_FILE_WRITER;
 
   public ModuleDropt() {
 
@@ -47,8 +53,31 @@ public class ModuleDropt
     MOD_GAMESTAGES = Loader.isModLoaded("gamestages");
     LOGGER = LogManager.getLogger(MOD_ID + "." + this.getClass().getSimpleName());
 
-    RULE_PATH = event.getModConfigurationDirectory();
-    RuleLoader.loadRuleLists(MOD_ID, RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER));
+    File file = event.getModConfigurationDirectory();
+    RULE_PATH = file.toPath().resolve(MOD_ID);
+
+    Path logPath = RULE_PATH.resolve("dropt.log");
+
+    if (Files.exists(logPath) && Files.isRegularFile(logPath)) {
+
+      try {
+        Files.delete(logPath);
+
+      } catch (IOException e) {
+        LOGGER.error("", e);
+      }
+    }
+
+    LOG_FILE_WRITER = null;
+
+    try {
+      LOG_FILE_WRITER = new FileWriter(logPath.toFile(), true);
+
+    } catch (IOException e) {
+      LOGGER.error("", e);
+    }
+
+    RuleLoader.loadRuleLists(RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER, LOG_FILE_WRITER));
   }
 
   @Override
@@ -56,7 +85,7 @@ public class ModuleDropt
 
     super.onLoadCompleteEvent(event);
 
-    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER));
+    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, LOG_FILE_WRITER));
   }
 
   @Override
@@ -65,5 +94,18 @@ public class ModuleDropt
     super.onServerStartingEvent(event);
 
     event.registerServerCommand(new Command());
+  }
+
+  @Override
+  public void onServerStoppingEvent(FMLServerStoppingEvent event) {
+
+    super.onServerStoppingEvent(event);
+
+    try {
+      LOG_FILE_WRITER.close();
+
+    } catch (IOException e) {
+      LOGGER.error("", e);
+    }
   }
 }

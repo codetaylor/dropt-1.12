@@ -21,16 +21,14 @@ public class RuleLoader {
 
   private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-  public static void loadRuleLists(String modId, File file, List<RuleList> ruleLists, ILogger logger) {
-
-    Path path = file.toPath().resolve(modId);
+  public static void loadRuleLists(Path path, List<RuleList> ruleLists, ILogger logger) {
 
     if (!Files.exists(path)) {
 
       try {
         Files.createDirectories(path);
 
-      } catch (IOException e) {
+      } catch (Exception e) {
         logger.error("Unable to create path: " + path, e);
         return;
       }
@@ -49,7 +47,7 @@ public class RuleLoader {
           entry -> Files.isRegularFile(entry) && entry.toFile().getName().endsWith(".json")
       );
 
-    } catch (IOException e) {
+    } catch (Exception e) {
       logger.error("Unable to load json files in path: " + path, e);
       return;
     }
@@ -67,7 +65,7 @@ public class RuleLoader {
         ruleList._filename = jsonFile.toString();
         ruleLists.add(ruleList);
 
-      } catch (FileNotFoundException e) {
+      } catch (Exception e) {
         logger.error("Unable to load json file: " + jsonFile, e);
       }
     }

@@ -31,7 +31,7 @@ public class Rule {
     }
 
     if (picker.getTotal() == 0) {
-      // no valid candidate drops were found
+      // no valid candidates were found
       return currentDrops;
     }
 
@@ -43,7 +43,7 @@ public class Rule {
       RuleDropItem ruleDropItem = picker.get(ModuleDropt.RANDOM.nextInt(picker.getTotal()));
       int itemQuantity = ruleDropItem.quantity.get(ModuleDropt.RANDOM, fortuneLevel);
 
-      if (itemQuantity > 0) {
+      if (itemQuantity > 0 && ruleDropItem._items.size() > 0) {
         ItemStack copy = ruleDropItem._items.get(ModuleDropt.RANDOM.nextInt(ruleDropItem._items.size())).copy();
         copy.setCount(itemQuantity);
         newDrops.add(copy);
