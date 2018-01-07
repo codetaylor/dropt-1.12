@@ -81,8 +81,7 @@ below Y level `20` for a player named `codetaylor`, who has the gamestages
             "weight": {
               "value": 50
             },
-            "silktouch": "REQUIRED",
-            "fortuneLevelRequired": 1
+            "silktouch": "REQUIRED"
           },
           "item": {
             "items": [
