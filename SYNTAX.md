@@ -327,6 +327,6 @@ This defines the item for the `IRuleDrop`.
   * &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. *This feature is experimental and may not produce the desired results.*
   * &#x1F538;*Experimental*: If a wildcard value `*` is supplied for the meta, the system will attempt to expand that item into all of its valid subtypes. *This feature is experimental and may not produce the desired results.*
 
-* `quantity`: [IRandomFortuneInt](#irandomfortuneint)
+* `quantity`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `1`
   * This uses a random, fortune modified range to determine how many of this item will be dropped if selected.
