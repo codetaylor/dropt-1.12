@@ -49,9 +49,11 @@ public class RuleMatchHarvester {
       return true;
     }
 
+    playerName = playerName.toLowerCase();
+
     for (String matchName : this.playerName) {
 
-      if (matchName.equals(playerName)) {
+      if (matchName.toLowerCase().equals(playerName)) {
         return true;
       }
     }

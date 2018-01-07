@@ -29,7 +29,7 @@ Each `IRule` entry is matched in the same order it is defined the file.
 <big><pre>
 {
 &nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
-&nbsp;&nbsp;"replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED",
+&nbsp;&nbsp;"replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED" | "REPLACE_ITEMS" | "REPLACE_ITEMS_IF_SELECTED",
 &nbsp;&nbsp;"dropCount": [IRandomFortuneInt](#irandomfortuneint),
 &nbsp;&nbsp;"drops": [IRuleDrop](#iruledrop)[]
 }
