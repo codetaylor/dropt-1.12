@@ -4,6 +4,8 @@ All parameters are required unless explicitly marked &#x1F539;*Optional*.
 
 This is the main object of any `.json` rule files.
 
+Rule files are processed in the order in which they are loaded. Files with a higher priority will have their rules matched first.
+
 <big><pre>
 {
 &nbsp;&nbsp;"priority": int,
@@ -13,15 +15,16 @@ This is the main object of any `.json` rule files.
 
 * `priority`: `int`
   * &#x1F539;*Optional* - if omitted, defaults to `0`.
-  * Files with a higher priority will have their rules matched first.
+  * Files with a higher priority will have their rules matched first. This value can be positive or negative.
 
 * `rules`: <code>[IRule](#irule)[]</code>
   * This array contains objects which define match and replace behavior.
-  * Each entry is matched in the same order it is defined the file. 
 
 ## IRule
 
 The `IRule` defines match and replace behavior.
+
+Each `IRule` entry is matched in the same order it is defined the file. 
 
 <big><pre>
 {
