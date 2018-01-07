@@ -16,6 +16,7 @@ public class RuleMatchHarvester {
   public EnumHarvesterType type = EnumHarvesterType.ANY;
   public RuleMatchHarvesterGameStage gamestages = new RuleMatchHarvesterGameStage();
   public String[] heldItemMainHand = new String[0];
+  public String[] playerName = new String[0];
 
   public boolean matches(@Nullable EntityPlayer harvester) {
 
@@ -23,6 +24,7 @@ public class RuleMatchHarvester {
 
       if (harvester != null) {
         return this.checkHeldItemMainHand(harvester.getHeldItemMainhand())
+            && this.checkPlayerName(harvester.getName())
             && this.gamestages.matches(harvester);
       }
 
@@ -34,7 +36,24 @@ public class RuleMatchHarvester {
 
       return (harvester != null
           && this.checkHeldItemMainHand(harvester.getHeldItemMainhand())
+          && this.checkPlayerName(harvester.getName())
           && this.gamestages.matches(harvester));
+    }
+
+    return false;
+  }
+
+  private boolean checkPlayerName(String playerName) {
+
+    if (this.playerName.length == 0) {
+      return true;
+    }
+
+    for (String matchName : this.playerName) {
+
+      if (matchName.equals(playerName)) {
+        return true;
+      }
     }
 
     return false;

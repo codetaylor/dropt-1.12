@@ -105,7 +105,8 @@ This object defines conditions specific to the entity that broke the block.
 {
 &nbsp;&nbsp;"type": "PLAYER" | "NON_PLAYER" | "ANY",
 &nbsp;&nbsp;"heldItemMainHand": String[],
-&nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)
+&nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage),
+&nbsp;&nbsp;"playerName": String[]
 }
 </pre></big>
 
@@ -122,6 +123,10 @@ This object defines conditions specific to the entity that broke the block.
 * `gamestages`: <code>[IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)</code>
   * &#x1F539;*Optional* - if omitted, any combination of gamestages will be matched.
   * This object defines conditions for matching gamestages.
+  
+* `playerName`: `String[]`
+  * &#x1F539;*Optional* - if omitted, all players will be matched.
+  * This array defines player names to match.
 
 ## IRuleMatchHarvesterGameStage
 
