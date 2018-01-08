@@ -1,5 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.util.ResourceLocation;
@@ -11,10 +13,22 @@ public class ParserRuleMatchBiome
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
   ) {
 
-    if (rule.match == null || rule.match.biomes == null) {
+    if (rule.match == null) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("Match object not defined, skipped parsing biome match");
+      }
+      return;
+    }
+
+    if (rule.match.biomes == null) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("Match object not defined, skipped parsing biome match");
+      }
       return;
     }
 
@@ -29,6 +43,10 @@ public class ParserRuleMatchBiome
         continue;
       }
 
+      if (rule.debug) {
+        logFileWrapper.debug("Parsed biome match: " + parse);
+      }
+
       Biome biome = ForgeRegistries.BIOMES.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
       if (biome == null) {
@@ -36,7 +54,15 @@ public class ParserRuleMatchBiome
         continue;
       }
 
+      if (rule.debug) {
+        logFileWrapper.debug("Found registered biome: " + biome);
+      }
+
       rule.match.biomes._biomes.add(biome);
+
+      if (rule.debug) {
+        logFileWrapper.debug("Added biome match: " + biome);
+      }
     }
   }
 }

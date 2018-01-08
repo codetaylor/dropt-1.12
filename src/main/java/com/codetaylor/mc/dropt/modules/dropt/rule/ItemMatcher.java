@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Arrays;
+
 public class ItemMatcher {
 
   private String domain;
@@ -51,5 +53,16 @@ public class ItemMatcher {
     }
 
     return false;
+  }
+
+  @Override
+  public String toString() {
+
+    return "ItemMatcher{" +
+        "domain='" + domain + '\'' +
+        ", path='" + path + '\'' +
+        ", meta=" + meta +
+        ", metas=" + Arrays.toString(metas) +
+        '}';
   }
 }

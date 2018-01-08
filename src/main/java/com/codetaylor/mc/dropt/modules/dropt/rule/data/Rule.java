@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Rule {
 
+  public boolean debug = false;
   public RuleMatch match = new RuleMatch();
   public EnumReplaceStrategy replaceStrategy = EnumReplaceStrategy.REPLACE_ALL;
   public RandomFortuneInt dropCount = new RandomFortuneInt();

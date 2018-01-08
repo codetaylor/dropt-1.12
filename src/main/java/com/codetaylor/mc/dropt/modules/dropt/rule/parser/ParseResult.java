@@ -59,6 +59,6 @@ public class ParseResult {
       return "null";
     }
 
-    return this.domain + ":" + this.path + ":" + this.meta + ((this.quantity != 1) ? " * " + this.quantity : "");
+    return this.domain + ":" + this.path + (("ore".equals(this.domain)) ? "" : ":" + this.meta + ((this.quantity != 1) ? " * " + this.quantity : ""));
   }
 }

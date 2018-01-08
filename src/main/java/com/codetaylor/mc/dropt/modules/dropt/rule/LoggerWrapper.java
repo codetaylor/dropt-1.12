@@ -1,4 +1,4 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule;
 
 import org.apache.logging.log4j.Logger;
 

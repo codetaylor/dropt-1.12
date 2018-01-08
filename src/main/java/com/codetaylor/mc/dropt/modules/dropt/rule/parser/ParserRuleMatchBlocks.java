@@ -1,6 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.BlockMatcher;
+import com.codetaylor.mc.dropt.modules.dropt.rule.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.block.Block;
@@ -13,10 +15,19 @@ public class ParserRuleMatchBlocks
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
   ) {
 
     if (rule.match == null) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("Match object not defined, skipped parsing block match");
+      }
+      return;
+    }
+
+    if (rule.debug && (rule.match.blocks == null || rule.match.blocks.length == 0)) {
+      logFileWrapper.debug("No block matches defined, skipped parsing block match");
       return;
     }
 
@@ -34,11 +45,19 @@ public class ParserRuleMatchBlocks
         continue;
       }
 
+      if (rule.debug) {
+        logFileWrapper.debug("Parsed block match: " + parse);
+      }
+
       Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
       if (block == null) {
         logger.error("Unable to find registered block: " + parse.toString());
         continue;
+      }
+
+      if (rule.debug) {
+        logFileWrapper.debug("Found registered block: " + block);
       }
 
       int meta = parse.getMeta();
@@ -60,7 +79,12 @@ public class ParserRuleMatchBlocks
         }
       }
 
-      rule.match._blocks.add(new BlockMatcher(parse.getDomain(), parse.getPath(), meta, metas));
+      BlockMatcher blockMatcher = new BlockMatcher(parse.getDomain(), parse.getPath(), meta, metas);
+      rule.match._blocks.add(blockMatcher);
+
+      if (rule.debug) {
+        logFileWrapper.debug("Added block matcher: " + blockMatcher);
+      }
     }
   }
 }

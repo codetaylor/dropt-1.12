@@ -2,8 +2,9 @@ package com.codetaylor.mc.dropt.modules.dropt.command;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import com.codetaylor.mc.dropt.modules.dropt.Util;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
-import com.codetaylor.mc.dropt.modules.dropt.rule.parser.LoggerWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LoggerWrapper;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -38,8 +39,10 @@ public class Command
       FileWriter logFileWriter = ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
       CommandLoggerWrapper wrapper = new CommandLoggerWrapper(ModuleDropt.LOGGER, sender, logFileWriter);
       ModuleDropt.RULE_LISTS.clear();
-      RuleLoader.loadRuleLists(ModuleDropt.RULE_PATH, ModuleDropt.RULE_LISTS, wrapper);
-      RuleLoader.parseRuleLists(ModuleDropt.RULE_LISTS, wrapper);
+      RuleLoader.loadRuleLists(ModuleDropt.RULE_PATH, ModuleDropt.RULE_LISTS, wrapper,
+          new LogFileWrapper(logFileWriter)
+      );
+      RuleLoader.parseRuleLists(ModuleDropt.RULE_LISTS, wrapper, new LogFileWrapper(logFileWriter));
       Util.closeSilently(logFileWriter);
       sender.sendMessage(new TextComponentString("[" + ModuleDropt.RULE_LISTS.size() + "] files processed"));
     }

@@ -4,9 +4,10 @@ import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.dropt.ModDropt;
 import com.codetaylor.mc.dropt.modules.dropt.command.Command;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LoggerWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import com.codetaylor.mc.dropt.modules.dropt.rule.parser.LoggerWrapper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -77,7 +78,12 @@ public class ModuleDropt
 
     LOG_FILE_WRITER_PROVIDER = new LogFileWriterProvider(LOG_PATH, LOGGER);
     FileWriter logFileWriter = LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
-    RuleLoader.loadRuleLists(RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter));
+    RuleLoader.loadRuleLists(
+        RULE_PATH,
+        RULE_LISTS,
+        new LoggerWrapper(LOGGER, logFileWriter),
+        new LogFileWrapper(logFileWriter)
+    );
     Util.closeSilently(logFileWriter);
   }
 
@@ -86,7 +92,7 @@ public class ModuleDropt
 
     super.onLoadCompleteEvent(event);
     FileWriter logFileWriter = LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
-    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter));
+    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter), new LogFileWrapper(logFileWriter));
     Util.closeSilently(logFileWriter);
   }
 

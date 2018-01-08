@@ -4,6 +4,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Arrays;
+
 public class BlockMatcher {
 
   private String domain;
@@ -51,5 +53,16 @@ public class BlockMatcher {
     }
 
     return false;
+  }
+
+  @Override
+  public String toString() {
+
+    return "BlockMatcher{" +
+        "domain='" + domain + '\'' +
+        ", path='" + path + '\'' +
+        ", meta=" + meta +
+        ", metas=" + Arrays.toString(metas) +
+        '}';
   }
 }

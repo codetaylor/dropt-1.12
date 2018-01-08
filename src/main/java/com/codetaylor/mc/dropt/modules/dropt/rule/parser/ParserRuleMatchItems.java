@@ -1,6 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.ItemMatcher;
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.item.Item;
@@ -15,11 +17,19 @@ public class ParserRuleMatchItems
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
   ) {
 
     if (rule.match == null) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("Match object not defined, skipped parsing item match");
+      }
       return;
+    }
+
+    if (rule.debug && (rule.match.items == null || rule.match.items.length == 0)) {
+      logFileWrapper.debug("No item matches defined, skipped parsing block match");
     }
 
     for (String string : rule.match.items) {
@@ -36,11 +46,18 @@ public class ParserRuleMatchItems
         continue;
       }
 
+      if (rule.debug) {
+        logFileWrapper.debug("Parsed item match: " + parse);
+      }
+
       if ("ore".equals(parse.getDomain())) {
         NonNullList<ItemStack> ores = OreDictionary.getOres(parse.getPath());
 
         if (ores.isEmpty()) {
           logger.warn("No ore dict entries found for: " + parse);
+
+        } else if (rule.debug) {
+          logFileWrapper.debug("Expanding oreDict entry: " + parse);
         }
 
         for (ItemStack ore : ores) {
@@ -51,12 +68,18 @@ public class ParserRuleMatchItems
             continue;
           }
 
-          rule.match._items.add(new ItemMatcher(
+          ItemMatcher itemMatcher = new ItemMatcher(
               registryName.getResourceDomain(),
               registryName.getResourcePath(),
               ore.getMetadata(),
               new int[0]
-          ));
+          );
+
+          rule.match._items.add(itemMatcher);
+
+          if (rule.debug) {
+            logFileWrapper.debug("Added item matcher: " + itemMatcher);
+          }
         }
 
       } else { // not an ore dict entry
@@ -66,6 +89,10 @@ public class ParserRuleMatchItems
         if (item == null) {
           logger.error("Unable to find registered item: " + parse.toString());
           continue;
+        }
+
+        if (rule.debug) {
+          logFileWrapper.debug("Found registered item: " + item);
         }
 
         int meta = parse.getMeta();
@@ -87,7 +114,12 @@ public class ParserRuleMatchItems
           }
         }
 
-        rule.match._items.add(new ItemMatcher(parse.getDomain(), parse.getPath(), meta, metas));
+        ItemMatcher itemMatcher = new ItemMatcher(parse.getDomain(), parse.getPath(), meta, metas);
+        rule.match._items.add(itemMatcher);
+
+        if (rule.debug) {
+          logFileWrapper.debug("Added item matcher: " + itemMatcher);
+        }
       }
     }
   }
