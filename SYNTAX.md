@@ -244,7 +244,7 @@ Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
 
 This object defines conditions used to select and weight a drop as well as the dropped item itself. 
 
-If the drop is a valid candidate it will be placed into the weighted picker using the fortune modified weight described in the `IRuleDropSelector`.
+If the drop is a valid candidate it will be placed into the weighted picker using the fortune modified weight described in the <code>[IRuleDropSelector](#iruledropselector)</code>.
 
 <big><pre>
 {
