@@ -117,7 +117,7 @@ This object defines conditions specific to the entity that broke the block.
   * &#x1F539;*Optional* - if omitted, defaults to `ANY`.
   * `PLAYER`: The block must be broken by a player to match.
   * `NON_PLAYER`: The block must not be broken by a player to match.
-  * `ANY`: The matcher does not care what broke the block. If a player broke the block and either `heldItemMainHand` or `gamestages` is provided, they will be checked.
+  * `ANY`: The matcher does not care what broke the block.<br/>If a player broke the block and `heldItemMainHand`, `gamestages`, or `playerName` is provided, they will be checked.
   
 * `heldItemMainHand`: `String[]`
   * &#x1F539;*Optional* - if omitted, all held items will be matched.
