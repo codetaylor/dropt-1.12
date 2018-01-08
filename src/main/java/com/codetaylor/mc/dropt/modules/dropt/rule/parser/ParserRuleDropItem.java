@@ -27,7 +27,10 @@ public class ParserRuleDropItem
       if (drop.item == null) {
 
         if (rule.debug) {
-          logFileWrapper.debug("Drop item object not defined, skipped parsing drop item");
+          logFileWrapper.debug(String.format(
+              "Drop item object not defined in IRuleDrop at index %d, skipped parsing drop item",
+              dropIndex
+          ));
         }
         return;
       }
@@ -35,7 +38,10 @@ public class ParserRuleDropItem
       if (drop.item.items == null || drop.item.items.length == 0) {
 
         if (rule.debug) {
-          logFileWrapper.debug("Drop item.items object not defined or empty, skipped parsing drop item");
+          logFileWrapper.debug(String.format(
+              "Drop item.items object not defined or empty in IRuleDrop at index %d, skipped parsing drop item",
+              dropIndex
+          ));
         }
         return;
       }
