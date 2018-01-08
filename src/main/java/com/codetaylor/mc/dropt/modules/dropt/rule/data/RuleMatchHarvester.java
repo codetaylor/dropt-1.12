@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,34 +19,102 @@ public class RuleMatchHarvester {
   public String[] heldItemMainHand = new String[0];
   public String[] playerName = new String[0];
 
-  public boolean matches(@Nullable EntityPlayer harvester) {
+  public boolean matches(
+      @Nullable EntityPlayer harvester,
+      LogFileWrapper logFile,
+      boolean debug
+  ) {
+
+    if (debug) {
+      logFile.debug("[--] Harvester type: " + this.type);
+    }
 
     if (this.type == EnumHarvesterType.ANY) {
 
       if (harvester != null) {
-        return this.checkHeldItemMainHand(harvester.getHeldItemMainhand())
-            && this.checkPlayerName(harvester.getName())
-            && this.gamestages.matches(harvester);
+
+        if (debug) {
+          logFile.debug("[--] Harvester detected, checking harvester: " + harvester);
+        }
+
+        boolean result = this.checkHeldItemMainHand(harvester.getHeldItemMainhand(), logFile, debug)
+            && this.checkPlayerName(harvester.getName(), logFile, debug)
+            && this.gamestages.matches(harvester, logFile, debug);
+
+        if (debug) {
+
+          if (result) {
+            logFile.debug("[OK] Harvester matching passed");
+
+          } else {
+            logFile.debug("[!!] Harvester matching failed");
+          }
+        }
+
+        return result;
+
+      } else {
+
+        if (debug) {
+          logFile.debug("[OK] No harvester detected");
+        }
+        return true;
       }
 
     } else if (this.type == EnumHarvesterType.NON_PLAYER) {
 
-      return (harvester == null);
+      boolean result = (harvester == null);
+
+      if (debug) {
+
+        if (result) {
+          logFile.debug("[OK] Harvester is null");
+
+        } else {
+          logFile.debug("[!!] Harvester is not null: " + harvester);
+        }
+      }
+
+      return result;
 
     } else if (this.type == EnumHarvesterType.PLAYER) {
 
-      return (harvester != null
-          && this.checkHeldItemMainHand(harvester.getHeldItemMainhand())
-          && this.checkPlayerName(harvester.getName())
-          && this.gamestages.matches(harvester));
+      if (harvester == null) {
+        logFile.debug("[!!] Harvester is null");
+        return false;
+      }
+
+      if (debug) {
+        logFile.debug("[--] Harvester detected, checking harvester: " + harvester);
+      }
+
+      boolean result = this.checkHeldItemMainHand(harvester.getHeldItemMainhand(), logFile, debug)
+          && this.checkPlayerName(harvester.getName(), logFile, debug)
+          && this.gamestages.matches(harvester, logFile, debug);
+
+      if (debug) {
+
+        if (result) {
+          logFile.debug("[OK] Harvester matching passed");
+
+        } else {
+          logFile.debug("[!!] Harvester matching failed");
+        }
+      }
+
+      return result;
     }
 
     return false;
   }
 
-  private boolean checkPlayerName(String playerName) {
+  private boolean checkPlayerName(String playerName, LogFileWrapper logFile, boolean debug) {
 
     if (this.playerName.length == 0) {
+
+      if (debug) {
+        logFile.debug("[OK] No player names defined");
+      }
       return true;
     }
 
@@ -54,16 +123,40 @@ public class RuleMatchHarvester {
     for (String matchName : this.playerName) {
 
       if (matchName.toLowerCase().equals(playerName)) {
+
+        if (debug) {
+          logFile.debug(String.format(
+              "[OK] Player name match: (match) %s == %s (candidate)",
+              matchName.toLowerCase(),
+              playerName
+          ));
+        }
         return true;
+
+      } else if (debug) {
+        logFile.debug(String.format(
+            "[!!] Player name mismatch: (match) %s != %s (candidate)",
+            matchName.toLowerCase(),
+            playerName
+        ));
       }
     }
 
+    logFile.debug("[!!] Unable to find playerName match");
     return false;
   }
 
-  private boolean checkHeldItemMainHand(ItemStack heldItemStack) {
+  private boolean checkHeldItemMainHand(
+      ItemStack heldItemStack,
+      LogFileWrapper logFile,
+      boolean debug
+  ) {
 
     if (this._heldItemMainHand.isEmpty()) {
+
+      if (debug) {
+        logFile.debug("[OK] No entries in heldItemMainHand to match");
+      }
       return true;
     }
 
@@ -71,12 +164,46 @@ public class RuleMatchHarvester {
       Item heldItem = heldItemStack.getItem();
       int metadata = heldItemStack.getMetadata();
 
-      if ((itemStack.getItem() == heldItem)
-          && ((itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) || (itemStack.getMetadata() == metadata))) {
+      if (itemStack.getItem() != heldItem) {
+
+        if (debug) {
+          logFile.debug(String.format(
+              "[!!] HeldItemMainHand mismatch: (match) %s != %s (candidate)",
+              itemStack.getItem(),
+              heldItem
+          ));
+        }
+        continue;
+
+      } else if (debug) {
+        logFile.debug(String.format(
+            "[OK] HeldItemMainHand match: (match) %s == %s (candidate)",
+            itemStack.getItem(),
+            heldItem
+        ));
+      }
+
+      if ((itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) || (itemStack.getMetadata() == metadata)) {
+
+        if (debug) {
+          logFile.debug(String.format(
+              "[OK] HeldItemMainHand meta match: (match) %d == %d (candidate)",
+              itemStack.getMetadata(),
+              metadata
+          ));
+        }
         return true;
+
+      } else if (debug) {
+        logFile.debug(String.format(
+            "[!!] HeldItemMainHand meta mismatch: (match) %d != %d (candidate)",
+            itemStack.getMetadata(),
+            metadata
+        ));
       }
     }
 
+    logFile.debug("[!!] Unable to find heldItemMainHand match");
     return false;
   }
 }

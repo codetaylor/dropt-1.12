@@ -1,25 +1,63 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+
 public class RuleDropSelector {
 
   public RuleDropSelectorWeight weight = new RuleDropSelectorWeight();
   public EnumSilktouch silktouch = EnumSilktouch.ANY;
   public int fortuneLevelRequired = 0;
 
-  public boolean isValidCandidate(boolean isSilkTouching, int fortuneLevel) {
+  public boolean isValidCandidate(
+      boolean isSilkTouching,
+      int fortuneLevel,
+      LogFileWrapper logFile,
+      boolean debug
+  ) {
 
     if (fortuneLevel < this.fortuneLevelRequired) {
+
+      if (debug) {
+        logFile.debug(String.format(
+            "[SELECTOR] [!!] Required fortune level not met: (required) %d > %d (candidate)",
+            this.fortuneLevelRequired,
+            fortuneLevel
+        ));
+      }
       return false;
+
+    } else if (debug) {
+      logFile.debug(String.format(
+          "[SELECTOR] [OK] Required fortune level met: (required) %d <= %d (candidate)",
+          this.fortuneLevelRequired,
+          fortuneLevel
+      ));
     }
 
-    if (this.silktouch == EnumSilktouch.REQUIRED
-        && !isSilkTouching) {
-      return false;
-    }
+    if (this.silktouch == EnumSilktouch.REQUIRED) {
 
-    if (this.silktouch == EnumSilktouch.EXCLUDED
-        && isSilkTouching) {
-      return false;
+      if (!isSilkTouching) {
+
+        if (debug) {
+          logFile.debug("[SELECTOR] [!!] Silk touch required");
+        }
+        return false;
+
+      } else if (debug) {
+        logFile.debug("[SELECTOR] [OK] Silk touch requirement met");
+      }
+
+    } else if (this.silktouch == EnumSilktouch.EXCLUDED) {
+
+      if (isSilkTouching) {
+        if (debug) {
+          logFile.debug("[SELECTOR] [!!] Must not have silk touch");
+        }
+        return false;
+
+      } else if (debug) {
+        logFile.debug("[SELECTOR] [OK] No silk touch requirement met");
+      }
     }
 
     return true;

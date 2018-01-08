@@ -24,8 +24,13 @@ public class LogFileWrapper {
 
   private void write(String message) {
 
+    if (this.fileWriter == null) {
+      return;
+    }
+
     try {
       this.fileWriter.write(message + System.lineSeparator());
+      this.fileWriter.flush();
 
     } catch (IOException e) {
       //

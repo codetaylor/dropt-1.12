@@ -1,5 +1,6 @@
 * [SYNTAX.md](https://github.com/codetaylor/dropt/blob/master/SYNTAX.md)
 * [EXAMPLE.md](https://github.com/codetaylor/dropt/blob/master/EXAMPLE.md)
+* [DEBUG.md](https://github.com/codetaylor/dropt/blob/master/DEBUG.md)
 
 ## Dropt
 

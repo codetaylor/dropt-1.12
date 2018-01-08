@@ -1,17 +1,79 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+
+import java.util.Arrays;
+
 public class RuleMatchDimension {
 
   public EnumListType type = EnumListType.WHITELIST;
   public int[] ids = new int[0];
 
-  public boolean matches(int dimension) {
+  public boolean matches(
+      int dimension,
+      LogFileWrapper logFile,
+      boolean debug
+  ) {
 
-    return this.ids.length == 0
-        || this.type == EnumListType.WHITELIST
-        && this.contains(this.ids, dimension)
-        || this.type == EnumListType.BLACKLIST
-        && !this.contains(this.ids, dimension);
+    if (this.ids == null || this.ids.length == 0) {
+
+      if (debug) {
+        logFile.debug("[OK] No dimension matches defined");
+      }
+      return true;
+    }
+
+    if (debug) {
+      logFile.debug("[--] Dimension list type: " + this.type);
+    }
+
+    if (this.type == EnumListType.WHITELIST) {
+      boolean result = this.contains(this.ids, dimension);
+
+      if (debug) {
+
+        if (result) {
+          logFile.debug(String.format(
+              "[OK] Dimension id whitelisted: (matches) %s contains %d (candidate)",
+              Arrays.toString(this.ids),
+              dimension
+          ));
+
+        } else {
+          logFile.debug(String.format(
+              "[!!] Dimension id not whitelisted: (matches) %s does not contain %s (candidate)",
+              Arrays.toString(this.ids),
+              dimension
+          ));
+        }
+      }
+
+      return result;
+
+    } else { // blacklist
+
+      boolean result = !this.contains(this.ids, dimension);
+
+      if (debug) {
+
+        if (result) {
+          logFile.debug(String.format(
+              "[OK] Dimension id not blacklisted: (matches) %s does not contain %s (candidate)",
+              Arrays.toString(this.ids),
+              dimension
+          ));
+
+        } else {
+          logFile.debug(String.format(
+              "[!!] Biome blacklisted: (matches) %s contains %s (candidate)",
+              Arrays.toString(this.ids),
+              dimension
+          ));
+        }
+      }
+
+      return result;
+    }
   }
 
   private boolean contains(int[] ids, int toMatch) {

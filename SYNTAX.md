@@ -28,12 +28,17 @@ Each `IRule` entry is matched in the same order it is defined the file.
 
 <big><pre>
 {
+&nbsp;&nbsp;"debug": boolean,
 &nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
-&nbsp;&nbsp;"replaceStrategy": "REPLACE_ALL" | "ADD" | "REPLACE_ALL_IF_SELECTED" | "REPLACE_ITEMS" | "REPLACE_ITEMS_IF_SELECTED",
+&nbsp;&nbsp;"replaceStrategy": enum,
 &nbsp;&nbsp;"dropCount": [IRandomFortuneInt](#irandomfortuneint),
 &nbsp;&nbsp;"drops": [IRuleDrop](#iruledrop)[]
 }
 </pre></big>
+
+* `debug`: `boolean`
+  * &#x1F539;*Optional* - if omitted, defaults to `false`.
+  * Prints a large amount of debug data to the log file. Be careful how many rules you enable this flag on, as it will rapidly bloat your log file. Useful for testing, see: [DEBUG.md](https://github.com/codetaylor/dropt/blob/master/DEBUG.md)
 
 * `match`: <code>[IRuleMatch](#irulematch)</code>
   * &#x1F539;*Optional* - if omitted, all blocks will be matched.
@@ -106,7 +111,7 @@ This object defines conditions specific to the entity that broke the block.
 
 <big><pre>
 {
-&nbsp;&nbsp;"type": "PLAYER" | "NON_PLAYER" | "ANY",
+&nbsp;&nbsp;"type": enum,
 &nbsp;&nbsp;"heldItemMainHand": String[],
 &nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage),
 &nbsp;&nbsp;"playerName": String[]
@@ -137,7 +142,7 @@ This object defines conditions for matching gamestages.
 
 <big><pre>
 {
-&nbsp;&nbsp;"type": "ALL" | "ANY",
+&nbsp;&nbsp;"type": enum,
 &nbsp;&nbsp;"stages": String[]
 }
 </pre></big>
@@ -156,7 +161,7 @@ This object defines conditions for matching biomes.
 
 <big><pre>
 {
-&nbsp;&nbsp;"type": "WHITELIST" | "BLACKLIST",
+&nbsp;&nbsp;"type": enum,
 &nbsp;&nbsp;"ids": String[]
 }
 </pre></big>
@@ -177,7 +182,7 @@ This object defines conditions for matching dimensions.
 
 <big><pre>
 {
-&nbsp;&nbsp;"type": "WHITELIST" | "BLACKLIST",
+&nbsp;&nbsp;"type": enum,
 &nbsp;&nbsp;"ids": int[]
 }
 </pre></big>
@@ -270,7 +275,7 @@ If a rule is matched, the `IRuleDropSelector` is queried to determine a drop's c
 <big><pre>
 {
 &nbsp;&nbsp;"weight": [IRuleDropSelectorWeight](#iruledropselectorweight),
-&nbsp;&nbsp;"silktouch": "REQUIRED" | "EXCLUDED" | "ANY",
+&nbsp;&nbsp;"silktouch": enum,
 &nbsp;&nbsp;"fortuneLevelRequired": int
 }
 </pre></big>

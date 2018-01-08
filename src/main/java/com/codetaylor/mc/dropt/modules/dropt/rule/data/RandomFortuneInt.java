@@ -27,4 +27,14 @@ public class RandomFortuneInt {
     return Math.max(0, random.nextInt(range) + this.min + fortuneLevel * this.fortuneModifier);
   }
 
+  @Override
+  public String toString() {
+
+    return "RandomFortuneInt{" +
+        "fixed=" + fixed +
+        ", min=" + min +
+        ", max=" + max +
+        ", fortuneModifier=" + fortuneModifier +
+        '}';
+  }
 }
