@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +35,8 @@ public class ModuleDropt
   public static Logger LOGGER;
   public static boolean MOD_GAMESTAGES;
   public static Path RULE_PATH;
-  public static FileWriter LOG_FILE_WRITER;
+  public static Path LOG_PATH;
+  public static LogFileWriterProvider LOG_FILE_WRITER_PROVIDER;
 
   public ModuleDropt() {
 
@@ -56,36 +56,38 @@ public class ModuleDropt
     File file = event.getModConfigurationDirectory();
     RULE_PATH = file.toPath().resolve(MOD_ID);
 
-    Path logPath = RULE_PATH.resolve("dropt.log");
+    try {
+      Files.createDirectories(RULE_PATH);
 
-    if (Files.exists(logPath) && Files.isRegularFile(logPath)) {
+    } catch (IOException e) {
+      LOGGER.error("", e);
+    }
+
+    LOG_PATH = RULE_PATH.resolve("dropt.log");
+
+    if (Files.exists(LOG_PATH) && Files.isRegularFile(LOG_PATH)) {
 
       try {
-        Files.delete(logPath);
+        Files.delete(LOG_PATH);
 
       } catch (IOException e) {
         LOGGER.error("", e);
       }
     }
 
-    LOG_FILE_WRITER = null;
-
-    try {
-      LOG_FILE_WRITER = new FileWriter(logPath.toFile(), true);
-
-    } catch (IOException e) {
-      LOGGER.error("", e);
-    }
-
-    RuleLoader.loadRuleLists(RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER, LOG_FILE_WRITER));
+    LOG_FILE_WRITER_PROVIDER = new LogFileWriterProvider(LOG_PATH, LOGGER);
+    FileWriter logFileWriter = LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
+    RuleLoader.loadRuleLists(RULE_PATH, RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter));
+    Util.closeSilently(logFileWriter);
   }
 
   @Override
   public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
 
     super.onLoadCompleteEvent(event);
-
-    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, LOG_FILE_WRITER));
+    FileWriter logFileWriter = LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
+    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter));
+    Util.closeSilently(logFileWriter);
   }
 
   @Override
@@ -94,18 +96,5 @@ public class ModuleDropt
     super.onServerStartingEvent(event);
 
     event.registerServerCommand(new Command());
-  }
-
-  @Override
-  public void onServerStoppingEvent(FMLServerStoppingEvent event) {
-
-    super.onServerStoppingEvent(event);
-
-    try {
-      LOG_FILE_WRITER.close();
-
-    } catch (IOException e) {
-      LOGGER.error("", e);
-    }
   }
 }

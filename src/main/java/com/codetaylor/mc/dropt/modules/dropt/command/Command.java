@@ -1,6 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.command;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
+import com.codetaylor.mc.dropt.modules.dropt.Util;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
 import com.codetaylor.mc.dropt.modules.dropt.rule.parser.LoggerWrapper;
 import net.minecraft.command.CommandBase;
@@ -10,6 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.Logger;
+
+import java.io.FileWriter;
 
 public class Command
     extends CommandBase {
@@ -31,10 +34,13 @@ public class Command
 
     if (args.length > 0 && "reload".equals(args[0])) {
       sender.sendMessage(new TextComponentString("Starting rule list reload..."));
-      CommandLoggerWrapper wrapper = new CommandLoggerWrapper(ModuleDropt.LOGGER, sender);
+
+      FileWriter logFileWriter = ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
+      CommandLoggerWrapper wrapper = new CommandLoggerWrapper(ModuleDropt.LOGGER, sender, logFileWriter);
       ModuleDropt.RULE_LISTS.clear();
       RuleLoader.loadRuleLists(ModuleDropt.RULE_PATH, ModuleDropt.RULE_LISTS, wrapper);
       RuleLoader.parseRuleLists(ModuleDropt.RULE_LISTS, wrapper);
+      Util.closeSilently(logFileWriter);
       sender.sendMessage(new TextComponentString("[" + ModuleDropt.RULE_LISTS.size() + "] files processed"));
     }
   }
@@ -54,9 +60,9 @@ public class Command
 
     private final ICommandSender sender;
 
-    public CommandLoggerWrapper(Logger logger, ICommandSender sender) {
+    public CommandLoggerWrapper(Logger logger, ICommandSender sender, FileWriter fileWriter) {
 
-      super(logger, ModuleDropt.LOG_FILE_WRITER);
+      super(logger, fileWriter);
       this.sender = sender;
     }
 
