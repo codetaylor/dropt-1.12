@@ -18,13 +18,13 @@ public class RuleMatchBiome {
     if (this._biomes.isEmpty()) {
 
       if (debug) {
-        logFile.debug("[OK] No biome matches defined");
+        logFile.debug("[MATCH] [OK] No biome matches defined");
       }
       return true;
     }
 
     if (debug) {
-      logFile.debug("[--] Biome list type: " + this.type);
+      logFile.debug("[MATCH] [--] Biome list type: " + this.type);
     }
 
     if (this.type == EnumListType.WHITELIST) {
@@ -34,14 +34,14 @@ public class RuleMatchBiome {
 
         if (result) {
           logFile.debug(String.format(
-              "[OK] Biome whitelisted: (matches) %s contains %s (candidate)",
+              "[MATCH] [OK] Biome whitelisted: (matches) %s contains %s (candidate)",
               this._biomes,
               biome
           ));
 
         } else {
           logFile.debug(String.format(
-              "[!!] Biome not whitelisted: (matches) %s does not contain %s (candidate)",
+              "[MATCH] [!!] Biome not whitelisted: (matches) %s does not contain %s (candidate)",
               this._biomes,
               biome
           ));
@@ -58,14 +58,14 @@ public class RuleMatchBiome {
 
         if (result) {
           logFile.debug(String.format(
-              "[OK] Biome not blacklisted: (matches) %s does not contain %s (candidate)",
+              "[MATCH] [OK] Biome not blacklisted: (matches) %s does not contain %s (candidate)",
               this._biomes,
               biome
           ));
 
         } else {
           logFile.debug(String.format(
-              "[!!] Biome blacklisted: (matches) %s contains %s (candidate)",
+              "[MATCH] [!!] Biome blacklisted: (matches) %s contains %s (candidate)",
               this._biomes,
               biome
           ));

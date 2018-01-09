@@ -5,6 +5,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -36,6 +37,20 @@ public class EventHandler {
           logFileWrapper.debug("[EVENT] BlockState: " + event.getState().toString());
           logFileWrapper.debug("[EVENT] Harvester: " + event.getHarvester());
           logFileWrapper.debug("[EVENT] Drops: " + event.getDrops());
+          logFileWrapper.debug("[EVENT] Position: " + event.getPos());
+          logFileWrapper.debug("[EVENT] Fortune Level: " + event.getFortuneLevel());
+          logFileWrapper.debug("[EVENT] Silktouch: " + event.isSilkTouching());
+
+          World world = event.getWorld();
+
+          if (world != null) {
+
+            if (world.provider != null) {
+              logFileWrapper.debug("[EVENT] Dimension: " + world.provider.getDimension());
+            }
+
+            logFileWrapper.debug("[EVENT] Biome: " + world.getBiome(event.getPos()).getRegistryName());
+          }
         }
 
         if (rule.match.matches(event, logFileWrapper, debug)) {

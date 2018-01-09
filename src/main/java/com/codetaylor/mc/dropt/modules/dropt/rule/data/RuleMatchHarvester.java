@@ -26,7 +26,7 @@ public class RuleMatchHarvester {
   ) {
 
     if (debug) {
-      logFile.debug("[--] Harvester type: " + this.type);
+      logFile.debug("[MATCH] [--] Harvester type: " + this.type);
     }
 
     if (this.type == EnumHarvesterType.ANY) {
@@ -34,7 +34,7 @@ public class RuleMatchHarvester {
       if (harvester != null) {
 
         if (debug) {
-          logFile.debug("[--] Harvester detected, checking harvester: " + harvester);
+          logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
         }
 
         boolean result = this.checkHeldItemMainHand(harvester.getHeldItemMainhand(), logFile, debug)
@@ -44,10 +44,10 @@ public class RuleMatchHarvester {
         if (debug) {
 
           if (result) {
-            logFile.debug("[OK] Harvester matching passed");
+            logFile.debug("[MATCH] [OK] Harvester matching passed");
 
           } else {
-            logFile.debug("[!!] Harvester matching failed");
+            logFile.debug("[MATCH] [!!] Harvester matching failed");
           }
         }
 
@@ -56,7 +56,7 @@ public class RuleMatchHarvester {
       } else {
 
         if (debug) {
-          logFile.debug("[OK] No harvester detected");
+          logFile.debug("[MATCH] [OK] No harvester detected");
         }
         return true;
       }
@@ -68,10 +68,10 @@ public class RuleMatchHarvester {
       if (debug) {
 
         if (result) {
-          logFile.debug("[OK] Harvester is null");
+          logFile.debug("[MATCH] [OK] Harvester is null");
 
         } else {
-          logFile.debug("[!!] Harvester is not null: " + harvester);
+          logFile.debug("[MATCH] [!!] Harvester is not null: " + harvester);
         }
       }
 
@@ -80,12 +80,12 @@ public class RuleMatchHarvester {
     } else if (this.type == EnumHarvesterType.PLAYER) {
 
       if (harvester == null) {
-        logFile.debug("[!!] Harvester is null");
+        logFile.debug("[MATCH] [!!] Harvester is null");
         return false;
       }
 
       if (debug) {
-        logFile.debug("[--] Harvester detected, checking harvester: " + harvester);
+        logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
       }
 
       boolean result = this.checkHeldItemMainHand(harvester.getHeldItemMainhand(), logFile, debug)
@@ -95,10 +95,10 @@ public class RuleMatchHarvester {
       if (debug) {
 
         if (result) {
-          logFile.debug("[OK] Harvester matching passed");
+          logFile.debug("[MATCH] [OK] Harvester matching passed");
 
         } else {
-          logFile.debug("[!!] Harvester matching failed");
+          logFile.debug("[MATCH] [!!] Harvester matching failed");
         }
       }
 
@@ -113,7 +113,7 @@ public class RuleMatchHarvester {
     if (this.playerName.length == 0) {
 
       if (debug) {
-        logFile.debug("[OK] No player names defined");
+        logFile.debug("[MATCH] [OK] No player names defined");
       }
       return true;
     }
@@ -126,7 +126,7 @@ public class RuleMatchHarvester {
 
         if (debug) {
           logFile.debug(String.format(
-              "[OK] Player name match: (match) %s == %s (candidate)",
+              "[MATCH] [OK] Player name match: (match) %s == %s (candidate)",
               matchName.toLowerCase(),
               playerName
           ));
@@ -135,14 +135,14 @@ public class RuleMatchHarvester {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[!!] Player name mismatch: (match) %s != %s (candidate)",
+            "[MATCH] [!!] Player name mismatch: (match) %s != %s (candidate)",
             matchName.toLowerCase(),
             playerName
         ));
       }
     }
 
-    logFile.debug("[!!] Unable to find playerName match");
+    logFile.debug("[MATCH] [!!] Unable to find playerName match");
     return false;
   }
 
@@ -155,7 +155,7 @@ public class RuleMatchHarvester {
     if (this._heldItemMainHand.isEmpty()) {
 
       if (debug) {
-        logFile.debug("[OK] No entries in heldItemMainHand to match");
+        logFile.debug("[MATCH] [OK] No entries in heldItemMainHand to match");
       }
       return true;
     }
@@ -168,7 +168,7 @@ public class RuleMatchHarvester {
 
         if (debug) {
           logFile.debug(String.format(
-              "[!!] HeldItemMainHand mismatch: (match) %s != %s (candidate)",
+              "[MATCH] [!!] HeldItemMainHand mismatch: (match) %s != %s (candidate)",
               itemStack.getItem(),
               heldItem
           ));
@@ -177,7 +177,7 @@ public class RuleMatchHarvester {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[OK] HeldItemMainHand match: (match) %s == %s (candidate)",
+            "[MATCH] [OK] HeldItemMainHand match: (match) %s == %s (candidate)",
             itemStack.getItem(),
             heldItem
         ));
@@ -187,7 +187,7 @@ public class RuleMatchHarvester {
 
         if (debug) {
           logFile.debug(String.format(
-              "[OK] HeldItemMainHand meta match: (match) %d == %d (candidate)",
+              "[MATCH] [OK] HeldItemMainHand meta match: (match) %d == %d (candidate)",
               itemStack.getMetadata(),
               metadata
           ));
@@ -196,14 +196,14 @@ public class RuleMatchHarvester {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[!!] HeldItemMainHand meta mismatch: (match) %d != %d (candidate)",
+            "[MATCH] [!!] HeldItemMainHand meta mismatch: (match) %d != %d (candidate)",
             itemStack.getMetadata(),
             metadata
         ));
       }
     }
 
-    logFile.debug("[!!] Unable to find heldItemMainHand match");
+    logFile.debug("[MATCH] [!!] Unable to find heldItemMainHand match");
     return false;
   }
 }

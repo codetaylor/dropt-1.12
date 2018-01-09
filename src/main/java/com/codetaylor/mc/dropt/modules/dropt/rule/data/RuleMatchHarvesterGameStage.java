@@ -22,7 +22,7 @@ public class RuleMatchHarvesterGameStage {
     if (this.stages.length == 0) {
 
       if (debug) {
-        logFile.debug("[OK] No game stages defined");
+        logFile.debug("[MATCH] [OK] No game stages defined");
       }
       return true;
     }
@@ -30,13 +30,13 @@ public class RuleMatchHarvesterGameStage {
     if (!ModuleDropt.MOD_GAMESTAGES) {
 
       if (debug) {
-        logFile.debug("[!!] Game stages are defined, but the gamestages mod is missing");
+        logFile.debug("[MATCH] [!!] Game stages are defined, but the gamestages mod is missing");
       }
       return false;
     }
 
     if (debug) {
-      logFile.debug("[--] GameStages type: " + this.type);
+      logFile.debug("[MATCH] [--] GameStages type: " + this.type);
     }
 
     boolean result = false;
@@ -47,10 +47,10 @@ public class RuleMatchHarvesterGameStage {
       if (debug) {
 
         if (result) {
-          logFile.debug("[OK] Player has all required stages: " + Arrays.toString(this.stages));
+          logFile.debug("[MATCH] [OK] Player has all required stages: " + Arrays.toString(this.stages));
 
         } else {
-          logFile.debug("[OK] Player does not have all required stages: " + Arrays.toString(this.stages));
+          logFile.debug("[MATCH] [OK] Player does not have all required stages: " + Arrays.toString(this.stages));
         }
       }
 
@@ -58,10 +58,10 @@ public class RuleMatchHarvesterGameStage {
       result = PlayerDataHandler.getStageData(harvester).hasUnlockedAnyOf(Arrays.asList(this.stages));
 
       if (result) {
-        logFile.debug("[OK] Player has one or more required stages: " + Arrays.toString(this.stages));
+        logFile.debug("[MATCH] [OK] Player has one or more required stages: " + Arrays.toString(this.stages));
 
       } else {
-        logFile.debug("[OK] Player does not any of the required stages: " + Arrays.toString(this.stages));
+        logFile.debug("[MATCH] [OK] Player does not any of the required stages: " + Arrays.toString(this.stages));
       }
     }
 

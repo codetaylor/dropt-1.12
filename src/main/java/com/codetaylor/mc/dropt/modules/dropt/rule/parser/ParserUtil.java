@@ -25,7 +25,7 @@ public class ParserUtil {
       list.add(itemStack);
 
       if (debug) {
-        logFileWrapper.debug("Added itemStack to drop: " + itemStack);
+        logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
       }
     }
   }

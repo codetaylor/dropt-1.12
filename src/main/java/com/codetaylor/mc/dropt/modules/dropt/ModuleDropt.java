@@ -54,8 +54,8 @@ public class ModuleDropt
     MOD_GAMESTAGES = Loader.isModLoaded("gamestages");
     LOGGER = LogManager.getLogger(MOD_ID + "." + this.getClass().getSimpleName());
 
-    File file = event.getModConfigurationDirectory();
-    RULE_PATH = file.toPath().resolve(MOD_ID);
+    File configDir = event.getModConfigurationDirectory();
+    RULE_PATH = configDir.toPath().resolve(MOD_ID);
 
     try {
       Files.createDirectories(RULE_PATH);
@@ -64,7 +64,7 @@ public class ModuleDropt
       LOGGER.error("", e);
     }
 
-    LOG_PATH = RULE_PATH.resolve("dropt.log");
+    LOG_PATH = configDir.toPath().resolve("../dropt.log");
 
     if (Files.exists(LOG_PATH) && Files.isRegularFile(LOG_PATH)) {
 

@@ -23,13 +23,13 @@ public class ParserRuleMatchItems
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("Match object not defined, skipped parsing item match");
+        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing item match");
       }
       return;
     }
 
     if (rule.debug && (rule.match.items == null || rule.match.items.length == 0)) {
-      logFileWrapper.debug("No item matches defined, skipped parsing block match");
+      logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing block match");
     }
 
     for (String string : rule.match.items) {
@@ -42,29 +42,29 @@ public class ParserRuleMatchItems
         parse = parser.parse(split[0]);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("Unable to parse item <" + split[0] + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse item <" + split[0] + "> in file: " + ruleList._filename, e);
         continue;
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Parsed item match: " + parse);
+        logFileWrapper.debug("[PARSE] Parsed item match: " + parse);
       }
 
       if ("ore".equals(parse.getDomain())) {
         NonNullList<ItemStack> ores = OreDictionary.getOres(parse.getPath());
 
         if (ores.isEmpty()) {
-          logger.warn("No ore dict entries found for: " + parse);
+          logger.warn("[PARSE] No ore dict entries found for: " + parse);
 
         } else if (rule.debug) {
-          logFileWrapper.debug("Expanding oreDict entry: " + parse);
+          logFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
         }
 
         for (ItemStack ore : ores) {
           ResourceLocation registryName = ore.getItem().getRegistryName();
 
           if (registryName == null) {
-            logger.warn("Missing registry name for: " + ore);
+            logger.warn("[PARSE] Missing registry name for: " + ore);
             continue;
           }
 
@@ -78,7 +78,7 @@ public class ParserRuleMatchItems
           rule.match._items.add(itemMatcher);
 
           if (rule.debug) {
-            logFileWrapper.debug("Added item matcher: " + itemMatcher);
+            logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatcher);
           }
         }
 
@@ -87,12 +87,12 @@ public class ParserRuleMatchItems
         Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
         if (item == null) {
-          logger.error("Unable to find registered item: " + parse.toString());
+          logger.error("[PARSE] Unable to find registered item: " + parse.toString());
           continue;
         }
 
         if (rule.debug) {
-          logFileWrapper.debug("Found registered item: " + item);
+          logFileWrapper.debug("[PARSE] Found registered item: " + item);
         }
 
         int meta = parse.getMeta();
@@ -110,7 +110,7 @@ public class ParserRuleMatchItems
             metas[i - 1] = Integer.valueOf(split[i].trim());
 
           } catch (Exception e) {
-            logger.error("Unable to parse extra meta for <" + string + "> in file: " + ruleList._filename, e);
+            logger.error("[PARSE] Unable to parse extra meta for <" + string + "> in file: " + ruleList._filename, e);
           }
         }
 
@@ -118,7 +118,7 @@ public class ParserRuleMatchItems
         rule.match._items.add(itemMatcher);
 
         if (rule.debug) {
-          logFileWrapper.debug("Added item matcher: " + itemMatcher);
+          logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatcher);
         }
       }
     }

@@ -28,7 +28,7 @@ public class ParserRuleDropItem
 
         if (rule.debug) {
           logFileWrapper.debug(String.format(
-              "Drop item object not defined in IRuleDrop at index %d, skipped parsing drop item",
+              "[PARSE] Drop item object not defined in IRuleDrop at index %d, skipped parsing drop item",
               dropIndex
           ));
         }
@@ -39,7 +39,7 @@ public class ParserRuleDropItem
 
         if (rule.debug) {
           logFileWrapper.debug(String.format(
-              "Drop item.items object not defined or empty in IRuleDrop at index %d, skipped parsing drop item",
+              "[PARSE] Drop item.items object not defined or empty in IRuleDrop at index %d, skipped parsing drop item",
               dropIndex
           ));
         }
@@ -47,7 +47,7 @@ public class ParserRuleDropItem
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Parsing drop items for IRuleDrop at index " + dropIndex);
+        logFileWrapper.debug("[PARSE] Parsing drop items for IRuleDrop at index " + dropIndex);
       }
 
       for (String itemString : drop.item.items) {
@@ -57,22 +57,22 @@ public class ParserRuleDropItem
           parse = parser.parse(itemString);
 
         } catch (MalformedRecipeItemException e) {
-          logger.error("Unable to parse item drop <" + itemString + "> in file: " + ruleList._filename, e);
+          logger.error("[PARSE] Unable to parse item drop <" + itemString + "> in file: " + ruleList._filename, e);
           continue;
         }
 
         if (rule.debug) {
-          logFileWrapper.debug("Parsed item drop: " + parse);
+          logFileWrapper.debug("[PARSE] Parsed item drop: " + parse);
         }
 
         if ("ore".equals(parse.getDomain())) {
           NonNullList<ItemStack> ores = OreDictionary.getOres(parse.getPath());
 
           if (ores.isEmpty()) {
-            logger.warn("No entries found for oreDict entry <" + "ore:" + parse.getPath() + "> in file: " + ruleList._filename);
+            logger.warn("[PARSE] No entries found for oreDict entry <" + "ore:" + parse.getPath() + "> in file: " + ruleList._filename);
 
           } else if (rule.debug) {
-            logFileWrapper.debug("Expanding oreDict entry: " + parse);
+            logFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
           }
 
           for (ItemStack ore : ores) {
@@ -85,7 +85,7 @@ public class ParserRuleDropItem
               drop.item._items.add(itemStack);
 
               if (rule.debug) {
-                logFileWrapper.debug("Added itemStack to drop: " + itemStack);
+                logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
               }
             }
           }
@@ -94,18 +94,18 @@ public class ParserRuleDropItem
           Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
           if (item == null) {
-            logger.error("Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
+            logger.error("[PARSE] Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
             continue;
           }
 
           if (rule.debug) {
-            logFileWrapper.debug("Found registered item: " + item);
+            logFileWrapper.debug("[PARSE] Found registered item: " + item);
           }
 
           if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
 
             if (!item.getHasSubtypes()) {
-              logger.error("Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+              logger.error("[PARSE] Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
 
             } else {
               ParserUtil.addSubItemsToList(item, drop.item._items, logFileWrapper, rule.debug);
@@ -116,7 +116,7 @@ public class ParserRuleDropItem
             drop.item._items.add(itemStack);
 
             if (rule.debug) {
-              logFileWrapper.debug("Added itemStack to drop: " + itemStack);
+              logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
             }
           }
         }

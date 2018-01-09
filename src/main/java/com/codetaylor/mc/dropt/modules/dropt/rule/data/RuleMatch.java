@@ -24,6 +24,10 @@ public class RuleMatch {
 
   public boolean matches(BlockEvent.HarvestDropsEvent event, LogFileWrapper logFile, boolean debug) {
 
+    if (debug) {
+      logFile.debug("");
+    }
+
     boolean result = this.matchVerticalRange(event, logFile, debug)
         && this.matchBlockState(event, logFile, debug)
         && this.matchItem(event, logFile, debug)
@@ -53,7 +57,7 @@ public class RuleMatch {
 
       if (!result) {
         logFile.debug(String.format(
-            "[!!] Vertical position out of bounds: %d <= %d <= %d",
+            "[MATCH] [!!] Vertical position out of bounds: %d <= %d <= %d",
             this.verticalRange.min,
             y,
             this.verticalRange.max
@@ -61,7 +65,7 @@ public class RuleMatch {
 
       } else {
         logFile.debug(String.format(
-            "[OK] Vertical position within bounds: %d <= %d <= %d",
+            "[MATCH] [OK] Vertical position within bounds: %d <= %d <= %d",
             this.verticalRange.min,
             y,
             this.verticalRange.max
@@ -81,7 +85,7 @@ public class RuleMatch {
     if (this.items.length == 0) {
 
       if (debug) {
-        logFile.debug("[OK] No item matches defined in rule");
+        logFile.debug("[MATCH] [OK] No item matches defined in rule");
       }
       return true;
     }
@@ -90,10 +94,10 @@ public class RuleMatch {
 
       for (ItemStack drop : event.getDrops()) {
 
-        if (item.matches(drop, logFile, debug)) {
+        if (item.matches(drop, logFile, debug, "[MATCH] ")) {
 
           if (debug) {
-            logFile.debug("[OK] Item match found");
+            logFile.debug("[MATCH] [OK] Item match found");
           }
           return true;
         }
@@ -101,7 +105,7 @@ public class RuleMatch {
     }
 
     if (debug) {
-      logFile.debug("[!!] No item match found");
+      logFile.debug("[MATCH] [!!] No item match found");
     }
     return false;
   }
@@ -115,7 +119,7 @@ public class RuleMatch {
     if (this.blocks.length == 0) {
 
       if (debug) {
-        logFile.debug("[OK] No block matches defined in rule");
+        logFile.debug("[MATCH] [OK] No block matches defined in rule");
       }
       return true;
     }
@@ -124,17 +128,17 @@ public class RuleMatch {
 
     for (BlockMatcher blockMatcher : this._blocks) {
 
-      if (blockMatcher.matches(eventBlockState, logFile, debug)) {
+      if (blockMatcher.matches(eventBlockState, logFile, debug, "[MATCH] ")) {
 
         if (debug) {
-          logFile.debug("[OK] Block match found");
+          logFile.debug("[MATCH] [OK] Block match found");
         }
         return true;
       }
     }
 
     if (debug) {
-      logFile.debug("[!!] No block match found");
+      logFile.debug("[MATCH] [!!] No block match found");
     }
     return false;
   }

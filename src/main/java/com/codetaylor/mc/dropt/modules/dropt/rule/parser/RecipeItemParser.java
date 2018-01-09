@@ -22,7 +22,7 @@ public class RecipeItemParser {
 
     if (split.length < 2 || split.length > 3) {
       throw new MalformedRecipeItemException(String.format(
-          "Too many segments in [%s], must be two or three segments: <domain:path> or <domain:path:meta>",
+          "[PARSE] Too many segments in [%s], must be two or three segments: <domain:path> or <domain:path:meta>",
           data
       ));
     }
@@ -39,7 +39,7 @@ public class RecipeItemParser {
         result.setQuantity(Integer.valueOf(pathSplit[1].trim()));
 
       } catch (NumberFormatException e) {
-        throw new MalformedRecipeItemException(String.format("Expected integer, got [%s]", split[1].trim()));
+        throw new MalformedRecipeItemException(String.format("[PARSE] Expected integer, got [%s]", split[1].trim()));
       }
     }
 
@@ -55,7 +55,7 @@ public class RecipeItemParser {
             result.setQuantity(Integer.valueOf(quantity));
 
           } catch (NumberFormatException e) {
-            throw new MalformedRecipeItemException(String.format("Expected integer, got [%s]", quantity));
+            throw new MalformedRecipeItemException(String.format("[PARSE] Expected integer, got [%s]", quantity));
           }
         }
 
@@ -66,7 +66,7 @@ public class RecipeItemParser {
           result.setMeta(Integer.valueOf(metaSplit[0].trim()));
 
         } catch (NumberFormatException e) {
-          throw new MalformedRecipeItemException(String.format("Expected integer, got [%s]", metaSplit[1].trim()));
+          throw new MalformedRecipeItemException(String.format("[PARSE] Expected integer, got [%s]", metaSplit[1].trim()));
         }
 
         if (metaSplit.length > 1) {
@@ -75,7 +75,7 @@ public class RecipeItemParser {
             result.setQuantity(Integer.valueOf(metaSplit[1].trim()));
 
           } catch (NumberFormatException e) {
-            throw new MalformedRecipeItemException(String.format("Expected integer, got [%s]", metaSplit[1].trim()));
+            throw new MalformedRecipeItemException(String.format("[PARSE] Expected integer, got [%s]", metaSplit[1].trim()));
           }
         }
       }

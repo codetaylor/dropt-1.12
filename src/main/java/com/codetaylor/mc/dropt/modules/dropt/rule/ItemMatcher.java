@@ -21,10 +21,15 @@ public class ItemMatcher {
     this.metas = metas;
   }
 
-  public boolean matches(ItemStack itemStack, LogFileWrapper logFile, boolean debug) {
+  public boolean matches(ItemStack itemStack, LogFileWrapper logFile, boolean debug, String logPrefix) {
 
     if (debug) {
-      logFile.debug(String.format("[--] Attempting to match candidate [%s] with: [%s]", itemStack, this.toString()));
+      logFile.debug(String.format(
+          "%s[--] Attempting to match candidate [%s] with: [%s]",
+          logPrefix,
+          itemStack,
+          this.toString()
+      ));
     }
 
     ResourceLocation registryName = itemStack.getItem().getRegistryName();
@@ -32,7 +37,7 @@ public class ItemMatcher {
     if (registryName == null) {
 
       if (debug) {
-        logFile.debug("[!!] No registry name for match candidate: " + itemStack);
+        logFile.debug(logPrefix + "[!!] No registry name for match candidate: " + itemStack);
       }
       return false;
     }
@@ -41,7 +46,8 @@ public class ItemMatcher {
 
       if (debug) {
         logFile.debug(String.format(
-            "[!!] Domain mismatch: (match) %s != %s (candidate)",
+            "%s[!!] Domain mismatch: (match) %s != %s (candidate)",
+            logPrefix,
             this.domain,
             registryName.getResourceDomain()
         ));
@@ -50,7 +56,8 @@ public class ItemMatcher {
 
     } else if (debug) {
       logFile.debug(String.format(
-          "[OK] Domain match: (match) %s == %s (candidate)",
+          "%s[OK] Domain match: (match) %s == %s (candidate)",
+          logPrefix,
           this.domain,
           registryName.getResourceDomain()
       ));
@@ -60,7 +67,8 @@ public class ItemMatcher {
 
       if (debug) {
         logFile.debug(String.format(
-            "[!!] Path mismatch: (match) %s != %s (candidate)",
+            "%s[!!] Path mismatch: (match) %s != %s (candidate)",
+            logPrefix,
             this.path,
             registryName.getResourcePath()
         ));
@@ -69,7 +77,8 @@ public class ItemMatcher {
 
     } else if (debug) {
       logFile.debug(String.format(
-          "[OK] Path match: (match) %s == %s (candidate)",
+          "%s[OK] Path match: (match) %s == %s (candidate)",
+          logPrefix,
           this.path,
           registryName.getResourcePath()
       ));
@@ -81,12 +90,17 @@ public class ItemMatcher {
         || this.meta == itemMeta) {
 
       if (debug) {
-        logFile.debug(String.format("[OK] Meta match: (match) %d == %d (candidate)", this.meta, itemMeta));
+        logFile.debug(String.format("%s[OK] Meta match: (match) %d == %d (candidate)", logPrefix, this.meta, itemMeta));
       }
       return true;
 
     } else if (debug) {
-      logFile.debug(String.format("[!!] Meta mismatch: (match) %d != %d (candidate)", this.meta, itemMeta));
+      logFile.debug(String.format(
+          "%s[!!] Meta mismatch: (match) %d != %d (candidate)",
+          logPrefix,
+          this.meta,
+          itemMeta
+      ));
     }
 
     for (int meta : this.metas) {
@@ -95,12 +109,12 @@ public class ItemMatcher {
           || meta == itemMeta) {
 
         if (debug) {
-          logFile.debug(String.format("[OK] Meta match: (match) %d == %d (candidate)", meta, itemMeta));
+          logFile.debug(String.format("%s[OK] Meta match: (match) %d == %d (candidate)", logPrefix, meta, itemMeta));
         }
         return true;
 
       } else if (debug) {
-        logFile.debug(String.format("[!!] Meta mismatch: (match) %d != %d (candidate)", meta, itemMeta));
+        logFile.debug(String.format("%s[!!] Meta mismatch: (match) %d != %d (candidate)", logPrefix, meta, itemMeta));
       }
     }
 

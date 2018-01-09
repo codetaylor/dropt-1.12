@@ -19,7 +19,7 @@ public class RuleDropSelector {
 
       if (debug) {
         logFile.debug(String.format(
-            "[SELECTOR] [!!] Required fortune level not met: (required) %d > %d (candidate)",
+            "[DROP] [SELECTOR] [!!] Required fortune level not met: (required) %d > %d (candidate)",
             this.fortuneLevelRequired,
             fortuneLevel
         ));
@@ -28,7 +28,7 @@ public class RuleDropSelector {
 
     } else if (debug) {
       logFile.debug(String.format(
-          "[SELECTOR] [OK] Required fortune level met: (required) %d <= %d (candidate)",
+          "[DROP] [SELECTOR] [OK] Required fortune level met: (required) %d <= %d (candidate)",
           this.fortuneLevelRequired,
           fortuneLevel
       ));
@@ -39,24 +39,24 @@ public class RuleDropSelector {
       if (!isSilkTouching) {
 
         if (debug) {
-          logFile.debug("[SELECTOR] [!!] Silk touch required");
+          logFile.debug("[DROP] [SELECTOR] [!!] Silk touch required");
         }
         return false;
 
       } else if (debug) {
-        logFile.debug("[SELECTOR] [OK] Silk touch requirement met");
+        logFile.debug("[DROP] [SELECTOR] [OK] Silk touch requirement met");
       }
 
     } else if (this.silktouch == EnumSilktouch.EXCLUDED) {
 
       if (isSilkTouching) {
         if (debug) {
-          logFile.debug("[SELECTOR] [!!] Must not have silk touch");
+          logFile.debug("[DROP] [SELECTOR] [!!] Must not have silk touch");
         }
         return false;
 
       } else if (debug) {
-        logFile.debug("[SELECTOR] [OK] No silk touch requirement met");
+        logFile.debug("[DROP] [SELECTOR] [OK] No silk touch requirement met");
       }
     }
 

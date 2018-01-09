@@ -21,13 +21,13 @@ public class ParserRuleMatchBlocks
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("Match object not defined, skipped parsing block match");
+        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing block match");
       }
       return;
     }
 
     if (rule.debug && (rule.match.blocks == null || rule.match.blocks.length == 0)) {
-      logFileWrapper.debug("No block matches defined, skipped parsing block match");
+      logFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
       return;
     }
 
@@ -41,23 +41,23 @@ public class ParserRuleMatchBlocks
         parse = parser.parse(split[0]);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("Unable to parse block <" + split[0] + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse block <" + split[0] + "> in file: " + ruleList._filename, e);
         continue;
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Parsed block match: " + parse);
+        logFileWrapper.debug("[PARSE] Parsed block match: " + parse);
       }
 
       Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
       if (block == null) {
-        logger.error("Unable to find registered block: " + parse.toString());
+        logger.error("[PARSE] Unable to find registered block: " + parse.toString());
         continue;
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Found registered block: " + block);
+        logFileWrapper.debug("[PARSE] Found registered block: " + block);
       }
 
       int meta = parse.getMeta();
@@ -75,7 +75,7 @@ public class ParserRuleMatchBlocks
           metas[i - 1] = Integer.valueOf(split[i].trim());
 
         } catch (Exception e) {
-          logger.error("Unable to parse extra meta for <" + string + "> in file: " + ruleList._filename, e);
+          logger.error("[PARSE] Unable to parse extra meta for <" + string + "> in file: " + ruleList._filename, e);
         }
       }
 
@@ -83,7 +83,7 @@ public class ParserRuleMatchBlocks
       rule.match._blocks.add(blockMatcher);
 
       if (rule.debug) {
-        logFileWrapper.debug("Added block matcher: " + blockMatcher);
+        logFileWrapper.debug("[PARSE] Added block matcher: " + blockMatcher);
       }
     }
   }

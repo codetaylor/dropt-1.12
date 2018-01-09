@@ -18,13 +18,13 @@ public class RuleMatchDimension {
     if (this.ids == null || this.ids.length == 0) {
 
       if (debug) {
-        logFile.debug("[OK] No dimension matches defined");
+        logFile.debug("[MATCH] [OK] No dimension matches defined");
       }
       return true;
     }
 
     if (debug) {
-      logFile.debug("[--] Dimension list type: " + this.type);
+      logFile.debug("[MATCH] [--] Dimension list type: " + this.type);
     }
 
     if (this.type == EnumListType.WHITELIST) {
@@ -34,14 +34,14 @@ public class RuleMatchDimension {
 
         if (result) {
           logFile.debug(String.format(
-              "[OK] Dimension id whitelisted: (matches) %s contains %d (candidate)",
+              "[MATCH] [OK] Dimension id whitelisted: (matches) %s contains %d (candidate)",
               Arrays.toString(this.ids),
               dimension
           ));
 
         } else {
           logFile.debug(String.format(
-              "[!!] Dimension id not whitelisted: (matches) %s does not contain %s (candidate)",
+              "[MATCH] [!!] Dimension id not whitelisted: (matches) %s does not contain %s (candidate)",
               Arrays.toString(this.ids),
               dimension
           ));
@@ -58,14 +58,14 @@ public class RuleMatchDimension {
 
         if (result) {
           logFile.debug(String.format(
-              "[OK] Dimension id not blacklisted: (matches) %s does not contain %s (candidate)",
+              "[MATCH] [OK] Dimension id not blacklisted: (matches) %s does not contain %s (candidate)",
               Arrays.toString(this.ids),
               dimension
           ));
 
         } else {
           logFile.debug(String.format(
-              "[!!] Biome blacklisted: (matches) %s contains %s (candidate)",
+              "[MATCH] [!!] Biome blacklisted: (matches) %s contains %s (candidate)",
               Arrays.toString(this.ids),
               dimension
           ));

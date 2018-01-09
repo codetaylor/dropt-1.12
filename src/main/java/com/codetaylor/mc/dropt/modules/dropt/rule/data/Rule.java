@@ -27,31 +27,34 @@ public class Rule {
   ) {
 
     if (debug) {
-      logFile.debug("[DROP] Replace strategy: " + this.replaceStrategy);
+      logFile.debug("");
     }
 
     if (this.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL) {
       currentDrops.clear();
 
       if (debug) {
-        logFile.debug("[DROP] Cleared drop list");
+        logFile.debug("[DROP] Cleared drop list, replace strategy: " + this.replaceStrategy);
       }
     }
 
     WeightedPicker<RuleDropItem> picker = new WeightedPicker<>();
 
     if (debug) {
-      logFile.debug("[DROP] Validating drop candidates...");
+      logFile.debug("[DROP] Selecting drop candidates...");
     }
+
+    int candidatesFound = 0;
 
     for (RuleDrop drop : this.drops) {
 
       if (drop.selector.isValidCandidate(isSilkTouching, fortuneLevel, logFile, debug)) {
         int weight = drop.selector.weight.value + (fortuneLevel * drop.selector.weight.fortuneModifier);
         picker.add(weight, drop.item);
+        candidatesFound += 1;
 
         if (debug) {
-          logFile.debug("[DROP] Added drop to weighted picker: " + drop.toString());
+          logFile.debug("[DROP] Added drop to weighted picker: " + drop.item.toString());
           logFile.debug("[DROP] Added drop using weight value: " + weight);
         }
       }
@@ -66,7 +69,8 @@ public class Rule {
       return currentDrops;
 
     } else if (debug) {
-      logFile.debug("[DROP] Valid drop candidates found: " + picker.getTotal());
+      logFile.debug("[DROP] Valid drop candidates found: " + candidatesFound);
+      logFile.debug("[DROP] Total weight: " + picker.getTotal());
     }
 
     int dropCount = this.dropCount.get(ModuleDropt.RANDOM, fortuneLevel);
@@ -110,7 +114,7 @@ public class Rule {
       currentDrops.clear();
 
       if (debug) {
-        logFile.debug("[DROP] Cleared drop list");
+        logFile.debug("[DROP] Cleared drop list, replace strategy: " + this.replaceStrategy);
       }
     }
 
@@ -130,7 +134,7 @@ public class Rule {
     if (removeMatchedItems) {
 
       if (debug) {
-        logFile.debug("[DROP] Removing all items specified in the item matcher...");
+        logFile.debug("[DROP] Removing all items specified in the item matcher, replace strategy: " + this.replaceStrategy);
       }
 
       for (Iterator<ItemStack> it = currentDrops.iterator(); it.hasNext(); ) {
@@ -138,13 +142,16 @@ public class Rule {
 
         for (ItemMatcher itemMatcher : this.match._items) {
 
-          if (itemMatcher.matches(itemStack, logFile, debug)) {
+          if (itemMatcher.matches(itemStack, logFile, debug, "[DROP] ")) {
             it.remove();
 
             if (debug) {
               logFile.debug("[DROP] Removed: " + itemStack);
             }
             break;
+
+          } else if (debug) {
+            logFile.debug("[DROP] Skipping: " + itemStack);
           }
         }
       }
@@ -153,7 +160,7 @@ public class Rule {
     currentDrops.addAll(newDrops);
 
     if (debug) {
-      logFile.debug("[DROP] Returning drop list: " + currentDrops);
+      logFile.debug("Returning drop list: " + currentDrops);
     }
 
     return currentDrops;

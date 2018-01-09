@@ -20,7 +20,7 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("Match object not defined, skipped parsing heldItemMainHand match");
+        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing heldItemMainHand match");
       }
       return;
     }
@@ -32,30 +32,30 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
         parse = parser.parse(string);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("Unable to parse item <" + string + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse item <" + string + "> in file: " + ruleList._filename, e);
         continue;
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Parsed item match: " + parse);
+        logFileWrapper.debug("[PARSE] Parsed item match: " + parse);
       }
 
       Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
       if (item == null) {
-        logger.error("Unable to find registered item: " + parse.toString());
+        logger.error("[PARSE] Unable to find registered item: " + parse.toString());
         continue;
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("Found registered item: " + item);
+        logFileWrapper.debug("[PARSE] Found registered item: " + item);
       }
 
       ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
       rule.match.harvester._heldItemMainHand.add(itemStack);
 
       if (rule.debug) {
-        logFileWrapper.debug("Added itemStack to match: " + itemStack);
+        logFileWrapper.debug("[PARSE] Added itemStack to match: " + itemStack);
       }
     }
   }
