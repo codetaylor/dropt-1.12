@@ -227,7 +227,7 @@ This object defines a range used to select a fortune modified random number.
 }
 </pre></big>
 
-Calculation: `random.nextInt(max - min) + min + fortuneModifier * fortuneLevel`
+Calculation: `random(max - min) + min + fortuneModifier * fortuneLevel`
 
 * `fixed`: `int`
   * &#x1F539;*Optional* - if omitted, defaults to using `min` and `max`.
