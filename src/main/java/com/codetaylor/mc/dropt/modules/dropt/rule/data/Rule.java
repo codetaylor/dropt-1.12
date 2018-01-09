@@ -15,6 +15,7 @@ public class Rule {
   public boolean debug = false;
   public RuleMatch match = new RuleMatch();
   public EnumReplaceStrategy replaceStrategy = EnumReplaceStrategy.REPLACE_ALL;
+  public EnumDropStrategy dropStrategy = EnumDropStrategy.REPEAT;
   public RandomFortuneInt dropCount = new RandomFortuneInt();
   public RuleDrop[] drops = new RuleDrop[0];
 
@@ -82,8 +83,21 @@ public class Rule {
     List<ItemStack> newDrops = new ArrayList<>();
 
     for (int i = 0; i < dropCount; i++) {
+
+      if (picker.getSize() == 0) {
+        break;
+      }
+
       RuleDropItem ruleDropItem = picker.get(ModuleDropt.RANDOM.nextInt(picker.getTotal()));
       int itemQuantity = ruleDropItem.quantity.get(ModuleDropt.RANDOM, fortuneLevel);
+
+      if (this.dropStrategy == EnumDropStrategy.UNIQUE) {
+        picker.remove(ruleDropItem);
+
+        if (debug) {
+          logFile.debug("[DROP] Removed drop from picker: " + ruleDropItem.toString());
+        }
+      }
 
       if (debug) {
         logFile.debug("[DROP] Selected drop: " + ruleDropItem.toString());

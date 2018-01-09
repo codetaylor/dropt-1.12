@@ -32,6 +32,16 @@ public class WeightedPicker<T> {
     return this.total;
   }
 
+  public int getSize() {
+
+    return this.map.size();
+  }
+
+  public void remove(T value) {
+
+    while (this.map.values().remove(value));
+  }
+
   @Override
   public String toString() {
 

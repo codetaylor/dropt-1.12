@@ -31,6 +31,7 @@ Each `IRule` entry is matched in the same order it is defined the file.
 &nbsp;&nbsp;"debug": boolean,
 &nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
 &nbsp;&nbsp;"replaceStrategy": enum,
+&nbsp;&nbsp;"dropStrategy": enum,
 &nbsp;&nbsp;"dropCount": [IRandomFortuneInt](#irandomfortuneint),
 &nbsp;&nbsp;"drops": [IRuleDrop](#iruledrop)[]
 }
@@ -51,6 +52,11 @@ Each `IRule` entry is matched in the same order it is defined the file.
   * `REPLACE_ALL`: All block drops will be replaced by drops from this rule.
   * `REPLACE_ALL_IF_SELECTED`: All block drops will be replaced by drops from this rule if and only if drops are selected from this rule.
   * `ADD`: Any selected drops from this rule will be added to the block's existing drops. If this rule is matched and no drops are selected, the block will drop nothing.
+
+* `dropStrategy`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `REPEAT`.
+  * `REPEAT`: When picking drops from the weighted picker, any <code>[IRuleDrop](#iruledrop)</code> that is selected may be selected more than once.
+  * `UNIQUE`: When picking drops from the weighted picker, any <code>[IRuleDrop](#iruledrop)</code> that is selected will be removed from the picker, ensuring that it will only be selected once. If the picker is depleted before the defined `dropCount` is reached, drop picking will stop.
 
 * `dropCount`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `1`.
