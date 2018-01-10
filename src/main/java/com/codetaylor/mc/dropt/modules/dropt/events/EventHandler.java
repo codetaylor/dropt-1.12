@@ -18,10 +18,8 @@ public class EventHandler {
 
     Rule matchedRule = null;
     LogFileWrapper logFileWrapper = null;
-    RuleList parentList = null;
 
     for (RuleList ruleList : ModuleDropt.RULE_LISTS) {
-      parentList = ruleList;
 
       for (Rule rule : ruleList.rules) {
         boolean debug = rule.debug;
