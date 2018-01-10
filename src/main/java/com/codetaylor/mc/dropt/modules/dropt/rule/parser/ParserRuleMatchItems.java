@@ -28,8 +28,12 @@ public class ParserRuleMatchItems
       return;
     }
 
-    if (rule.debug && (rule.match.items == null || rule.match.items.length == 0)) {
-      logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
+    if (rule.match.items == null || rule.match.items.length == 0) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
+      }
+      return;
     }
 
     for (String string : rule.match.items) {

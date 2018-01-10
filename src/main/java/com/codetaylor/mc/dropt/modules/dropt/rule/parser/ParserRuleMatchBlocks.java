@@ -26,8 +26,11 @@ public class ParserRuleMatchBlocks
       return;
     }
 
-    if (rule.debug && (rule.match.blocks == null || rule.match.blocks.length == 0)) {
-      logFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
+    if (rule.match.blocks == null || rule.match.blocks.length == 0) {
+
+      if (rule.debug) {
+        logFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
+      }
       return;
     }
 

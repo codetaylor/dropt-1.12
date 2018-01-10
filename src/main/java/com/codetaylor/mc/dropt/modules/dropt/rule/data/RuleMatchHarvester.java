@@ -80,7 +80,10 @@ public class RuleMatchHarvester {
     } else if (this.type == EnumHarvesterType.PLAYER) {
 
       if (harvester == null) {
-        logFile.debug("[MATCH] [!!] Harvester is null");
+
+        if (debug) {
+          logFile.debug("[MATCH] [!!] Harvester is null");
+        }
         return false;
       }
 
@@ -203,7 +206,9 @@ public class RuleMatchHarvester {
       }
     }
 
-    logFile.debug("[MATCH] [!!] Unable to find heldItemMainHand match");
+    if (debug) {
+      logFile.debug("[MATCH] [!!] Unable to find heldItemMainHand match");
+    }
     return false;
   }
 }
