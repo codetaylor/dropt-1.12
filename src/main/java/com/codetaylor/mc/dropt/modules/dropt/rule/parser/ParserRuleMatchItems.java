@@ -29,7 +29,7 @@ public class ParserRuleMatchItems
     }
 
     if (rule.debug && (rule.match.items == null || rule.match.items.length == 0)) {
-      logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing block match");
+      logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
     }
 
     for (String string : rule.match.items) {

@@ -1,5 +1,6 @@
 1.2.2
 * Added: dropStrategy enum, "UNIQUE | REPEAT" defaults to repeat (current behavior)
+* Changed: minor debug output corrections
 
 1.1.2
 * Changed: the location of the log file has moved from the config folder to the instance's root folder: `[instance]/dropt.log`
