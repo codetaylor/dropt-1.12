@@ -40,7 +40,7 @@ public class WeightedPicker<T> {
 
   public T get() {
 
-    int index = RANDOM.nextInt(this.total + 1);
+    int index = RANDOM.nextInt(this.total) + 1;
     return this.map.ceilingEntry(index).getValue().result;
   }
 
