@@ -1,13 +1,33 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
 import java.util.NavigableMap;
+import java.util.Random;
 import java.util.TreeMap;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class WeightedPicker<T> {
 
-  private final NavigableMap<Integer, T> map = new TreeMap();
+  private static final Random RANDOM = new Random();
+
+  private NavigableMap<Integer, ResultWrapper<T>> map;
   private int total = 0;
+
+  private static class ResultWrapper<T> {
+
+    int weight;
+    T result;
+
+    ResultWrapper(int weight, T result) {
+
+      this.weight = weight;
+      this.result = result;
+    }
+  }
+
+  public WeightedPicker() {
+
+    this.map = new TreeMap();
+  }
 
   public void add(int weight, T result) {
 
@@ -15,16 +35,20 @@ public class WeightedPicker<T> {
       return;
     }
     this.total += weight;
-    this.map.put(this.total, result);
+    this.map.put(this.total, new ResultWrapper<>(weight, result));
   }
 
-  public T get(int index) {
+  public T get() {
 
-    if (index >= this.total || index < 0) {
-      index = 0;
-    }
+    int index = RANDOM.nextInt(this.total + 1);
+    return this.map.ceilingEntry(index).getValue().result;
+  }
 
-    return this.map.ceilingEntry(index).getValue();
+  public T getAndRemove() {
+
+    T result = this.get();
+    this.remove(result);
+    return result;
   }
 
   public int getTotal() {
@@ -37,9 +61,19 @@ public class WeightedPicker<T> {
     return this.map.size();
   }
 
-  public void remove(T value) {
+  private void remove(T value) {
 
-    while (this.map.values().remove(value));
+    NavigableMap<Integer, ResultWrapper<T>> oldMap = this.map;
+    this.map = new TreeMap<>();
+    this.total = 0;
+
+    for (ResultWrapper<T> resultWrapper : oldMap.values()) {
+
+      if (resultWrapper.result != value) {
+        this.total += resultWrapper.weight;
+        this.map.put(this.total, resultWrapper);
+      }
+    }
   }
 
   @Override

@@ -31,7 +31,6 @@ public class ModuleDropt
   public static final String MOD_ID = ModDropt.MOD_ID;
 
   public static final List<RuleList> RULE_LISTS = new ArrayList<>();
-  public static final Random RANDOM = new Random();
 
   public static Logger LOGGER;
   public static boolean MOD_GAMESTAGES;

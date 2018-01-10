@@ -1,3 +1,6 @@
+1.2.3
+* Fixed: indexing bug with weighted picker
+
 1.2.2
 * Added: dropStrategy enum, "UNIQUE | REPEAT" defaults to repeat (current behavior)
 * Fixed: critical bugs causing multiple file rule matching to fail and produce unexpected results

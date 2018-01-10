@@ -1,6 +1,5 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
-import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import com.codetaylor.mc.dropt.modules.dropt.rule.ItemMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.WeightedPicker;
@@ -9,8 +8,11 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Rule {
+
+  private static final Random RANDOM = new Random();
 
   public boolean debug = false;
   public RuleMatch match = new RuleMatch();
@@ -74,7 +76,7 @@ public class Rule {
       logFile.debug("[DROP] Total weight: " + picker.getTotal());
     }
 
-    int dropCount = this.dropCount.get(ModuleDropt.RANDOM, fortuneLevel);
+    int dropCount = this.dropCount.get(RANDOM, fortuneLevel);
 
     if (debug) {
       logFile.debug("[DROP] Drop count: " + dropCount);
@@ -88,16 +90,20 @@ public class Rule {
         break;
       }
 
-      RuleDropItem ruleDropItem = picker.get(ModuleDropt.RANDOM.nextInt(picker.getTotal()));
-      int itemQuantity = ruleDropItem.quantity.get(ModuleDropt.RANDOM, fortuneLevel);
+      RuleDropItem ruleDropItem;
 
       if (this.dropStrategy == EnumDropStrategy.UNIQUE) {
-        picker.remove(ruleDropItem);
+        ruleDropItem = picker.getAndRemove();
 
         if (debug) {
           logFile.debug("[DROP] Removed drop from picker: " + ruleDropItem.toString());
         }
+
+      } else {
+        ruleDropItem = picker.get();
       }
+
+      int itemQuantity = ruleDropItem.quantity.get(RANDOM, fortuneLevel);
 
       if (debug) {
         logFile.debug("[DROP] Selected drop: " + ruleDropItem.toString());
@@ -114,7 +120,7 @@ public class Rule {
         continue;
       }
 
-      ItemStack copy = ruleDropItem._items.get(ModuleDropt.RANDOM.nextInt(ruleDropItem._items.size())).copy();
+      ItemStack copy = ruleDropItem._items.get(RANDOM.nextInt(ruleDropItem._items.size())).copy();
       copy.setCount(itemQuantity);
       newDrops.add(copy);
 
