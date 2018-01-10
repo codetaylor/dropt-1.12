@@ -19,6 +19,7 @@ public class EventHandler {
     Rule matchedRule = null;
     LogFileWrapper logFileWrapper = null;
 
+    ruleList:
     for (RuleList ruleList : ModuleDropt.RULE_LISTS) {
 
       for (Rule rule : ruleList.rules) {
@@ -52,7 +53,7 @@ public class EventHandler {
 
         if (rule.match.matches(event, logFileWrapper, debug)) {
           matchedRule = rule;
-          break;
+          break ruleList;
         }
       }
     }
