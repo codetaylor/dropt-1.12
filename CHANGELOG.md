@@ -1,5 +1,6 @@
 1.2.2
 * Added: dropStrategy enum, "UNIQUE | REPEAT" defaults to repeat (current behavior)
+* Fixed: critical bug causing multiple file rule matching to fail and produce unexpected results
 * Changed: minor debug output corrections
 
 1.1.2
