@@ -91,13 +91,11 @@ public class RuleLoader {
     RecipeItemParser parser = new RecipeItemParser();
 
     for (RuleList ruleList : ruleLists) {
-      boolean debug = ruleList.debug;
       int ruleIndex = 0;
 
       for (Rule rule : ruleList.rules) {
-        debug = debug || rule.debug;
 
-        if (debug) {
+        if (rule.debug) {
           logFileWrapper.debug("--------------------------------------------------------------------------------------");
           logFileWrapper.debug(String.format("Parsing rule %d in file %s", ruleIndex, ruleList._filename));
         }

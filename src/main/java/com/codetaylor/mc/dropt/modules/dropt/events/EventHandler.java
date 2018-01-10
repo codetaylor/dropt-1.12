@@ -22,10 +22,9 @@ public class EventHandler {
 
     for (RuleList ruleList : ModuleDropt.RULE_LISTS) {
       parentList = ruleList;
-      boolean debug = ruleList.debug;
 
       for (Rule rule : ruleList.rules) {
-        debug = debug || rule.debug;
+        boolean debug = rule.debug;
 
         if (debug && logFileWrapper == null) {
           logFileWrapper = new LogFileWrapper(ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter());
@@ -69,7 +68,7 @@ public class EventHandler {
           silkTouching,
           fortuneLevel,
           logFileWrapper,
-          (matchedRule.debug || parentList.debug)
+          matchedRule.debug
       );
     }
   }

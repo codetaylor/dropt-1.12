@@ -8,7 +8,6 @@ public class RuleList
 
   public transient String _filename;
 
-  public boolean debug;
   public int priority;
   public List<Rule> rules;
 
