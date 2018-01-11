@@ -1,9 +1,10 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterGameStageType;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterGameStage;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.darkhax.gamestages.capabilities.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -36,14 +37,15 @@ public class GameStageMatcher {
     }
 
     if (debug) {
-      logFile.debug("[MATCH] [--] GameStages type: " + ruleMatchHarvesterGameStage.type);
+      logFile.debug("[MATCH] [--] GameStages type: " + ruleMatchHarvesterGameStage.require);
     }
+
+    PlayerDataHandler.IStageData stageData = PlayerDataHandler.getStageData(harvester);
 
     boolean result = false;
 
-    if (ruleMatchHarvesterGameStage.type == EnumHarvesterGameStageType.ALL) {
-      result = PlayerDataHandler.getStageData(harvester)
-          .hasUnlockedAll(Arrays.asList(ruleMatchHarvesterGameStage.stages));
+    if (ruleMatchHarvesterGameStage.require == EnumHarvesterGameStageType.ALL) {
+      result = stageData.hasUnlockedAll(Arrays.asList(ruleMatchHarvesterGameStage.stages));
 
       if (debug) {
 
@@ -51,22 +53,38 @@ public class GameStageMatcher {
           logFile.debug("[MATCH] [OK] Player has all required stages: " + Arrays.toString(ruleMatchHarvesterGameStage.stages));
 
         } else {
-          logFile.debug("[MATCH] [OK] Player does not have all required stages: " + Arrays.toString(
+          logFile.debug("[MATCH] [!!] Player does not have all required stages: " + Arrays.toString(
               ruleMatchHarvesterGameStage.stages));
         }
       }
 
-    } else if (ruleMatchHarvesterGameStage.type == EnumHarvesterGameStageType.ANY) {
-      result = PlayerDataHandler.getStageData(harvester)
-          .hasUnlockedAnyOf(Arrays.asList(ruleMatchHarvesterGameStage.stages));
+    } else if (ruleMatchHarvesterGameStage.require == EnumHarvesterGameStageType.ANY) {
+      result = stageData.hasUnlockedAnyOf(Arrays.asList(ruleMatchHarvesterGameStage.stages));
 
-      if (result) {
-        logFile.debug("[MATCH] [OK] Player has one or more required stages: " + Arrays.toString(
-            ruleMatchHarvesterGameStage.stages));
+      if (debug) {
 
-      } else {
-        logFile.debug("[MATCH] [OK] Player does not any of the required stages: " + Arrays.toString(
-            ruleMatchHarvesterGameStage.stages));
+        if (result) {
+          logFile.debug("[MATCH] [OK] Player has one or more required stages: " + Arrays.toString(
+              ruleMatchHarvesterGameStage.stages));
+
+        } else {
+          logFile.debug("[MATCH] [!!] Player does not have any of the required stages: " + Arrays.toString(
+              ruleMatchHarvesterGameStage.stages));
+        }
+      }
+    }
+
+    if (ruleMatchHarvesterGameStage.type == EnumListType.BLACKLIST) {
+      result = !result;
+
+      if (debug) {
+
+        if (result) {
+          logFile.debug("[MATCH] [OK] Gamestage result inverted due to blacklist type");
+
+        } else {
+          logFile.debug("[MATCH] [!!] Gamestage result inverted due to blacklist type");
+        }
       }
     }
 

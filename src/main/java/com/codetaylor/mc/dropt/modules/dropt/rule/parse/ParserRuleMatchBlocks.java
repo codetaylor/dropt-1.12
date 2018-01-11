@@ -1,10 +1,10 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -26,7 +26,7 @@ public class ParserRuleMatchBlocks
       return;
     }
 
-    if (rule.match.blocks == null || rule.match.blocks.length == 0) {
+    if (rule.match.blocks == null || rule.match.blocks.blocks.length == 0) {
 
       if (rule.debug) {
         logFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
@@ -34,7 +34,7 @@ public class ParserRuleMatchBlocks
       return;
     }
 
-    for (String string : rule.match.blocks) {
+    for (String string : rule.match.blocks.blocks) {
 
       String[] split = string.split(",");
 
@@ -83,7 +83,7 @@ public class ParserRuleMatchBlocks
       }
 
       BlockMatchEntry blockMatchEntry = new BlockMatchEntry(parse.getDomain(), parse.getPath(), meta, metas);
-      rule.match._blocks.add(blockMatchEntry);
+      rule.match.blocks._blocks.add(blockMatchEntry);
 
       if (rule.debug) {
         logFileWrapper.debug("[PARSE] Added block matcher: " + blockMatchEntry);

@@ -1,9 +1,9 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +25,7 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
       return;
     }
 
-    for (String string : rule.match.harvester.heldItemMainHand) {
+    for (String string : rule.match.harvester.heldItemMainHand.items) {
       ParseResult parse;
 
       try {
@@ -52,7 +52,7 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
       }
 
       ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
-      rule.match.harvester._heldItemMainHand.add(itemStack);
+      rule.match.harvester.heldItemMainHand._items.add(itemStack);
 
       if (rule.debug) {
         logFileWrapper.debug("[PARSE] Added itemStack to match: " + itemStack);

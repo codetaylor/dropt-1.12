@@ -1,7 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatch;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,9 +13,12 @@ import java.util.List;
 
 public class RuleMatcher {
 
+  private final BlockMatcher blockMatcher;
+  private final DropMatcher dropMatcher;
   private final HarvesterMatcher harvesterMatcher;
   private final BiomeMatcher biomeMatcher;
   private final DimensionMatcher dimensionMatcher;
+
   private final EntityPlayer harvester;
   private final Biome biome;
   private final int dimension;
@@ -25,11 +28,15 @@ public class RuleMatcher {
 
   public RuleMatcher(
       BlockEvent.HarvestDropsEvent event,
+      BlockMatcher blockMatcher,
+      DropMatcher dropMatcher,
       HarvesterMatcher harvesterMatcher,
       BiomeMatcher biomeMatcher,
       DimensionMatcher dimensionMatcher
   ) {
 
+    this.blockMatcher = blockMatcher;
+    this.dropMatcher = dropMatcher;
     this.harvesterMatcher = harvesterMatcher;
     this.biomeMatcher = biomeMatcher;
     this.dimensionMatcher = dimensionMatcher;
@@ -54,11 +61,11 @@ public class RuleMatcher {
     }
 
     boolean result = this.matchVerticalRange(ruleMatch, this.posY, logFile, debug)
-        && this.matchBlockState(ruleMatch, this.blockState, logFile, debug)
-        && this.matchItem(ruleMatch, logFile, debug, this.drops)
-        && this.harvesterMatcher.matches(ruleMatch.harvester, harvester, logFile, debug)
-        && this.biomeMatcher.matches(ruleMatch.biomes, biome, logFile, debug)
-        && this.dimensionMatcher.matches(ruleMatch.dimensions, dimension, logFile, debug);
+        && this.blockMatcher.matches(ruleMatch.blocks, this.blockState, logFile, debug)
+        && this.dropMatcher.matches(ruleMatch.drops, logFile, debug, this.drops)
+        && this.harvesterMatcher.matches(ruleMatch.harvester, this.harvester, logFile, debug)
+        && this.biomeMatcher.matches(ruleMatch.biomes, this.biome, logFile, debug)
+        && this.dimensionMatcher.matches(ruleMatch.dimensions, this.dimension, logFile, debug);
 
     if (debug) {
 
@@ -103,72 +110,6 @@ public class RuleMatcher {
     }
 
     return result;
-  }
-
-  private boolean matchItem(
-      RuleMatch ruleMatch,
-      LogFileWrapper logFile,
-      boolean debug, List<ItemStack> eventDrops
-  ) {
-
-    if (ruleMatch.items.length == 0) {
-
-      if (debug) {
-        logFile.debug("[MATCH] [OK] No item matches defined in rule");
-      }
-      return true;
-    }
-
-    for (ItemMatchEntry item : ruleMatch._items) {
-
-      for (ItemStack drop : eventDrops) {
-
-        if (item.matches(drop, logFile, debug, "[MATCH] ")) {
-
-          if (debug) {
-            logFile.debug("[MATCH] [OK] Item match found");
-          }
-          return true;
-        }
-      }
-    }
-
-    if (debug) {
-      logFile.debug("[MATCH] [!!] No item match found");
-    }
-    return false;
-  }
-
-  private boolean matchBlockState(
-      RuleMatch ruleMatch,
-      IBlockState blockState,
-      LogFileWrapper logFile,
-      boolean debug
-  ) {
-
-    if (ruleMatch.blocks.length == 0) {
-
-      if (debug) {
-        logFile.debug("[MATCH] [OK] No block matches defined in rule");
-      }
-      return true;
-    }
-
-    for (BlockMatchEntry blockMatchEntry : ruleMatch._blocks) {
-
-      if (blockMatchEntry.matches(blockState, logFile, debug, "[MATCH] ")) {
-
-        if (debug) {
-          logFile.debug("[MATCH] [OK] Block match found");
-        }
-        return true;
-      }
-    }
-
-    if (debug) {
-      logFile.debug("[MATCH] [!!] No block match found");
-    }
-    return false;
   }
 
 }

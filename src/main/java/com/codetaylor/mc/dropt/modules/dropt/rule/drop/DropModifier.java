@@ -135,13 +135,13 @@ public class DropModifier {
     boolean removeMatchedItems = false;
 
     if (rule.replaceStrategy == EnumReplaceStrategy.REPLACE_ITEMS
-        && !rule.match._items.isEmpty()) {
+        && !rule.match.drops._drops.isEmpty()) {
       removeMatchedItems = true;
     }
 
     if (rule.replaceStrategy == EnumReplaceStrategy.REPLACE_ITEMS_IF_SELECTED
         && !newDrops.isEmpty()
-        && !rule.match._items.isEmpty()) {
+        && !rule.match.drops._drops.isEmpty()) {
       removeMatchedItems = true;
     }
 
@@ -154,7 +154,7 @@ public class DropModifier {
       for (Iterator<ItemStack> it = currentDrops.iterator(); it.hasNext(); ) {
         ItemStack itemStack = it.next();
 
-        for (ItemMatchEntry itemMatchEntry : rule.match._items) {
+        for (ItemMatchEntry itemMatchEntry : rule.match.drops._drops) {
 
           if (itemMatchEntry.matches(itemStack, logFile, debug, "[DROP] ")) {
             it.remove();

@@ -1,10 +1,10 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -28,7 +28,7 @@ public class ParserRuleMatchItems
       return;
     }
 
-    if (rule.match.items == null || rule.match.items.length == 0) {
+    if (rule.match.drops.drops == null || rule.match.drops.drops.length == 0) {
 
       if (rule.debug) {
         logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
@@ -36,7 +36,7 @@ public class ParserRuleMatchItems
       return;
     }
 
-    for (String string : rule.match.items) {
+    for (String string : rule.match.drops.drops) {
 
       String[] split = string.split(",");
 
@@ -79,7 +79,7 @@ public class ParserRuleMatchItems
               new int[0]
           );
 
-          rule.match._items.add(itemMatchEntry);
+          rule.match.drops._drops.add(itemMatchEntry);
 
           if (rule.debug) {
             logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
@@ -119,7 +119,7 @@ public class ParserRuleMatchItems
         }
 
         ItemMatchEntry itemMatchEntry = new ItemMatchEntry(parse.getDomain(), parse.getPath(), meta, metas);
-        rule.match._items.add(itemMatchEntry);
+        rule.match.drops._drops.add(itemMatchEntry);
 
         if (rule.debug) {
           logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);

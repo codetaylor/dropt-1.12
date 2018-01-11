@@ -9,7 +9,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LoggerWrapper;
-import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.*;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -43,7 +43,22 @@ public class ModuleDropt
 
     super(0, MOD_ID);
 
-    MinecraftForge.EVENT_BUS.register(new EventHandler(new RuleMatcherFactory(), new DropModifier()));
+    MinecraftForge.EVENT_BUS.register(
+        new EventHandler(
+            new RuleMatcherFactory(
+                new BlockMatcher(),
+                new DropMatcher(),
+                new HarvesterMatcher(
+                    new GameStageMatcher(),
+                    new HeldItemMainHandMatcher(),
+                    new PlayerNameMatcher()
+                ),
+                new BiomeMatcher(),
+                new DimensionMatcher()
+            ),
+            new DropModifier()
+        )
+    );
   }
 
   @Override
