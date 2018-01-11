@@ -74,8 +74,8 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 
 <big><pre>
 {
-&nbsp;&nbsp;"blocks": String[],
-&nbsp;&nbsp;"items": String[],
+&nbsp;&nbsp;"blocks": [IRuleMatchBlocks](#irulematchblocks),
+&nbsp;&nbsp;"drops": [IRuleMatchDrops](#irulematchdrops),
 &nbsp;&nbsp;"harvester": [IRuleMatchHarvester](#irulematchharvester),
 &nbsp;&nbsp;"biomes": [IRuleMatchBiome](#irulematchbiome),
 &nbsp;&nbsp;"dimensions": [IRuleMatchDimension](#irulematchdimension),
@@ -83,17 +83,13 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 }
 </pre></big>
 
-* `blocks`: `String[]`
-  * &#x1F539;*Optional* - if omitted, all blocks will be matched.
-  * This string array defines blocks to be matched against the block broken.
-  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
-  * Example: `minecraft:stone:0`
+* `blocks`: <code>[IRuleMatchBlocks](#irulematchblocks)</code>
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
+  * This object defines conditions to match blockstates.
 
-* `items`: `String[]`
-  * &#x1F539;*Optional* - if omitted, all item drops will be matched.
-  * This string array defines items to be matched against the items dropped.
-  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
-  * Example: `minecraft:stone:0`
+* `drops`: <code>[IRuleMatchDrops](#irulematchdrops)</code>
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
+  * This object defines items to be matched against the items dropped.
 
 * `harvester`: <code>[IRuleMatchHarvester](#irulematchharvester)</code>
   * &#x1F539;*Optional* - if omitted, any harvester will be matched.
@@ -111,6 +107,50 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
   * &#x1F539;*Optional* - if omitted, defaults to full height range.
   * This object defines the vertical range condition.
 
+## IRuleMatchBlocks
+
+This object defines conditions to match the broken blockstate.
+
+<big><pre>
+{
+&nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"blocks": String[]
+}
+</pre></big>
+
+* `type`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+  * `WHITELIST`: If the broken block is in the list, then this match condition passes.
+  * `BLACKLIST`: If the broken block is not in the list, then this match condition passes.
+  
+* `blocks`: `String[]`
+  * &#x1F539;*Optional* - if omitted, all blocks will be matched.
+  * This string array defines blocks to be matched against the block broken.
+  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
+  * Example: `minecraft:stone:0`
+
+## IRuleMatchDrops
+
+This object defines conditions to match the items dropped by the broken block.
+
+<big><pre>
+{
+&nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"drops": String[]
+}
+</pre></big>
+
+* `type`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+  * `WHITELIST`: If any item dropped by the block is in the list, then this match condition passes.
+  * `BLACKLIST`: If no item dropped by the block is in the list, then this match condition passes.
+  
+* `drops`: `String[]`
+  * &#x1F539;*Optional* - if omitted, this condition passes.
+  * This string array defines items to be matched against the items dropped.
+  * Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`. OreDict values are accepted.
+  * Example: `minecraft:stone:0`
+
 ## IRuleMatchHarvester
 
 This object defines conditions specific to the entity that broke the block.
@@ -118,9 +158,9 @@ This object defines conditions specific to the entity that broke the block.
 <big><pre>
 {
 &nbsp;&nbsp;"type": enum,
-&nbsp;&nbsp;"heldItemMainHand": String[],
+&nbsp;&nbsp;"heldItemMainHand": [IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand),
 &nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage),
-&nbsp;&nbsp;"playerName": String[]
+&nbsp;&nbsp;"playerName": [IRuleMatchHarvesterPlayerName](#irulematchharvesterplayername)
 }
 </pre></big>
 
@@ -130,17 +170,37 @@ This object defines conditions specific to the entity that broke the block.
   * `NON_PLAYER`: The block must not be broken by a player to match.
   * `ANY`: The matcher does not care what broke the block.<br/>If a player broke the block and `heldItemMainHand`, `gamestages`, or `playerName` is provided, they will be checked.
   
-* `heldItemMainHand`: `String[]`
-  * &#x1F539;*Optional* - if omitted, all held items will be matched.
-  * Syntax: `domain:path:meta`, `meta` can be a wildcard `*`. It is advised to use the meta wildcard `*` when matching tools.
+* `heldItemMainHand`: <code>[IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand)</code>
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
+  * This object defines conditions for matching held items.
 
 * `gamestages`: <code>[IRuleMatchHarvesterGameStage](#irulematchharvestergamestage)</code>
-  * &#x1F539;*Optional* - if omitted, any combination of gamestages will be matched.
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
   * This object defines conditions for matching gamestages.
   
-* `playerName`: `String[]`
-  * &#x1F539;*Optional* - if omitted, all players will be matched.
-  * This array defines player names to match.
+* `playerName`: <code>[IRuleMatchHarvesterPlayerName](#irulematchharvesterplayername)</code>
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
+  * This object defines conditions for matching player names.
+
+## IRuleMatchHarvesterHeldItemMainHand
+
+This object defines conditions for matching held items.
+
+<big><pre>
+{
+&nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"items": String[]
+}
+</pre></big>
+
+* `type`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+  * `WHITELIST`: Passes if the held item is in the list.
+  * `BLACKLIST`: Passes if the held item is not in the list.
+
+* `items`: `String[]`
+  * &#x1F539;*Optional* - if omitted, all held items will be matched.
+  * Syntax: `domain:path:meta`, `meta` can be a wildcard `*`. It is advised to use the meta wildcard `*` when matching tools.
 
 ## IRuleMatchHarvesterGameStage
 
@@ -149,17 +209,43 @@ This object defines conditions for matching gamestages.
 <big><pre>
 {
 &nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"require": enum,
 &nbsp;&nbsp;"stages": String[]
 }
 </pre></big>
 
 * `type`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+  * `WHITELIST`: Does not invert the result of this check.
+  * `BLACKLIST`: Inverts the result of this check.
+
+* `require`: `enum`
   * &#x1F539;*Optional* - if omitted, defaults to `ANY`.
   * `ANY`: The player must have any of the listed gamestages to match.
   * `ALL`: The player must have all of the listed gamestages to match.
   
 * `stages`: `String[]`
   * This string array lists the gamestages required to match.
+
+## IRuleMatchHarvesterPlayerName
+
+This object defines conditions for matching player names.
+
+<big><pre>
+{
+&nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"names": String[]
+}
+</pre></big>
+
+* `type`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+  * `WHITELIST`: Passes if the player name is in the list.
+  * `BLACKLIST`: Passes if the player name is not in the list.
+  
+* `playerName`: `String[]`
+  * &#x1F539;*Optional* - if omitted, this condition will pass.
+  * This array defines player names to match.
 
 ## IRuleMatchBiome
 

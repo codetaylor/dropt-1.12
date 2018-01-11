@@ -13,7 +13,7 @@ public class PlayerNameMatcher {
       boolean debug
   ) {
 
-    if (ruleMatchHarvesterPlayerName.playerName.length == 0) {
+    if (ruleMatchHarvesterPlayerName.names.length == 0) {
 
       if (debug) {
         logFile.debug("[MATCH] [OK] No player names defined");
@@ -25,7 +25,7 @@ public class PlayerNameMatcher {
 
     if (ruleMatchHarvesterPlayerName.type == EnumListType.WHITELIST) {
 
-      for (String matchName : ruleMatchHarvesterPlayerName.playerName) {
+      for (String matchName : ruleMatchHarvesterPlayerName.names) {
 
         if (matchName.toLowerCase().equals(playerName)) {
 
@@ -53,7 +53,7 @@ public class PlayerNameMatcher {
 
     } else { // blacklist
 
-      for (String matchName : ruleMatchHarvesterPlayerName.playerName) {
+      for (String matchName : ruleMatchHarvesterPlayerName.names) {
 
         if (matchName.toLowerCase().equals(playerName)) {
 
