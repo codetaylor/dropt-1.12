@@ -1,9 +1,12 @@
 package com.codetaylor.mc.dropt.modules.dropt.events;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcher;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -13,11 +16,24 @@ import java.util.List;
 
 public class EventHandler {
 
+  private RuleMatcherFactory ruleMatcherFactory;
+  private DropModifier dropModifier;
+
+  public EventHandler(
+      RuleMatcherFactory ruleMatcherFactory,
+      DropModifier dropModifier
+  ) {
+
+    this.ruleMatcherFactory = ruleMatcherFactory;
+    this.dropModifier = dropModifier;
+  }
+
   @SubscribeEvent
   public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
 
     Rule matchedRule = null;
     LogFileWrapper logFileWrapper = null;
+    RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(event);
 
     ruleList:
     for (RuleList ruleList : ModuleDropt.RULE_LISTS) {
@@ -51,7 +67,7 @@ public class EventHandler {
           }
         }
 
-        if (rule.match.matches(event, logFileWrapper, debug)) {
+        if (ruleMatcher.matches(rule.match, logFileWrapper, debug)) {
           matchedRule = rule;
           break ruleList;
         }
@@ -62,7 +78,8 @@ public class EventHandler {
       List<ItemStack> drops = event.getDrops();
       boolean silkTouching = event.isSilkTouching();
       int fortuneLevel = event.getFortuneLevel();
-      matchedRule.modifyDrops(
+      dropModifier.modifyDrops(
+          matchedRule,
           drops,
           silkTouching,
           fortuneLevel,

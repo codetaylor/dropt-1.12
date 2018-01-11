@@ -1,4 +1,4 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
 import net.minecraftforge.oredict.OreDictionary;
 

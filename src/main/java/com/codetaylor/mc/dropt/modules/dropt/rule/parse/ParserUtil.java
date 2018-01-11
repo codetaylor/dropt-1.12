@@ -1,6 +1,6 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

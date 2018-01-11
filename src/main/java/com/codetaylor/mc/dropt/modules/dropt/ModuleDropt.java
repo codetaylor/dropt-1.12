@@ -4,10 +4,12 @@ import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.dropt.ModDropt;
 import com.codetaylor.mc.dropt.modules.dropt.command.Command;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LoggerWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LoggerWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
@@ -23,7 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ModuleDropt
     extends ModuleBase {
@@ -42,7 +43,7 @@ public class ModuleDropt
 
     super(0, MOD_ID);
 
-    MinecraftForge.EVENT_BUS.register(new EventHandler());
+    MinecraftForge.EVENT_BUS.register(new EventHandler(new RuleMatcherFactory(), new DropModifier()));
   }
 
   @Override

@@ -1,19 +1,20 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule;
+package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Arrays;
 
-public class BlockMatcher {
+public class BlockMatchEntry {
 
   private String domain;
   private String path;
   private int meta;
   private int[] metas;
 
-  public BlockMatcher(String domain, String path, int meta, int[] metas) {
+  public BlockMatchEntry(String domain, String path, int meta, int[] metas) {
 
     this.domain = domain;
     this.path = path;

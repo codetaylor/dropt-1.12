@@ -2,9 +2,9 @@ package com.codetaylor.mc.dropt.modules.dropt.command;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import com.codetaylor.mc.dropt.modules.dropt.Util;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LoggerWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LoggerWrapper;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

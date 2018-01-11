@@ -1,19 +1,20 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule;
+package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Arrays;
 
-public class ItemMatcher {
+public class ItemMatchEntry {
 
   private String domain;
   private String path;
   private int meta;
   private int[] metas;
 
-  public ItemMatcher(String domain, String path, int meta, int[] metas) {
+  public ItemMatchEntry(String domain, String path, int meta, int[] metas) {
 
     this.domain = domain;
     this.path = path;

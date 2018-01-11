@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 
 public class RuleDropSelector {
 

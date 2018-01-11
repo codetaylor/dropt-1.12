@@ -1,8 +1,8 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.BlockMatcher;
-import com.codetaylor.mc.dropt.modules.dropt.rule.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.block.Block;
@@ -82,11 +82,11 @@ public class ParserRuleMatchBlocks
         }
       }
 
-      BlockMatcher blockMatcher = new BlockMatcher(parse.getDomain(), parse.getPath(), meta, metas);
-      rule.match._blocks.add(blockMatcher);
+      BlockMatchEntry blockMatchEntry = new BlockMatchEntry(parse.getDomain(), parse.getPath(), meta, metas);
+      rule.match._blocks.add(blockMatchEntry);
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Added block matcher: " + blockMatcher);
+        logFileWrapper.debug("[PARSE] Added block matcher: " + blockMatchEntry);
       }
     }
   }

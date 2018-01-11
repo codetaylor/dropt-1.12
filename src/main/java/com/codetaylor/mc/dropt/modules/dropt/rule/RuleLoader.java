@@ -2,7 +2,9 @@ package com.codetaylor.mc.dropt.modules.dropt.rule;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import com.codetaylor.mc.dropt.modules.dropt.rule.parser.*;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.parse.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

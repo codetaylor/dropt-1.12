@@ -1,4 +1,4 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule;
+package com.codetaylor.mc.dropt.modules.dropt.rule.drop;
 
 import java.util.NavigableMap;
 import java.util.Random;

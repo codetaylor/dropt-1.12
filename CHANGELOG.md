@@ -1,3 +1,6 @@
+1.3.3
+* Changed: internal refactoring / code cleanup / performance enhancements
+
 1.2.3
 * Fixed: indexing bug with weighted picker
 

@@ -1,4 +1,4 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
 /**
  * Created by codetaylor on 11/17/2016.

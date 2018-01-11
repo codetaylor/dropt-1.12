@@ -1,8 +1,8 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.parser;
+package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.ItemMatcher;
-import com.codetaylor.mc.dropt.modules.dropt.rule.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.item.Item;
@@ -72,17 +72,17 @@ public class ParserRuleMatchItems
             continue;
           }
 
-          ItemMatcher itemMatcher = new ItemMatcher(
+          ItemMatchEntry itemMatchEntry = new ItemMatchEntry(
               registryName.getResourceDomain(),
               registryName.getResourcePath(),
               ore.getMetadata(),
               new int[0]
           );
 
-          rule.match._items.add(itemMatcher);
+          rule.match._items.add(itemMatchEntry);
 
           if (rule.debug) {
-            logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatcher);
+            logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
           }
         }
 
@@ -118,11 +118,11 @@ public class ParserRuleMatchItems
           }
         }
 
-        ItemMatcher itemMatcher = new ItemMatcher(parse.getDomain(), parse.getPath(), meta, metas);
-        rule.match._items.add(itemMatcher);
+        ItemMatchEntry itemMatchEntry = new ItemMatchEntry(parse.getDomain(), parse.getPath(), meta, metas);
+        rule.match._items.add(itemMatchEntry);
 
         if (rule.debug) {
-          logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatcher);
+          logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
         }
       }
     }
