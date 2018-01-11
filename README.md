@@ -4,6 +4,9 @@
 * [DEBUG.md](https://github.com/codetaylor/dropt/blob/master/DEBUG.md)
 * [LICENSE](https://github.com/codetaylor/dropt/blob/master/LICENSE)
 
+Old syntax:
+* [1.2.3](https://github.com/codetaylor/dropt/blob/1.2.3/SYNTAX.md)
+
 ## Dropt
 
 Dropt is a block drop replacement mod that allows defining complex drop conditions.
