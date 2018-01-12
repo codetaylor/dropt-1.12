@@ -7,9 +7,11 @@ Replace all dropped `ore:logWood` from any block with a single random dye 25% of
   "rules": [
     {
       "match": {
-        "items": [
-          "ore:logWood"
-        ]
+        "drops": {
+          "items": [
+            "ore:logWood"
+          ]
+        }
       },
       "replaceStrategy": "REPLACE_ITEMS_IF_SELECTED",
       "drops": [
@@ -50,28 +52,34 @@ below Y level `20` for a player named `codetaylor`, who has the gamestages
   "rules": [
     {
       "match": {
-        "blocks": [
-          "minecraft:stone:0",
-          "minecraft:gravel"
-        ],
+        "blocks": {
+          "blocks": [
+            "minecraft:stone:0",
+            "minecraft:gravel"
+          ] 
+        },
         "verticalRange": {
           "min": 0,
           "max": 20
         },
         "harvester": {
-          "playerName": [
-            "codetaylor"
-          ],
+          "playerName": {
+            "names": [
+              "codetaylor"
+            ]
+          },
           "gamestages": {
-            "type": "ALL",
+            "require": "ALL",
             "stages": [
               "one",
               "two"
             ]
           },
-          "heldItemMainHand": [
-            "minecraft:diamond_pickaxe:*"
-          ]
+          "heldItemMainHand": {
+            "items": [
+              "minecraft:diamond_pickaxe:*"
+            ]
+          }
         }
       },
       "replaceStrategy": "REPLACE_ALL_IF_SELECTED",
