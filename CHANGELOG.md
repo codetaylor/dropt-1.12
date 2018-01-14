@@ -1,3 +1,6 @@
+1.3.4:
+* Added: config file to enable performance profiling options
+
 1.3.3
 * Changed: internal refactoring / code cleanup / performance enhancements
 * Changed: introduced whitelist/blacklist for five lists: `match.blocks`, `match.items`, `match.harvester.heldItemMainHand`, `match.harvester.playerName`, `match.harvester.gamestages`
