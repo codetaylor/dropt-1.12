@@ -4,17 +4,24 @@ import com.codetaylor.mc.athenaeum.module.ModuleBase;
 import com.codetaylor.mc.dropt.ModDropt;
 import com.codetaylor.mc.dropt.modules.dropt.command.Command;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
+import com.codetaylor.mc.dropt.modules.dropt.rule.ProfileUtil;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LoggerWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.*;
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -106,8 +113,15 @@ public class ModuleDropt
   public void onLoadCompleteEvent(FMLLoadCompleteEvent event) {
 
     super.onLoadCompleteEvent(event);
+
     FileWriter logFileWriter = LOG_FILE_WRITER_PROVIDER.createLogFileWriter();
-    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter), new LogFileWrapper(logFileWriter));
+    LogFileWrapper logFileWrapper = new LogFileWrapper(logFileWriter);
+
+    if (ModuleDroptConfig.INJECT_PROFILING_RULES) {
+      ProfileUtil.injectRules(RULE_LISTS, logFileWrapper);
+    }
+
+    RuleLoader.parseRuleLists(RULE_LISTS, new LoggerWrapper(LOGGER, logFileWriter), logFileWrapper);
     Util.closeSilently(logFileWriter);
   }
 

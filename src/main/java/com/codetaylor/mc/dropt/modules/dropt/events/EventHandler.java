@@ -1,6 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.events;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
+import com.codetaylor.mc.dropt.modules.dropt.ModuleDroptConfig;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
@@ -35,11 +36,15 @@ public class EventHandler {
     LogFileWrapper logFileWrapper = null;
     RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(event);
 
+    long start = System.currentTimeMillis();
+    int checkedRuleCount = 0;
+
     ruleList:
     for (RuleList ruleList : ModuleDropt.RULE_LISTS) {
 
       for (Rule rule : ruleList.rules) {
         boolean debug = rule.debug;
+        checkedRuleCount += 1;
 
         if (debug && logFileWrapper == null) {
           logFileWrapper = new LogFileWrapper(ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter());
@@ -74,7 +79,20 @@ public class EventHandler {
       }
     }
 
+    if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+
+      if (logFileWrapper == null) {
+        logFileWrapper = new LogFileWrapper(ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter());
+      }
+      logFileWrapper.info(String.format(
+          "Matched rule in %d ms, checked %d rule(s)",
+          (System.currentTimeMillis() - start),
+          checkedRuleCount
+      ));
+    }
+
     if (matchedRule != null) {
+      start = System.currentTimeMillis();
       List<ItemStack> drops = event.getDrops();
       boolean silkTouching = event.isSilkTouching();
       int fortuneLevel = event.getFortuneLevel();
@@ -86,6 +104,16 @@ public class EventHandler {
           logFileWrapper,
           matchedRule.debug
       );
+      if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+
+        if (logFileWrapper == null) {
+          logFileWrapper = new LogFileWrapper(ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter());
+        }
+        logFileWrapper.info(String.format(
+            "Modified drops in %d ms",
+            (System.currentTimeMillis() - start)
+        ));
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
+import com.codetaylor.mc.dropt.modules.dropt.ModuleDroptConfig;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
@@ -64,6 +65,8 @@ public class RuleLoader {
       logFileWrapper.info("Located rule file: " + path.relativize(pathFile));
     }
 
+    long start = System.currentTimeMillis();
+
     for (Path jsonFile : jsonFiles) {
 
       try {
@@ -81,6 +84,16 @@ public class RuleLoader {
 
     if (ruleLists.isEmpty()) {
       logFileWrapper.info("No rule files loaded.");
+
+    } else {
+
+      if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+        logFileWrapper.info(String.format(
+            "Loaded %d rule lists in %d ms",
+            ruleLists.size(),
+            (System.currentTimeMillis() - start)
+        ));
+      }
     }
   }
 
@@ -91,6 +104,9 @@ public class RuleLoader {
   ) {
 
     RecipeItemParser parser = new RecipeItemParser();
+
+    long start = System.currentTimeMillis();
+    int rulesParsed = 0;
 
     for (RuleList ruleList : ruleLists) {
       int ruleIndex = 0;
@@ -118,7 +134,12 @@ public class RuleLoader {
         new ParserRuleDropItem().parse(parser, ruleList, rule, logger, logFileWrapper);
 
         ruleIndex += 1;
+        rulesParsed += 1;
       }
+    }
+
+    if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+      logFileWrapper.info(String.format("Parsed %d rules in %d ms", rulesParsed, (System.currentTimeMillis() - start)));
     }
   }
 }
