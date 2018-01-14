@@ -1,5 +1,5 @@
 1.3.4:
-* Added: config file to enable performance profiling options
+* Added: config file to enable performance profiling options, see PERFORMANCE.md
 
 1.3.3
 * Changed: internal refactoring / code cleanup / performance enhancements
