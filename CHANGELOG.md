@@ -1,3 +1,7 @@
+1.4.3:
+* Added: random, fortune modified xp to drops
+* Changed: requires Athenaeum lib >= 1.4.3
+
 1.3.4:
 * Added: config file to enable performance profiling options, see PERFORMANCE.md
 

@@ -97,6 +97,8 @@ public class EventHandler {
       boolean silkTouching = event.isSilkTouching();
       int fortuneLevel = event.getFortuneLevel();
       dropModifier.modifyDrops(
+          event.getWorld(),
+          event.getPos(),
           matchedRule,
           drops,
           silkTouching,

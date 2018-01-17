@@ -1,9 +1,13 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.drop;
 
+import com.codetaylor.mc.athenaeum.util.WeightedPicker;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,6 +19,8 @@ public class DropModifier {
   private static final Random RANDOM = new Random();
 
   public List<ItemStack> modifyDrops(
+      World world,
+      BlockPos pos,
       Rule rule,
       List<ItemStack> currentDrops,
       boolean isSilkTouching,
@@ -35,7 +41,7 @@ public class DropModifier {
       }
     }
 
-    WeightedPicker<RuleDropItem> picker = new WeightedPicker<>();
+    WeightedPicker<RuleDrop> picker = new WeightedPicker<>();
 
     if (debug) {
       logFile.debug("[DROP] Selecting drop candidates...");
@@ -47,7 +53,7 @@ public class DropModifier {
 
       if (drop.selector.isValidCandidate(isSilkTouching, fortuneLevel, logFile, debug)) {
         int weight = drop.selector.weight.value + (fortuneLevel * drop.selector.weight.fortuneModifier);
-        picker.add(weight, drop.item);
+        picker.add(weight, drop);
         candidatesFound += 1;
 
         if (debug) {
@@ -84,23 +90,23 @@ public class DropModifier {
         break;
       }
 
-      RuleDropItem ruleDropItem;
+      RuleDrop ruleDrop;
 
       if (rule.dropStrategy == EnumDropStrategy.UNIQUE) {
-        ruleDropItem = picker.getAndRemove();
+        ruleDrop = picker.getAndRemove();
 
         if (debug) {
-          logFile.debug("[DROP] Removed drop from picker: " + ruleDropItem.toString());
+          logFile.debug("[DROP] Removed drop from picker: " + ruleDrop.toString());
         }
 
       } else {
-        ruleDropItem = picker.get();
+        ruleDrop = picker.get();
       }
 
-      int itemQuantity = ruleDropItem.quantity.get(RANDOM, fortuneLevel);
+      int itemQuantity = ruleDrop.item.quantity.get(RANDOM, fortuneLevel);
 
       if (debug) {
-        logFile.debug("[DROP] Selected drop: " + ruleDropItem.toString());
+        logFile.debug("[DROP] Selected drop: " + ruleDrop.toString());
         logFile.debug("[DROP] Selected drop quantity: " + itemQuantity);
       }
 
@@ -109,17 +115,28 @@ public class DropModifier {
         continue;
       }
 
-      if (ruleDropItem._items.isEmpty()) {
+      if (ruleDrop.item._items.isEmpty()) {
         logFile.debug("[DROP] Skipping selected drop due to empty drop item list");
         continue;
       }
 
-      ItemStack copy = ruleDropItem._items.get(RANDOM.nextInt(ruleDropItem._items.size())).copy();
+      ItemStack copy = ruleDrop.item._items.get(RANDOM.nextInt(ruleDrop.item._items.size())).copy();
       copy.setCount(itemQuantity);
       newDrops.add(copy);
 
       if (debug) {
         logFile.debug("[DROP] Added ItemStack to drop list: " + copy);
+      }
+
+      int xp = ruleDrop.xp.get(RANDOM, fortuneLevel);
+
+      if (xp > 0) {
+
+        while (xp > 0) {
+          int xpDrop = EntityXPOrb.getXPSplit(xp);
+          xp -= xpDrop;
+          world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xp));
+        }
       }
     }
 

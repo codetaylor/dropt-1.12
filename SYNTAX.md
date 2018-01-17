@@ -326,11 +326,11 @@ Calculation: `random(max - min) + min + fortuneModifier * fortuneLevel`
   * The fixed value that will always be used. If a value `> 0` is supplied, it will be used in the calculation instead of a randomly selected value.
   
 * `min`: `int`
-  * &#x1F539;*Optional* - if omitted, defaults to `1`.
+  * &#x1F539;*Optional* - if omitted, defaults to context.
   * The minimum value that will be randomly selected (inclusive).
   
 * `max`: `int`
-  * &#x1F539;*Optional* - if omitted, defaults to `1`.
+  * &#x1F539;*Optional* - if omitted, defaults to context.
   * The maximum value that will be randomly selected (inclusive).
   
 * `fortuneModifier`
@@ -346,7 +346,8 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 <big><pre>
 {
 &nbsp;&nbsp;"selector": [IRuleDropSelector](#iruledropselector),
-&nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem)
+&nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem),
+&nbsp;&nbsp;"xp": [IRandomFortuneInt](#irandomfortuneint)
 }
 </pre></big>
 
@@ -357,6 +358,10 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 * `item`: <code>[IRuleDropItem](#iruledropitem)</code>
   * &#x1F539;*Optional* - if omitted, no item will be dropped if this `IRuleDrop` is selected from the weighted picker.
   * This object defines the item to drop.
+  
+* `xp`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
+  * &#x1F539;*Optional* - if omitted, defaults to `0`.
+  * This object defines how much XP to drop when the block is broken and this drop is selected. 
 
 ## IRuleDropSelector
 

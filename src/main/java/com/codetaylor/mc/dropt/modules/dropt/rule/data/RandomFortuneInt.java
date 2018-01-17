@@ -9,6 +9,16 @@ public class RandomFortuneInt {
   public int max = 1;
   public int fortuneModifier = 0;
 
+  public RandomFortuneInt() {
+    this(1, 1);
+  }
+
+  public RandomFortuneInt(int min, int max) {
+
+    this.min = min;
+    this.max = max;
+  }
+
   public int get(Random random, int fortuneLevel) {
 
     if (this.fixed > 0) {
