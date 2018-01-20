@@ -2,14 +2,14 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterPlayerName;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 
 public class PlayerNameMatcher {
 
   public boolean matches(
       RuleMatchHarvesterPlayerName ruleMatchHarvesterPlayerName,
       String playerName,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

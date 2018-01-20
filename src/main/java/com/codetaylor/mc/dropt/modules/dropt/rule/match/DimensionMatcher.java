@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchDimension;
 
@@ -11,7 +11,7 @@ public class DimensionMatcher {
   public boolean matches(
       RuleMatchDimension ruleMatchDimension,
       int dimension,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

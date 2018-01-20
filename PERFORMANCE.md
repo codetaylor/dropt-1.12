@@ -1,25 +1,38 @@
 To enable performance testing, see the config file.
 
 ```
-[INFO]  Located rule file: test.json
-[INFO]  Located rule file: test2.json
-[INFO]  Rule file loaded: test.json
-[INFO]  Rule file loaded: test2.json
-[INFO]  Loaded 2 rule lists in 155 ms
-[INFO]  Injected 103573 rules in 128 ms
-[INFO]  Parsed 103575 rules in 3106 ms
-[INFO]  Matched rule in 28 ms, checked 103575 rule(s)
+[INFO]  Located rule file: flint.json
+[INFO]  Located rule file: sticks.json
+[INFO]  Rule file loaded: flint.json
+[INFO]  Rule file loaded: sticks.json
+[INFO]  Loaded 2 rule lists in 79 ms
+[INFO]  Injected 103573 rules in 118 ms
+[INFO]  Parsed 103575 rules in 532 ms
+[INFO]  Cached 1 rules from 103575 rules in 57 ms, blockState: minecraft:leaves[check_decay=true,decayable=true,variant=oak]
+[INFO]  Searched 1 rules in 0 ms
+[INFO]  Modified drops in 22 ms
+[INFO]  Cached 1 rules from 103575 rules in 32 ms, blockState: minecraft:leaves[check_decay=true,decayable=true,variant=birch]
+[INFO]  Searched 1 rules in 1 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 34 ms, checked 103575 rule(s)
+[INFO]  Searched 1 rules in 0 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 30 ms, checked 103575 rule(s)
+[INFO]  Searched 1 rules in 1 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 34 ms, checked 103575 rule(s)
+[INFO]  Searched 1 rules in 1 ms
+[INFO]  Modified drops in 1 ms
+[INFO]  Searched 1 rules in 0 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 28 ms, checked 103575 rule(s)
+[INFO]  Cached 1 rules from 103575 rules in 56 ms, blockState: minecraft:stone[variant=stone]
+[INFO]  Searched 1 rules in 1 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 26 ms, checked 103575 rule(s)
+[INFO]  Searched 1 rules in 1 ms
 [INFO]  Modified drops in 0 ms
-[INFO]  Matched rule in 26 ms, checked 103575 rule(s)
+[INFO]  Searched 1 rules in 1 ms
+[INFO]  Modified drops in 0 ms
+[INFO]  Searched 1 rules in 0 ms
+[INFO]  Modified drops in 0 ms
+[INFO]  Searched 1 rules in 0 ms
+[INFO]  Modified drops in 0 ms
+[INFO]  Searched 1 rules in 0 ms
 [INFO]  Modified drops in 0 ms
 ```

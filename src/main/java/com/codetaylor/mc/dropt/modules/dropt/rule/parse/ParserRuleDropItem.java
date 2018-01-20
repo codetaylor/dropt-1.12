@@ -1,7 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
@@ -17,7 +17,7 @@ public class ParserRuleDropItem
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, DebugFileWrapper debugFileWrapper
   ) {
 
     int dropIndex = 0;
@@ -27,7 +27,7 @@ public class ParserRuleDropItem
       if (drop.item == null) {
 
         if (rule.debug) {
-          logFileWrapper.debug(String.format(
+          debugFileWrapper.debug(String.format(
               "[PARSE] Drop item object not defined in IRuleDrop at index %d, skipped parsing drop item",
               dropIndex
           ));
@@ -38,7 +38,7 @@ public class ParserRuleDropItem
       if (drop.item.items == null || drop.item.items.length == 0) {
 
         if (rule.debug) {
-          logFileWrapper.debug(String.format(
+          debugFileWrapper.debug(String.format(
               "[PARSE] Drop item.items object not defined or empty in IRuleDrop at index %d, skipped parsing drop item",
               dropIndex
           ));
@@ -47,7 +47,7 @@ public class ParserRuleDropItem
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Parsing drop items for IRuleDrop at index " + dropIndex);
+        debugFileWrapper.debug("[PARSE] Parsing drop items for IRuleDrop at index " + dropIndex);
       }
 
       for (String itemString : drop.item.items) {
@@ -62,7 +62,7 @@ public class ParserRuleDropItem
         }
 
         if (rule.debug) {
-          logFileWrapper.debug("[PARSE] Parsed item drop: " + parse);
+          debugFileWrapper.debug("[PARSE] Parsed item drop: " + parse);
         }
 
         if ("ore".equals(parse.getDomain())) {
@@ -72,20 +72,20 @@ public class ParserRuleDropItem
             logger.warn("[PARSE] No entries found for oreDict entry <" + "ore:" + parse.getPath() + "> in file: " + ruleList._filename);
 
           } else if (rule.debug) {
-            logFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
+            debugFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
           }
 
           for (ItemStack ore : ores) {
 
             if (ore.getItem().getHasSubtypes()) {
-              ParserUtil.addSubItemsToList(ore.getItem(), drop.item._items, logFileWrapper, rule.debug);
+              ParserUtil.addSubItemsToList(ore.getItem(), drop.item._items, debugFileWrapper, rule.debug);
 
             } else {
               ItemStack itemStack = new ItemStack(ore.getItem(), 1, ore.getMetadata());
               drop.item._items.add(itemStack);
 
               if (rule.debug) {
-                logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
+                debugFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
               }
             }
           }
@@ -99,7 +99,7 @@ public class ParserRuleDropItem
           }
 
           if (rule.debug) {
-            logFileWrapper.debug("[PARSE] Found registered item: " + item);
+            debugFileWrapper.debug("[PARSE] Found registered item: " + item);
           }
 
           if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
@@ -108,7 +108,7 @@ public class ParserRuleDropItem
               logger.error("[PARSE] Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
 
             } else {
-              ParserUtil.addSubItemsToList(item, drop.item._items, logFileWrapper, rule.debug);
+              ParserUtil.addSubItemsToList(item, drop.item._items, debugFileWrapper, rule.debug);
             }
 
           } else {
@@ -116,7 +116,7 @@ public class ParserRuleDropItem
             drop.item._items.add(itemStack);
 
             if (rule.debug) {
-              logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
+              debugFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
             }
           }
         }

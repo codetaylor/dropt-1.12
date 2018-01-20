@@ -4,7 +4,7 @@ import com.codetaylor.mc.dropt.modules.dropt.ModuleDroptConfig;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.parse.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,14 +25,14 @@ public class RuleLoader {
       Path path,
       List<RuleList> ruleLists,
       ILogger logger,
-      LogFileWrapper logFileWrapper
+      DebugFileWrapper debugFileWrapper
   ) {
 
     if (!Files.exists(path)) {
 
       try {
         Files.createDirectories(path);
-        logFileWrapper.info("Created path: " + path);
+        debugFileWrapper.info("Created path: " + path);
 
       } catch (Exception e) {
         logger.error("Unable to create path: " + path, e);
@@ -62,7 +62,7 @@ public class RuleLoader {
 
     for (Path pathFile : stream) {
       jsonFiles.add(pathFile);
-      logFileWrapper.info("Located rule file: " + path.relativize(pathFile));
+      debugFileWrapper.info("Located rule file: " + path.relativize(pathFile));
     }
 
     long start = System.currentTimeMillis();
@@ -73,7 +73,7 @@ public class RuleLoader {
         RuleList ruleList = GSON.fromJson(new FileReader(jsonFile.toFile()), RuleList.class);
         ruleList._filename = path.relativize(jsonFile).toString();
         ruleLists.add(ruleList);
-        logFileWrapper.info("Rule file loaded: " + ruleList._filename);
+        debugFileWrapper.info("Rule file loaded: " + ruleList._filename);
 
       } catch (Exception e) {
         logger.error("Unable to load rule file: " + path.relativize(jsonFile).toString(), e);
@@ -83,12 +83,12 @@ public class RuleLoader {
     Collections.sort(ruleLists);
 
     if (ruleLists.isEmpty()) {
-      logFileWrapper.info("No rule files loaded.");
+      debugFileWrapper.info("No rule files loaded.");
 
     } else {
 
       if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
-        logFileWrapper.info(String.format(
+        debugFileWrapper.info(String.format(
             "Loaded %d rule lists in %d ms",
             ruleLists.size(),
             (System.currentTimeMillis() - start)
@@ -100,7 +100,7 @@ public class RuleLoader {
   public static void parseRuleLists(
       List<RuleList> ruleLists,
       ILogger logger,
-      LogFileWrapper logFileWrapper
+      DebugFileWrapper debugFileWrapper
   ) {
 
     RecipeItemParser parser = new RecipeItemParser();
@@ -114,24 +114,24 @@ public class RuleLoader {
       for (Rule rule : ruleList.rules) {
 
         if (rule.debug) {
-          logFileWrapper.debug("--------------------------------------------------------------------------------------");
-          logFileWrapper.debug(String.format("Parsing rule %d in file %s", ruleIndex, ruleList._filename));
+          debugFileWrapper.debug("--------------------------------------------------------------------------------------");
+          debugFileWrapper.debug(String.format("Parsing rule %d in file %s", ruleIndex, ruleList._filename));
         }
 
         // Parse rule match block strings
-        new ParserRuleMatchBlocks().parse(parser, ruleList, rule, logger, logFileWrapper);
+        new ParserRuleMatchBlocks().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
         // Parse rule match item strings
-        new ParserRuleMatchItems().parse(parser, ruleList, rule, logger, logFileWrapper);
+        new ParserRuleMatchItems().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
         // Parse item held in main hand strings
-        new ParserRuleMatchHarvesterHeldItemMainHand().parse(parser, ruleList, rule, logger, logFileWrapper);
+        new ParserRuleMatchHarvesterHeldItemMainHand().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
         // Parse biomes
-        new ParserRuleMatchBiome().parse(parser, ruleList, rule, logger, logFileWrapper);
+        new ParserRuleMatchBiome().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
         // Parse drop items
-        new ParserRuleDropItem().parse(parser, ruleList, rule, logger, logFileWrapper);
+        new ParserRuleDropItem().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
         ruleIndex += 1;
         rulesParsed += 1;
@@ -139,7 +139,7 @@ public class RuleLoader {
     }
 
     if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
-      logFileWrapper.info(String.format("Parsed %d rules in %d ms", rulesParsed, (System.currentTimeMillis() - start)));
+      debugFileWrapper.info(String.format("Parsed %d rules in %d ms", rulesParsed, (System.currentTimeMillis() - start)));
     }
   }
 }

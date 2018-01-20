@@ -4,7 +4,7 @@ import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterGameStageType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterGameStage;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.darkhax.gamestages.capabilities.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -16,7 +16,7 @@ public class GameStageMatcher {
   public boolean matches(
       RuleMatchHarvesterGameStage ruleMatchHarvesterGameStage,
       @Nonnull EntityPlayer harvester,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

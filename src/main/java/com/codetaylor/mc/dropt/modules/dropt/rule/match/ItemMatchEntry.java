@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,7 +22,7 @@ public class ItemMatchEntry {
     this.metas = metas;
   }
 
-  public boolean matches(ItemStack itemStack, LogFileWrapper logFile, boolean debug, String logPrefix) {
+  public boolean matches(ItemStack itemStack, DebugFileWrapper logFile, boolean debug, String logPrefix) {
 
     if (debug) {
       logFile.debug(String.format(

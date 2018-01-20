@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 
 public class RuleDropSelector {
 
@@ -11,7 +11,7 @@ public class RuleDropSelector {
   public boolean isValidCandidate(
       boolean isSilkTouching,
       int fortuneLevel,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

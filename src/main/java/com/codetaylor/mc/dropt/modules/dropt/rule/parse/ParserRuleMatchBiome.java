@@ -1,7 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import net.minecraft.util.ResourceLocation;
@@ -13,13 +13,13 @@ public class ParserRuleMatchBiome
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, DebugFileWrapper debugFileWrapper
   ) {
 
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing biome match");
+        debugFileWrapper.debug("[PARSE] Match object not defined, skipped parsing biome match");
       }
       return;
     }
@@ -27,7 +27,7 @@ public class ParserRuleMatchBiome
     if (rule.match.biomes == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing biome match");
+        debugFileWrapper.debug("[PARSE] Match object not defined, skipped parsing biome match");
       }
       return;
     }
@@ -44,7 +44,7 @@ public class ParserRuleMatchBiome
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Parsed biome match: " + parse);
+        debugFileWrapper.debug("[PARSE] Parsed biome match: " + parse);
       }
 
       Biome biome = ForgeRegistries.BIOMES.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
@@ -55,13 +55,13 @@ public class ParserRuleMatchBiome
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Found registered biome: " + biome);
+        debugFileWrapper.debug("[PARSE] Found registered biome: " + biome);
       }
 
       rule.match.biomes._biomes.add(biome);
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Added biome match: " + biome);
+        debugFileWrapper.debug("[PARSE] Added biome match: " + biome);
       }
     }
   }

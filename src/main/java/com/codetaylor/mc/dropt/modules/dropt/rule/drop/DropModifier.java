@@ -2,7 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.drop;
 
 import com.codetaylor.mc.athenaeum.util.WeightedPicker;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class DropModifier {
       List<ItemStack> currentDrops,
       boolean isSilkTouching,
       int fortuneLevel,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 
@@ -138,11 +138,18 @@ public class DropModifier {
 
       if (xp > 0) {
 
+        if (debug) {
+          logFile.debug("[DROP] Dropping xp: " + xp);
+        }
+
         while (xp > 0) {
           int xpDrop = EntityXPOrb.getXPSplit(xp);
           xp -= xpDrop;
           world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xp));
         }
+
+      } else if (debug) {
+        logFile.debug("[DROP] Dropped zero xp");
       }
     }
 

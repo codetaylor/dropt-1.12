@@ -3,7 +3,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,13 +17,13 @@ public class ParserRuleMatchItems
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, DebugFileWrapper debugFileWrapper
   ) {
 
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing item match");
+        debugFileWrapper.debug("[PARSE] Match object not defined, skipped parsing item match");
       }
       return;
     }
@@ -31,7 +31,7 @@ public class ParserRuleMatchItems
     if (rule.match.drops.drops == null || rule.match.drops.drops.length == 0) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
+        debugFileWrapper.debug("[PARSE] No item matches defined, skipped parsing item match");
       }
       return;
     }
@@ -51,7 +51,7 @@ public class ParserRuleMatchItems
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Parsed item match: " + parse);
+        debugFileWrapper.debug("[PARSE] Parsed item match: " + parse);
       }
 
       if ("ore".equals(parse.getDomain())) {
@@ -61,7 +61,7 @@ public class ParserRuleMatchItems
           logger.warn("[PARSE] No ore dict entries found for: " + parse);
 
         } else if (rule.debug) {
-          logFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
+          debugFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
         }
 
         for (ItemStack ore : ores) {
@@ -82,7 +82,7 @@ public class ParserRuleMatchItems
           rule.match.drops._drops.add(itemMatchEntry);
 
           if (rule.debug) {
-            logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
+            debugFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
           }
         }
 
@@ -96,7 +96,7 @@ public class ParserRuleMatchItems
         }
 
         if (rule.debug) {
-          logFileWrapper.debug("[PARSE] Found registered item: " + item);
+          debugFileWrapper.debug("[PARSE] Found registered item: " + item);
         }
 
         int meta = parse.getMeta();
@@ -122,7 +122,7 @@ public class ParserRuleMatchItems
         rule.match.drops._drops.add(itemMatchEntry);
 
         if (rule.debug) {
-          logFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
+          debugFileWrapper.debug("[PARSE] Added item matcher: " + itemMatchEntry);
         }
       }
     }

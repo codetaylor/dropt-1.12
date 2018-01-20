@@ -1,13 +1,15 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.log;
 
+import com.codetaylor.mc.dropt.modules.dropt.Util;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class LogFileWrapper {
+public class DebugFileWrapper {
 
   private FileWriter fileWriter;
 
-  public LogFileWrapper(FileWriter fileWriter) {
+  public DebugFileWrapper(FileWriter fileWriter) {
 
     this.fileWriter = fileWriter;
   }
@@ -20,6 +22,13 @@ public class LogFileWrapper {
   public void debug(String message) {
 
     this.write("[DEBUG] " + message);
+  }
+
+  public void close() {
+
+    if (this.fileWriter != null) {
+      Util.closeSilently(this.fileWriter);
+    }
   }
 
   private void write(String message) {

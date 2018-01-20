@@ -2,7 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchBlocks;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.state.IBlockState;
 
 public class BlockMatcher {
@@ -10,7 +10,7 @@ public class BlockMatcher {
   public boolean matches(
       RuleMatchBlocks ruleMatchBlocks,
       IBlockState blockState,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

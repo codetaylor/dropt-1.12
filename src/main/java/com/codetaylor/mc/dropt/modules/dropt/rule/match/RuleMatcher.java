@@ -1,7 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatch;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -52,7 +52,7 @@ public class RuleMatcher {
 
   public boolean matches(
       RuleMatch ruleMatch,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 
@@ -83,7 +83,7 @@ public class RuleMatcher {
   private boolean matchVerticalRange(
       RuleMatch ruleMatch,
       int posY,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

@@ -3,7 +3,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
@@ -15,13 +15,13 @@ public class ParserRuleMatchBlocks
 
   @Override
   public void parse(
-      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, LogFileWrapper logFileWrapper
+      RecipeItemParser parser, RuleList ruleList, Rule rule, ILogger logger, DebugFileWrapper debugFileWrapper
   ) {
 
     if (rule.match == null) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Match object not defined, skipped parsing block match");
+        debugFileWrapper.debug("[PARSE] Match object not defined, skipped parsing block match");
       }
       return;
     }
@@ -29,7 +29,7 @@ public class ParserRuleMatchBlocks
     if (rule.match.blocks == null || rule.match.blocks.blocks.length == 0) {
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
+        debugFileWrapper.debug("[PARSE] No block matches defined, skipped parsing block match");
       }
       return;
     }
@@ -49,7 +49,7 @@ public class ParserRuleMatchBlocks
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Parsed block match: " + parse);
+        debugFileWrapper.debug("[PARSE] Parsed block match: " + parse);
       }
 
       Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
@@ -60,7 +60,7 @@ public class ParserRuleMatchBlocks
       }
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Found registered block: " + block);
+        debugFileWrapper.debug("[PARSE] Found registered block: " + block);
       }
 
       int meta = parse.getMeta();
@@ -86,7 +86,7 @@ public class ParserRuleMatchBlocks
       rule.match.blocks._blocks.add(blockMatchEntry);
 
       if (rule.debug) {
-        logFileWrapper.debug("[PARSE] Added block matcher: " + blockMatchEntry);
+        debugFileWrapper.debug("[PARSE] Added block matcher: " + blockMatchEntry);
       }
     }
   }

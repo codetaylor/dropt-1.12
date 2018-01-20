@@ -1,3 +1,6 @@
+1.5.4:
+* Added: rule caching to significantly improve performance (#3)
+
 1.4.4:
 * Fixed: NPE preventing drops (#4)
 

@@ -2,7 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchDrops;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class DropMatcher {
 
   public boolean matches(
       RuleMatchDrops ruleMatchDrops,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug, List<ItemStack> eventDrops
   ) {
 

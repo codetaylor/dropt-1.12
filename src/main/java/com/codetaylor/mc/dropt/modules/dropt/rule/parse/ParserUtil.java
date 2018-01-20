@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ public class ParserUtil {
   public static void addSubItemsToList(
       Item item,
       List<ItemStack> list,
-      LogFileWrapper logFileWrapper,
+      DebugFileWrapper debugFileWrapper,
       boolean debug
   ) {
 
@@ -25,7 +25,7 @@ public class ParserUtil {
       list.add(itemStack);
 
       if (debug) {
-        logFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
+        debugFileWrapper.debug("[PARSE] Added itemStack to drop: " + itemStack);
       }
     }
   }

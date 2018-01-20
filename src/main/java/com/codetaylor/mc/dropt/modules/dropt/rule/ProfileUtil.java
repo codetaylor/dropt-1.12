@@ -3,7 +3,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ProfileUtil {
 
-  public static void injectRules(List<RuleList> ruleLists, LogFileWrapper logFileWriter) {
+  public static void injectRules(List<RuleList> ruleLists, DebugFileWrapper logFileWriter) {
 
     int ruleCount = 0;
     long start = System.currentTimeMillis();

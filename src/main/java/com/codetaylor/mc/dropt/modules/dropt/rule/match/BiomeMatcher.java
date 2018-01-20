@@ -1,13 +1,13 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchBiome;
 import net.minecraft.world.biome.Biome;
 
 public class BiomeMatcher {
 
-  public boolean matches(RuleMatchBiome ruleMatchBiome, Biome biome, LogFileWrapper logFile, boolean debug) {
+  public boolean matches(RuleMatchBiome ruleMatchBiome, Biome biome, DebugFileWrapper logFile, boolean debug) {
 
     if (ruleMatchBiome._biomes.isEmpty()) {
 

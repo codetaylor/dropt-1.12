@@ -2,7 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterHeldItemMainHand;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -12,7 +12,7 @@ public class HeldItemMainHandMatcher {
   public boolean matches(
       RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
       ItemStack heldItemStack,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 
@@ -36,7 +36,7 @@ public class HeldItemMainHandMatcher {
   private boolean checkAsWhitelist(
       RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
       ItemStack heldItemStack,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 
@@ -93,7 +93,7 @@ public class HeldItemMainHandMatcher {
   private boolean checkAsBlacklist(
       RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
       ItemStack heldItemStack,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 

@@ -2,7 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvester;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.LogFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nullable;
@@ -27,7 +27,7 @@ public class HarvesterMatcher {
   public boolean matches(
       RuleMatchHarvester ruleMatchHarvester,
       @Nullable EntityPlayer harvester,
-      LogFileWrapper logFile,
+      DebugFileWrapper logFile,
       boolean debug
   ) {
 
