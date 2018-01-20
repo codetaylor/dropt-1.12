@@ -111,12 +111,18 @@ public class DropModifier {
       }
 
       if (itemQuantity <= 0) {
-        logFile.debug("[DROP] Skipping selected drop due to low item quantity roll: " + itemQuantity);
+
+        if (debug) {
+          logFile.debug("[DROP] Skipping selected drop due to low item quantity roll: " + itemQuantity);
+        }
         continue;
       }
 
       if (ruleDrop.item._items.isEmpty()) {
-        logFile.debug("[DROP] Skipping selected drop due to empty drop item list");
+
+        if (debug) {
+          logFile.debug("[DROP] Skipping selected drop due to empty drop item list");
+        }
         continue;
       }
 

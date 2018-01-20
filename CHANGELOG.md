@@ -1,3 +1,6 @@
+1.4.4:
+* Fixed: NPE preventing drops (#4)
+
 1.4.3:
 * Added: random, fortune modified xp to drops
 * Changed: requires Athenaeum lib >= 1.4.3
