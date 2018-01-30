@@ -6,14 +6,22 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLocator;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EventHandler {
 
   private RuleLocator ruleLocator;
   private DropModifier dropModifier;
   private DebugFileWrapper debugFileWrapper;
+
+  private Map<String, ItemStack> heldItemCache;
 
   public EventHandler(
       RuleLocator ruleLocator,
@@ -22,12 +30,35 @@ public class EventHandler {
 
     this.ruleLocator = ruleLocator;
     this.dropModifier = dropModifier;
+    this.heldItemCache = new HashMap<>();
+  }
+
+  @SubscribeEvent
+  public void onBlockBreakEvent(BlockEvent.BreakEvent event) {
+
+    EntityPlayer player = event.getPlayer();
+
+    if (player instanceof FakePlayer) {
+      return;
+    }
+
+    // Cache a copy of the player's held item before damage is applied to the item.
+    // This prevents the case when the player's item breaks before the harvest
+    // event is processed, resulting in an incorrect rule match.
+    ItemStack heldItemMainhand = player.getHeldItemMainhand();
+
+    if (heldItemMainhand.isEmpty()) {
+      this.heldItemCache.put(player.getName(), ItemStack.EMPTY);
+
+    } else {
+      this.heldItemCache.put(player.getName(), heldItemMainhand.copy());
+    }
   }
 
   @SubscribeEvent
   public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
 
-    Rule matchedRule = this.ruleLocator.locate(event);
+    Rule matchedRule = this.ruleLocator.locate(event, this.heldItemCache);
 
     if (matchedRule != null) {
       long start = System.currentTimeMillis();

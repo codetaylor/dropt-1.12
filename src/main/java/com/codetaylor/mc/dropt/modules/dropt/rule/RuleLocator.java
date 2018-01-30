@@ -9,6 +9,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -31,7 +32,10 @@ public class RuleLocator {
     this.map = map;
   }
 
-  public Rule locate(BlockEvent.HarvestDropsEvent event) {
+  public Rule locate(
+      BlockEvent.HarvestDropsEvent event,
+      Map<String, ItemStack> heldItemCache
+  ) {
 
     IBlockState state = event.getState();
 
@@ -47,7 +51,7 @@ public class RuleLocator {
       this.map.put(state, ruleList);
     }
 
-    return this.matchRule(event, ruleList);
+    return this.matchRule(event, heldItemCache, ruleList);
   }
 
   @Nonnull
@@ -101,7 +105,11 @@ public class RuleLocator {
     return result;
   }
 
-  private Rule matchRule(BlockEvent.HarvestDropsEvent event, List<Rule> ruleList) {
+  private Rule matchRule(
+      BlockEvent.HarvestDropsEvent event,
+      Map<String, ItemStack> heldItemCache,
+      List<Rule> ruleList
+  ) {
 
     DebugFileWrapper debugFileWrapper = null;
     RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(event);
@@ -122,7 +130,7 @@ public class RuleLocator {
         this.printDebugEventInfoToFile(event, debugFileWrapper);
       }
 
-      if (ruleMatcher.matches(rule.match, debugFileWrapper, debug)) {
+      if (ruleMatcher.matches(rule.match, heldItemCache, debugFileWrapper, debug)) {
         matchedRule = rule;
         break;
       }

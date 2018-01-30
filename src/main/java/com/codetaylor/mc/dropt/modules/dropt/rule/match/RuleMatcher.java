@@ -10,6 +10,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
+import java.util.Map;
 
 public class RuleMatcher {
 
@@ -52,6 +53,7 @@ public class RuleMatcher {
 
   public boolean matches(
       RuleMatch ruleMatch,
+      Map<String, ItemStack> heldItemCache,
       DebugFileWrapper logFile,
       boolean debug
   ) {
@@ -63,7 +65,7 @@ public class RuleMatcher {
     boolean result = this.matchVerticalRange(ruleMatch, this.posY, logFile, debug)
         && this.blockMatcher.matches(ruleMatch.blocks, this.blockState, logFile, debug)
         && this.dropMatcher.matches(ruleMatch.drops, logFile, debug, this.drops)
-        && this.harvesterMatcher.matches(ruleMatch.harvester, this.harvester, logFile, debug)
+        && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, logFile, debug)
         && this.biomeMatcher.matches(ruleMatch.biomes, this.biome, logFile, debug)
         && this.dimensionMatcher.matches(ruleMatch.dimensions, this.dimension, logFile, debug);
 
