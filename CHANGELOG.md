@@ -1,3 +1,6 @@
+1.5.5:
+* Fixed: tool with zero durability is removed from player before rules are matched, resulting in improper matching (#5)
+
 1.5.4:
 * Added: rule caching to significantly improve performance (#3)
 
