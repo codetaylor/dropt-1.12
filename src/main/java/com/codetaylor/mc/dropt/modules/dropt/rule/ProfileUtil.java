@@ -1,8 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -10,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileUtil {
@@ -54,19 +53,36 @@ public class ProfileUtil {
 
     ResourceLocation registryName = Blocks.STONE.getRegistryName();
 
+    int selectorCount = 0;
+
     if (registryName != null) {
       rule.match.blocks.blocks = new String[]{registryName.toString()};
       rule.match.harvester.heldItemMainHand.items = new String[]{"minecraft:stone_pickaxe:*"};
 
-      RuleDrop ruleDrop = new RuleDrop();
-      rule.drops = new RuleDrop[]{ruleDrop};
-      ruleDrop.item.items = new String[]{"minecraft:string"};
+      List<RuleDrop> ruleDropList = new ArrayList<>();
+
+      for (Item item : ForgeRegistries.ITEMS.getValues()) {
+        RuleDrop ruleDrop = new RuleDrop();
+        ruleDrop.item.items = new String[]{item.getRegistryName().toString()};
+        ruleDrop.selector = new RuleDropSelector();
+        ruleDrop.selector.weight = new RuleDropSelectorWeight();
+        ruleDrop.selector.weight.value = 10;
+        ruleDropList.add(ruleDrop);
+        selectorCount += 1;
+      }
+
+      rule.drops = ruleDropList.toArray(new RuleDrop[ruleDropList.size()]);
     }
 
     logFileWriter.info(String.format(
         "Injected %d rules in %d ms",
         ruleCount + 1,
         (System.currentTimeMillis() - start)
+    ));
+
+    logFileWriter.info(String.format(
+        "Test rule has %d weighted selectors",
+        selectorCount
     ));
 
   }
