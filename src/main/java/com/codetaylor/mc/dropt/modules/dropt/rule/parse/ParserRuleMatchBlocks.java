@@ -64,7 +64,7 @@ public class ParserRuleMatchBlocks
       }
 
       int meta = parse.getMeta();
-      int[] metas = new int[split.length];
+      int[] metas = new int[Math.max(split.length - 1, 0)];
 
       for (int i = 1; i < split.length; i++) {
 
