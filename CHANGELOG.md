@@ -1,3 +1,6 @@
+1.6.6
+* Fixed: improper meta matching for blocks (#10) 
+
 1.6.5
 * Added: new command `/dropt hand` to print and copy a held item's string that can be pasted into the drops section
 * Added: support for generating NBT tags on dropped items
