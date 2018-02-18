@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
+import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDroptConfig;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;

@@ -1,3 +1,7 @@
+1.6.7
+* Changed: moved recipe item parser code into the Athenaeum lib
+* Requires: Athenaeum >= 1.10.5
+
 1.6.6
 * Fixed: improper meta matching for blocks (#10) 
 
