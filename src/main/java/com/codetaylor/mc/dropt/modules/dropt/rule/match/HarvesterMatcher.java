@@ -35,10 +35,10 @@ public class HarvesterMatcher {
   ) {
 
     if (debug) {
-      logFile.debug("[MATCH] [--] Harvester type: " + ruleMatchHarvester.harvester);
+      logFile.debug("[MATCH] [--] Harvester type: " + ruleMatchHarvester.type);
     }
 
-    if (ruleMatchHarvester.harvester == EnumHarvesterType.ANY) {
+    if (ruleMatchHarvester.type == EnumHarvesterType.ANY) {
 
       if (harvester != null) {
 
@@ -75,7 +75,7 @@ public class HarvesterMatcher {
         return true;
       }
 
-    } else if (ruleMatchHarvester.harvester == EnumHarvesterType.NON_PLAYER) {
+    } else if (ruleMatchHarvester.type == EnumHarvesterType.NON_PLAYER) {
 
       boolean result = (harvester == null);
 
@@ -91,7 +91,7 @@ public class HarvesterMatcher {
 
       return result;
 
-    } else if (ruleMatchHarvester.harvester == EnumHarvesterType.PLAYER) {
+    } else if (ruleMatchHarvester.type == EnumHarvesterType.PLAYER) {
 
       if (harvester == null) {
 
