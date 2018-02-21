@@ -6,10 +6,10 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatcher;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -34,7 +34,7 @@ public class RuleLocator {
 
   public Rule locate(
       BlockEvent.HarvestDropsEvent event,
-      Map<String, ItemStack> heldItemCache
+      HeldItemCache heldItemCache
   ) {
 
     IBlockState state = event.getState();
@@ -107,7 +107,7 @@ public class RuleLocator {
 
   private Rule matchRule(
       BlockEvent.HarvestDropsEvent event,
-      Map<String, ItemStack> heldItemCache,
+      HeldItemCache heldItemCache,
       List<Rule> ruleList
   ) {
 

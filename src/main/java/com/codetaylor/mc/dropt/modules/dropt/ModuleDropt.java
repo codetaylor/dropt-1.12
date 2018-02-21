@@ -66,7 +66,10 @@ public class ModuleDropt
                 ),
                 RULE_CACHE
             ),
-            new DropModifier()
+            new DropModifier(),
+            new HeldItemCache(
+                new HashMap<>()
+            )
         )
     );
   }

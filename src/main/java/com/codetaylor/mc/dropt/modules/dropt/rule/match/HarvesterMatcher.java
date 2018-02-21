@@ -4,10 +4,8 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvester;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.Map;
 
 public class HarvesterMatcher {
 
@@ -28,7 +26,7 @@ public class HarvesterMatcher {
 
   public boolean matches(
       RuleMatchHarvester ruleMatchHarvester,
-      Map<String, ItemStack> heldItemCache,
+      HeldItemCache heldItemCache,
       @Nullable EntityPlayer harvester,
       DebugFileWrapper logFile,
       boolean debug

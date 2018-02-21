@@ -6,14 +6,12 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLocator;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EventHandler {
 
@@ -21,16 +19,17 @@ public class EventHandler {
   private DropModifier dropModifier;
   private DebugFileWrapper debugFileWrapper;
 
-  private Map<String, ItemStack> heldItemCache;
+  private HeldItemCache heldItemCache;
 
   public EventHandler(
       RuleLocator ruleLocator,
-      DropModifier dropModifier
+      DropModifier dropModifier,
+      HeldItemCache heldItemCache
   ) {
 
     this.ruleLocator = ruleLocator;
     this.dropModifier = dropModifier;
-    this.heldItemCache = new HashMap<>();
+    this.heldItemCache = heldItemCache;
   }
 
   @SubscribeEvent

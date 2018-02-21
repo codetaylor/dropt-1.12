@@ -10,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
-import java.util.Map;
 
 public class RuleMatcher {
 
@@ -53,7 +52,7 @@ public class RuleMatcher {
 
   public boolean matches(
       RuleMatch ruleMatch,
-      Map<String, ItemStack> heldItemCache,
+      HeldItemCache heldItemCache,
       DebugFileWrapper logFile,
       boolean debug
   ) {
