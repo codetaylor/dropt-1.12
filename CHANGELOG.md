@@ -1,3 +1,6 @@
+1.6.8
+* Fixed: harvester type is ignored
+
 1.6.7
 * Changed: moved recipe item parser code into the Athenaeum lib
 * Requires: Athenaeum >= 1.10.5
