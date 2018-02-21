@@ -1,3 +1,6 @@
+1.6.9
+* Fixed: NPE with fake player
+
 1.6.8
 * Fixed: harvester type is ignored
 
