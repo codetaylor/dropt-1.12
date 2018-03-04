@@ -145,7 +145,7 @@ public class DropModifier {
         while (xp > 0) {
           int xpDrop = EntityXPOrb.getXPSplit(xp);
           xp -= xpDrop;
-          world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xp));
+          world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xpDrop));
         }
 
       } else if (debug) {
