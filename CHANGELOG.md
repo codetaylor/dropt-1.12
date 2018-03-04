@@ -1,3 +1,6 @@
+1.6.10
+* Fixed: When adding XP drops to a block, XP ball appears but does not add to bar or make ding noise (#13)
+
 1.6.9
 * Fixed: NPE with fake player
 
