@@ -1,3 +1,7 @@
+1.7.0
+* Added: feature to allow replacing XP drops with the specified XP (#14)
+* Fixed: harvest drop event handler was not set to lowest priority, causing drop modifications to produce undesired results (#14)
+
 1.6.10
 * Fixed: When adding XP drops to a block, XP ball appears but does not add to bar or make ding noise (#13)
 
