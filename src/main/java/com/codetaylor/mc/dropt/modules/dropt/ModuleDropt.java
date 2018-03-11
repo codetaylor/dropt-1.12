@@ -69,6 +69,9 @@ public class ModuleDropt
             new DropModifier(),
             new HeldItemCache(
                 new HashMap<>()
+            ),
+            new ExperienceCache(
+                new HashMap<>()
             )
         )
     );

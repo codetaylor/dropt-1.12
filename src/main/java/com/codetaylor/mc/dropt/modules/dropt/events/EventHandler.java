@@ -6,6 +6,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLocator;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.match.ExperienceCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -21,19 +22,22 @@ public class EventHandler {
   private DebugFileWrapper debugFileWrapper;
 
   private HeldItemCache heldItemCache;
+  private ExperienceCache experienceCache;
 
   public EventHandler(
       RuleLocator ruleLocator,
       DropModifier dropModifier,
-      HeldItemCache heldItemCache
+      HeldItemCache heldItemCache,
+      ExperienceCache experienceCache
   ) {
 
     this.ruleLocator = ruleLocator;
     this.dropModifier = dropModifier;
     this.heldItemCache = heldItemCache;
+    this.experienceCache = experienceCache;
   }
 
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onBlockBreakEvent(BlockEvent.BreakEvent event) {
 
     EntityPlayer player = event.getPlayer();
@@ -53,6 +57,10 @@ public class EventHandler {
     } else {
       this.heldItemCache.put(player.getName(), heldItemMainhand.copy());
     }
+
+    this.experienceCache.put(player.getName(), event.getExpToDrop());
+
+    event.setExpToDrop(0);
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -74,6 +82,12 @@ public class EventHandler {
         this.initializeDebugFileWrapper();
       }
 
+      int experience = 0;
+
+      if (event.getHarvester() != null) {
+        experience = this.experienceCache.get(event.getHarvester().getName());
+      }
+
       this.dropModifier.modifyDrops(
           event.getWorld(),
           event.getPos(),
@@ -81,6 +95,7 @@ public class EventHandler {
           event.getDrops(),
           event.isSilkTouching(),
           event.getFortuneLevel(),
+          experience,
           this.debugFileWrapper,
           matchedRule.debug
       );

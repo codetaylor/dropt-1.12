@@ -25,6 +25,7 @@ public class DropModifier {
       List<ItemStack> currentDrops,
       boolean isSilkTouching,
       int fortuneLevel,
+      int experience,
       DebugFileWrapper logFile,
       boolean debug
   ) {
@@ -135,6 +136,10 @@ public class DropModifier {
       }
 
       int xp = ruleDrop.xp.get(RANDOM, fortuneLevel);
+
+      if (ruleDrop.xpReplaceStrategy == EnumXPReplaceStrategy.ADD) {
+        xp += experience;
+      }
 
       if (xp > 0) {
 
