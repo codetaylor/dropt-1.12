@@ -12,7 +12,8 @@ public class DropMatcher {
   public boolean matches(
       RuleMatchDrops ruleMatchDrops,
       DebugFileWrapper logFile,
-      boolean debug, List<ItemStack> eventDrops
+      boolean debug,
+      List<ItemStack> eventDrops
   ) {
 
     if (ruleMatchDrops.drops.length == 0) {

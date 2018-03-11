@@ -5,9 +5,9 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.event.world.BlockEvent;
 
 import java.util.List;
 
@@ -27,7 +27,11 @@ public class RuleMatcher {
   private final List<ItemStack> drops;
 
   public RuleMatcher(
-      BlockEvent.HarvestDropsEvent event,
+      World world,
+      EntityPlayer harvester,
+      BlockPos pos,
+      IBlockState blockState,
+      List<ItemStack> drops,
       BlockMatcher blockMatcher,
       DropMatcher dropMatcher,
       HarvesterMatcher harvesterMatcher,
@@ -41,13 +45,12 @@ public class RuleMatcher {
     this.biomeMatcher = biomeMatcher;
     this.dimensionMatcher = dimensionMatcher;
 
-    World world = event.getWorld();
-    this.harvester = event.getHarvester();
-    this.biome = world.getBiome(event.getPos());
+    this.harvester = harvester;
+    this.biome = world.getBiome(pos);
     this.dimension = world.provider.getDimension();
-    this.posY = event.getPos().getY();
-    this.blockState = event.getState();
-    this.drops = event.getDrops();
+    this.posY = pos.getY();
+    this.blockState = blockState;
+    this.drops = drops;
   }
 
   public boolean matches(

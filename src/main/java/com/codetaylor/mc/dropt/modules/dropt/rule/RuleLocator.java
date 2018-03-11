@@ -10,8 +10,10 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcher;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.RuleMatcherFactory;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.event.world.BlockEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -33,25 +35,27 @@ public class RuleLocator {
   }
 
   public Rule locate(
-      BlockEvent.HarvestDropsEvent event,
+      World world,
+      EntityPlayer harvester,
+      BlockPos pos,
+      IBlockState blockState,
+      List<ItemStack> drops,
       HeldItemCache heldItemCache
   ) {
 
-    IBlockState state = event.getState();
-
-    if (state == null) {
+    if (blockState == null) {
       return null;
     }
 
-    List<Rule> ruleList = this.map.get(state);
+    List<Rule> ruleList = this.map.get(blockState);
 
     if (ruleList == null) {
       // We haven't yet cached this blockState.
-      ruleList = this.cacheRules(state);
-      this.map.put(state, ruleList);
+      ruleList = this.cacheRules(blockState);
+      this.map.put(blockState, ruleList);
     }
 
-    return this.matchRule(event, heldItemCache, ruleList);
+    return this.matchRule(world, harvester, pos, blockState, drops, heldItemCache, ruleList);
   }
 
   @Nonnull
@@ -106,13 +110,17 @@ public class RuleLocator {
   }
 
   private Rule matchRule(
-      BlockEvent.HarvestDropsEvent event,
+      World world,
+      EntityPlayer harvester,
+      BlockPos pos,
+      IBlockState blockState,
+      List<ItemStack> drops,
       HeldItemCache heldItemCache,
       List<Rule> ruleList
   ) {
 
     DebugFileWrapper debugFileWrapper = null;
-    RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(event);
+    RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(world, harvester, pos, blockState, drops);
 
     long start = System.currentTimeMillis();
     int checkedRuleCount = 0;
@@ -127,7 +135,7 @@ public class RuleLocator {
         if (debugFileWrapper == null) {
           debugFileWrapper = new DebugFileWrapper(ModuleDropt.LOG_FILE_WRITER_PROVIDER.createLogFileWriter());
         }
-        this.printDebugEventInfoToFile(event, debugFileWrapper);
+        this.printDebugEventInfoToFile(world, harvester, pos, blockState, drops, debugFileWrapper);
       }
 
       if (ruleMatcher.matches(rule.match, heldItemCache, debugFileWrapper, debug)) {
@@ -155,18 +163,20 @@ public class RuleLocator {
     return matchedRule;
   }
 
-  private void printDebugEventInfoToFile(BlockEvent.HarvestDropsEvent event, DebugFileWrapper debugFileWrapper) {
+  private void printDebugEventInfoToFile(
+      World world,
+      EntityPlayer harvester,
+      BlockPos pos,
+      IBlockState blockState,
+      List<ItemStack> drops,
+      DebugFileWrapper debugFileWrapper
+  ) {
 
     debugFileWrapper.debug("--------------------------------------------------------------------------------------");
-    debugFileWrapper.debug("[EVENT] " + event.toString());
-    debugFileWrapper.debug("[EVENT] BlockState: " + event.getState().toString());
-    debugFileWrapper.debug("[EVENT] Harvester: " + event.getHarvester());
-    debugFileWrapper.debug("[EVENT] Drops: " + event.getDrops());
-    debugFileWrapper.debug("[EVENT] Position: " + event.getPos());
-    debugFileWrapper.debug("[EVENT] Fortune Level: " + event.getFortuneLevel());
-    debugFileWrapper.debug("[EVENT] Silktouch: " + event.isSilkTouching());
-
-    World world = event.getWorld();
+    debugFileWrapper.debug("[EVENT] BlockState: " + blockState.toString());
+    debugFileWrapper.debug("[EVENT] Harvester: " + harvester);
+    debugFileWrapper.debug("[EVENT] Drops: " + drops);
+    debugFileWrapper.debug("[EVENT] Position: " + pos);
 
     if (world != null) {
 
@@ -174,7 +184,7 @@ public class RuleLocator {
         debugFileWrapper.debug("[EVENT] Dimension: " + world.provider.getDimension());
       }
 
-      debugFileWrapper.debug("[EVENT] Biome: " + world.getBiome(event.getPos()).getRegistryName());
+      debugFileWrapper.debug("[EVENT] Biome: " + world.getBiome(pos).getRegistryName());
     }
   }
 }

@@ -1,6 +1,12 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+import java.util.List;
 
 public class RuleMatcherFactory {
 
@@ -24,10 +30,20 @@ public class RuleMatcherFactory {
     this.dimensionMatcher = dimensionMatcher;
   }
 
-  public RuleMatcher create(BlockEvent.HarvestDropsEvent event) {
+  public RuleMatcher create(
+      World world,
+      EntityPlayer harvester,
+      BlockPos pos,
+      IBlockState blockState,
+      List<ItemStack> drops
+  ) {
 
     return new RuleMatcher(
-        event,
+        world,
+        harvester,
+        pos,
+        blockState,
+        drops,
         this.blockMatcher,
         this.dropMatcher,
         this.harvesterMatcher,

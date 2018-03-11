@@ -58,7 +58,14 @@ public class EventHandler {
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
 
-    Rule matchedRule = this.ruleLocator.locate(event, this.heldItemCache);
+    Rule matchedRule = this.ruleLocator.locate(
+        event.getWorld(),
+        event.getHarvester(),
+        event.getPos(),
+        event.getState(),
+        event.getDrops(),
+        this.heldItemCache
+    );
 
     if (matchedRule != null) {
       long start = System.currentTimeMillis();
