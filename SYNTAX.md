@@ -347,7 +347,8 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 {
 &nbsp;&nbsp;"selector": [IRuleDropSelector](#iruledropselector),
 &nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem),
-&nbsp;&nbsp;"xp": [IRandomFortuneInt](#irandomfortuneint)
+&nbsp;&nbsp;"xp": [IRandomFortuneInt](#irandomfortuneint),
+&nbsp;&nbsp;"xpReplaceStrategy": enum
 }
 </pre></big>
 
@@ -361,7 +362,12 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
   
 * `xp`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `0`.
-  * This object defines how much XP to drop when the block is broken and this drop is selected. 
+  * This object defines how much XP to drop when the block is broken and this drop is selected.
+
+* `xpReplaceStrategy`: `enum`
+  * &#x1F539;*Optional* - if omitted, defaults to `ADD`.
+  * `ADD`: Add the specified xp to any xp dropped.
+  * `REPLACE`: Replace any xp dropped with the specified xp.
 
 ## IRuleDropSelector
 
