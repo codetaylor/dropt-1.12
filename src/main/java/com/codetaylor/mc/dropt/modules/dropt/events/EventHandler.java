@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHandler {
@@ -54,7 +55,7 @@ public class EventHandler {
     }
   }
 
-  @SubscribeEvent
+  @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
 
     Rule matchedRule = this.ruleLocator.locate(event, this.heldItemCache);
