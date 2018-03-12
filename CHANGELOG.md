@@ -1,3 +1,6 @@
+1.8.0
+* Added: new command `/dropt verbose` to log broken block resource location and meta to console
+
 1.7.0
 * Added: feature to allow replacing XP drops with the specified XP (#14)
 * Fixed: harvest drop event handler was not set to lowest priority, causing drop modifications to produce undesired results (#14)
