@@ -8,12 +8,17 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.drop.DropModifier;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ExperienceCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class EventHandler {
 
@@ -35,6 +40,15 @@ public class EventHandler {
     this.dropModifier = dropModifier;
     this.heldItemCache = heldItemCache;
     this.experienceCache = experienceCache;
+  }
+
+  @SubscribeEvent
+  public void onTickEvent(TickEvent event) {
+
+    if (event.side == Side.SERVER) {
+      ModuleDropt.CONSOLE_LOG.update();
+    }
+
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -66,11 +80,20 @@ public class EventHandler {
   @SubscribeEvent(priority = EventPriority.LOWEST)
   public void onHarvestDropsEvent(BlockEvent.HarvestDropsEvent event) {
 
+    IBlockState blockState = event.getState();
+    Block block = blockState.getBlock();
+    int meta = block.getMetaFromState(blockState);
+    ResourceLocation registryName = block.getRegistryName();
+
+    if (registryName != null) {
+      ModuleDropt.CONSOLE_LOG.increment(registryName, meta);
+    }
+
     Rule matchedRule = this.ruleLocator.locate(
         event.getWorld(),
         event.getHarvester(),
         event.getPos(),
-        event.getState(),
+        blockState,
         event.getDrops(),
         this.heldItemCache
     );

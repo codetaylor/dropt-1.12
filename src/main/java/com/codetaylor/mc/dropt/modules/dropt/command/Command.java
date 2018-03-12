@@ -2,19 +2,16 @@ package com.codetaylor.mc.dropt.modules.dropt.command;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
 import com.codetaylor.mc.dropt.modules.dropt.Util;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.LoggerWrapper;
-import com.google.gson.JsonObject;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import org.apache.logging.log4j.Logger;
@@ -76,6 +73,21 @@ public class Command
             sender.sendMessage(new TextComponentString(string));
 
             Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(string), null);
+          }
+        }
+
+      } else if ("verbose".equals(args[0])) {
+
+        if (sender instanceof EntityPlayer) {
+          EntityPlayer player = (EntityPlayer) sender;
+
+          if (ModuleDropt.CONSOLE_LOG.hasListeningPlayer(player)) {
+            ModuleDropt.CONSOLE_LOG.removeListeningPlayer(player);
+            sender.sendMessage(new TextComponentString("verbose off"));
+
+          } else {
+            ModuleDropt.CONSOLE_LOG.addListeningPlayer(player);
+            sender.sendMessage(new TextComponentString("verbose on - logging block info to console"));
           }
         }
 

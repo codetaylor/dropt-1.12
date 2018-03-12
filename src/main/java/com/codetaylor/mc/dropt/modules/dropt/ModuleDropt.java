@@ -27,10 +27,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ModuleDropt
     extends ModuleBase {
@@ -45,6 +42,7 @@ public class ModuleDropt
   public static Path RULE_PATH;
   public static Path LOG_PATH;
   public static LogFileWriterProvider LOG_FILE_WRITER_PROVIDER;
+  public static ConsoleLog CONSOLE_LOG;
 
   public ModuleDropt() {
 
@@ -74,6 +72,11 @@ public class ModuleDropt
                 new HashMap<>()
             )
         )
+    );
+
+    CONSOLE_LOG = new ConsoleLog(
+        new HashSet<>(),
+        new LinkedHashMap<>()
     );
   }
 
