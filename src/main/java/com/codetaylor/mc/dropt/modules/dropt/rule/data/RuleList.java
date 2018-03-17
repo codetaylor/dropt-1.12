@@ -15,6 +15,6 @@ public class RuleList
   @Override
   public int compareTo(@Nonnull RuleList otherRule) {
 
-    return Integer.compare(this.priority, otherRule.priority);
+    return Integer.compare(otherRule.priority, this.priority);
   }
 }
