@@ -1,3 +1,7 @@
+1.8.1
+* Fixed: RandomFortuneInt not behaving as expected (#20)
+* Fixed: rule file priority reversed (#19)
+
 1.8.0
 * Added: new command `/dropt verbose` to log broken block resource location and meta to console
 
