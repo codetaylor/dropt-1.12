@@ -4,37 +4,29 @@ import java.util.Random;
 
 public class RandomFortuneInt {
 
-  public int fixed = 0;
-  public int min = 1;
-  public int max = 1;
-  public int fortuneModifier = 0;
+  public int fixed;
+  public int min;
+  public int max;
+  public int fortuneModifier;
 
   public RandomFortuneInt() {
-    this(1, 1);
+    //
   }
 
-  public RandomFortuneInt(int min, int max) {
+  public RandomFortuneInt(int fixed) {
 
-    this.min = min;
-    this.max = max;
+    this.fixed = fixed;
   }
 
   public int get(Random random, int fortuneLevel) {
 
     if (this.fixed > 0) {
-      return this.fixed + fortuneLevel * this.fortuneModifier;
+      return this.fixed + Math.max(0, fortuneLevel * this.fortuneModifier);
     }
 
-    // We need to add one here because max is inclusive. For example, if the user specifies
-    // a min of 5 and a max of 5, the range would be zero and that would break the call to
-    // Random#nextInt below because it needs a value > 0.
-    int range = this.max - this.min + 1;
-
-    if (range < 1) {
-      return fortuneLevel * this.fortuneModifier;
-    }
-
-    return Math.max(0, random.nextInt(range) + this.min + fortuneLevel * this.fortuneModifier);
+    // Add one to the range to make the upper bound inclusive.
+    int range = Math.abs(this.max - this.min) + 1;
+    return random.nextInt(range) + Math.max(0, this.min + fortuneLevel * this.fortuneModifier);
   }
 
   @Override

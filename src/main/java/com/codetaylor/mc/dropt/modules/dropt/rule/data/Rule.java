@@ -6,7 +6,7 @@ public class Rule {
   public RuleMatch match = new RuleMatch();
   public EnumReplaceStrategy replaceStrategy = EnumReplaceStrategy.REPLACE_ALL;
   public EnumDropStrategy dropStrategy = EnumDropStrategy.REPEAT;
-  public RandomFortuneInt dropCount = new RandomFortuneInt();
+  public RandomFortuneInt dropCount = new RandomFortuneInt(1);
   public RuleDrop[] drops = new RuleDrop[0];
 
 }
