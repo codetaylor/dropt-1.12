@@ -363,6 +363,7 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 * `xp`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
   * &#x1F539;*Optional* - if omitted, defaults to `0`.
   * This object defines how much XP to drop when the block is broken and this drop is selected.
+  * This amount will either be added to or completely replace any XP that the block normally drops, see the enum below.
 
 * `xpReplaceStrategy`: `enum`
   * &#x1F539;*Optional* - if omitted, defaults to `ADD`.
