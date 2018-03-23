@@ -10,9 +10,11 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.ExperienceCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -84,19 +86,26 @@ public class EventHandler {
     Block block = blockState.getBlock();
     int meta = block.getMetaFromState(blockState);
     ResourceLocation registryName = block.getRegistryName();
+    World world = event.getWorld();
 
     if (registryName != null) {
       ModuleDropt.CONSOLE_LOG.increment(registryName, meta);
     }
 
     Rule matchedRule = this.ruleLocator.locate(
-        event.getWorld(),
+        world,
         event.getHarvester(),
         event.getPos(),
         blockState,
         event.getDrops(),
         this.heldItemCache
     );
+
+    int experience = 0;
+
+    if (event.getHarvester() != null) {
+      experience = this.experienceCache.get(event.getHarvester().getName());
+    }
 
     if (matchedRule != null) {
       long start = System.currentTimeMillis();
@@ -105,14 +114,8 @@ public class EventHandler {
         this.initializeDebugFileWrapper();
       }
 
-      int experience = 0;
-
-      if (event.getHarvester() != null) {
-        experience = this.experienceCache.get(event.getHarvester().getName());
-      }
-
       this.dropModifier.modifyDrops(
-          event.getWorld(),
+          world,
           event.getPos(),
           matchedRule,
           event.getDrops(),
@@ -129,6 +132,20 @@ public class EventHandler {
         this.debugFileWrapper.info(String.format(
             "Modified drops in %d ms",
             (System.currentTimeMillis() - start)
+        ));
+      }
+
+    } else {
+
+      while (experience > 0) {
+        int xpDrop = EntityXPOrb.getXPSplit(experience);
+        experience -= xpDrop;
+        world.spawnEntity(new EntityXPOrb(
+            world,
+            event.getPos().getX(),
+            event.getPos().getY() + 0.5,
+            event.getPos().getZ(),
+            xpDrop
         ));
       }
     }
