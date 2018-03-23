@@ -1,3 +1,6 @@
+1.8.2
+* Fixed: Blocks without rules, or that don't match a rule, don't drop their normal XP (#22)
+
 1.8.1
 * Fixed: RandomFortuneInt not behaving as expected (#20)
 * Fixed: rule file priority reversed (#19)
