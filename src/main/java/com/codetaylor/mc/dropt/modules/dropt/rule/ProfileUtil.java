@@ -21,6 +21,9 @@ public class ProfileUtil {
     RuleList ruleList = new RuleList();
     ruleLists.add(ruleList);
 
+    int sanity = 150000;
+
+    sanity:
     for (Block block : ForgeRegistries.BLOCKS.getValues()) {
 
       if (block == Blocks.STONE || block == Blocks.AIR) {
@@ -29,8 +32,13 @@ public class ProfileUtil {
 
       for (Item item : ForgeRegistries.ITEMS.getValues()) {
 
+        if (sanity <= 0) {
+          break sanity;
+        }
+
         Rule rule = new Rule();
         ruleList.rules.add(rule);
+        sanity -= 1;
         ruleCount += 1;
 
         ResourceLocation registryName = block.getRegistryName();
