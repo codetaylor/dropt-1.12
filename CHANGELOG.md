@@ -1,3 +1,6 @@
+1.9.0
+* Added: allow empty hand matching (#24)
+
 1.8.2
 * Fixed: Blocks without rules, or that don't match a rule, don't drop their normal XP (#22)
 
