@@ -5,8 +5,8 @@ import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -29,6 +29,18 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
     }
 
     for (String string : rule.match.harvester.heldItemMainHand.items) {
+
+      if (string == null) {
+        logger.error("[PARSE] Null item in list");
+        continue;
+      }
+
+      if ("empty".equals(string.toLowerCase())) {
+        rule.match.harvester.heldItemMainHand._items.add(ItemStack.EMPTY);
+        debugFileWrapper.debug("[PARSE] Parsed empty item");
+        continue;
+      }
+
       ParseResult parse;
 
       try {
