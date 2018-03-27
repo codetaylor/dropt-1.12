@@ -201,6 +201,7 @@ This object defines conditions for matching held items.
 * `items`: `String[]`
   * &#x1F539;*Optional* - if omitted, all held items will be matched.
   * Syntax: `domain:path:meta`, `meta` can be a wildcard `*`. It is advised to use the meta wildcard `*` when matching tools.
+  * Note: To match an empty hand, use `"EMTPY"`; ie. `"items": ["EMPTY"]`
 
 ## IRuleMatchHarvesterGameStage
 
