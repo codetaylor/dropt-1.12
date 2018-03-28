@@ -37,7 +37,7 @@ public class ParserRuleDropItem
               dropIndex
           ));
         }
-        return;
+        continue;
       }
 
       if (drop.item.items == null || drop.item.items.length == 0) {
@@ -48,7 +48,7 @@ public class ParserRuleDropItem
               dropIndex
           ));
         }
-        return;
+        continue;
       }
 
       if (rule.debug) {
