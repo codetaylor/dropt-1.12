@@ -1,3 +1,7 @@
+1.9.1
+* Added: limit the number of profiling rules to 150000
+* Fixed: RuleDrop's listed after empty RuleDrops don't get parsed (#25)
+
 1.9.0
 * Added: allow empty hand matching (#24)
 
