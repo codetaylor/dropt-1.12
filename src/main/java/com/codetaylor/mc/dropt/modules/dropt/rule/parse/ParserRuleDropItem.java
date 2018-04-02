@@ -29,6 +29,13 @@ public class ParserRuleDropItem
 
     for (RuleDrop drop : rule.drops) {
 
+      if (drop == null) {
+        // This prevents an NPE crash when a trailing comma is left after the
+        // last object in the RuleDrop list.
+        logger.warn("Malformed JSON caused null RuleDrop, skipping null RuleDrop");
+        continue;
+      }
+
       if (drop.item == null) {
 
         if (rule.debug) {

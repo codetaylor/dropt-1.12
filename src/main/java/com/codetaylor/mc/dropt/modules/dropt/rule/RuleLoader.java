@@ -114,6 +114,13 @@ public class RuleLoader {
 
       for (Rule rule : ruleList.rules) {
 
+        if (rule == null) {
+          // This prevents an NPE crash when a trailing comma is left after the
+          // last object in the Rule list.
+          logger.warn("Malformed JSON caused null Rule, skipping null Rule");
+          continue;
+        }
+
         if (rule.debug) {
           debugFileWrapper.debug("--------------------------------------------------------------------------------------");
           debugFileWrapper.debug(String.format("Parsing rule %d in file %s", ruleIndex, ruleList._filename));
