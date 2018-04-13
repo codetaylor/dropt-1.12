@@ -10,8 +10,11 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.ExperienceCache;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.HeldItemCache;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -21,6 +24,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.Map;
 
 public class EventHandler {
 
@@ -119,7 +124,7 @@ public class EventHandler {
           event.getPos(),
           matchedRule,
           event.getDrops(),
-          event.isSilkTouching(),
+          this.isSilkTouching(event, this.heldItemCache),
           event.getFortuneLevel(),
           experience,
           this.debugFileWrapper,
@@ -151,6 +156,29 @@ public class EventHandler {
     }
 
     this.closeDebugFileWrapper();
+  }
+
+  private boolean isSilkTouching(BlockEvent.HarvestDropsEvent event, HeldItemCache heldItemCache) {
+
+    if (event.isSilkTouching()) {
+      return true;
+    }
+
+    EntityPlayer harvester = event.getHarvester();
+
+    if (harvester == null) {
+      return false;
+    }
+
+    ItemStack itemStack = heldItemCache.get(harvester.getName());
+
+    if (itemStack.isEmpty()) {
+      return false;
+    }
+
+    Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
+
+    return enchantments.containsKey(Enchantments.SILK_TOUCH);
   }
 
   private void initializeDebugFileWrapper() {
