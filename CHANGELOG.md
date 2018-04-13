@@ -1,3 +1,6 @@
+1.9.3
+* Fixed: silk touch not working as expected with blocks that are coded to not be silk-touchable (#27)
+
 1.9.2
 * Fixed: NPE crash when parsing trailing comma in RuleDrop list (#26)
 
