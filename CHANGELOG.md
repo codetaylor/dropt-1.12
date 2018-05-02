@@ -1,3 +1,5 @@
+* Changed: update to GameStages 2.0
+
 1.9.3
 * Fixed: silk touch not working as expected with blocks that are coded to not be silk-touchable (#27)
 
