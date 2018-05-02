@@ -25,7 +25,7 @@ group = "com.sudoplay.mc"
 archivesBaseName = "dropt"
 
 project.ext.athenaeum_version = "1.12.2-1.10.5"
-project.ext.dependencies = ',dependencies = "required-after:athenaeum@[' + project.ext.athenaeum_version + ',);after:*;"'
+project.ext.dependencies = ',dependencies = "required-after:athenaeum@[' + project.ext.athenaeum_version + ',);after:gamestages@[2.0.90,);after:*;"'
 
 compileJava.doFirst {
     project.sourceSets.main.java.srcDirs.each { dir ->

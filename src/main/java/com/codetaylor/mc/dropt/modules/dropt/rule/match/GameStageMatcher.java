@@ -5,7 +5,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterGameStageTyp
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterGameStage;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
-import net.darkhax.gamestages.capabilities.PlayerDataHandler;
+import net.darkhax.gamestages.GameStageHelper;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nonnull;
@@ -40,12 +40,10 @@ public class GameStageMatcher {
       logFile.debug("[MATCH] [--] GameStages type: " + ruleMatchHarvesterGameStage.require);
     }
 
-    PlayerDataHandler.IStageData stageData = PlayerDataHandler.getStageData(harvester);
-
     boolean result = false;
 
     if (ruleMatchHarvesterGameStage.require == EnumHarvesterGameStageType.ALL) {
-      result = stageData.hasUnlockedAll(Arrays.asList(ruleMatchHarvesterGameStage.stages));
+      result = GameStageHelper.hasAllOf(harvester, ruleMatchHarvesterGameStage.stages);
 
       if (debug) {
 
@@ -59,7 +57,7 @@ public class GameStageMatcher {
       }
 
     } else if (ruleMatchHarvesterGameStage.require == EnumHarvesterGameStageType.ANY) {
-      result = stageData.hasUnlockedAnyOf(Arrays.asList(ruleMatchHarvesterGameStage.stages));
+      result = GameStageHelper.hasAnyOf(harvester, ruleMatchHarvesterGameStage.stages);
 
       if (debug) {
 
