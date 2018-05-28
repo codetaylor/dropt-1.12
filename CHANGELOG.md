@@ -1,3 +1,4 @@
+1.9.4
 * Changed: update to GameStages 2.0
 
 1.9.3
