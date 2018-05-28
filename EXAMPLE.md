@@ -8,7 +8,7 @@ Replace all dropped `ore:logWood` from any block with a single random dye 25% of
     {
       "match": {
         "drops": {
-          "items": [
+          "drops": [
             "ore:logWood"
           ]
         }
