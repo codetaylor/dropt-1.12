@@ -1,3 +1,6 @@
+1.10.0
+* Add harvest level matching to held item matching
+
 1.9.4
 * Changed: update to GameStages 2.0
 
