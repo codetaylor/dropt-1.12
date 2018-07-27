@@ -3,6 +3,7 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvester;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nullable;
@@ -28,6 +29,7 @@ public class HarvesterMatcher {
       RuleMatchHarvester ruleMatchHarvester,
       HeldItemCache heldItemCache,
       @Nullable EntityPlayer harvester,
+      IBlockState blockState,
       DebugFileWrapper logFile,
       boolean debug
   ) {
@@ -47,6 +49,8 @@ public class HarvesterMatcher {
         boolean result = this.heldItemMainHandMatcher.matches(
             ruleMatchHarvester.heldItemMainHand,
             heldItemCache.get(harvester.getName()),
+            blockState,
+            harvester,
             logFile,
             debug
         )
@@ -106,6 +110,8 @@ public class HarvesterMatcher {
       boolean result = this.heldItemMainHandMatcher.matches(
           ruleMatchHarvester.heldItemMainHand,
           heldItemCache.get(harvester.getName()),
+          blockState,
+          harvester,
           logFile,
           debug
       )

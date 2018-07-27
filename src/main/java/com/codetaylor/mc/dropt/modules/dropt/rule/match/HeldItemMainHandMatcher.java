@@ -3,13 +3,94 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterHeldItemMainHand;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.Set;
+
 public class HeldItemMainHandMatcher {
 
   public boolean matches(
+      RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
+      ItemStack heldItemStack,
+      IBlockState blockState,
+      EntityPlayer harvester,
+      DebugFileWrapper logFile,
+      boolean debug
+  ) {
+
+    Item item = heldItemStack.getItem();
+    String toolClass = ruleMatchHarvesterHeldItemMainHand._toolClass;
+
+    if (toolClass != null) {
+      int harvestLevel = item.getHarvestLevel(heldItemStack, toolClass, harvester, blockState);
+
+      // WHITELIST
+      if (ruleMatchHarvesterHeldItemMainHand.type == EnumListType.WHITELIST) {
+        Set<String> toolClasses = item.getToolClasses(heldItemStack);
+
+        if (!toolClasses.contains(toolClass)) {
+
+          if (debug) {
+            logFile.debug("[MATCH] [!!] Held item doesn't have required tool class: " + toolClass);
+          }
+          return false;
+        }
+
+        if (debug) {
+          logFile.debug("[MATCH] [OK] Held item has required tool class: " + toolClass);
+        }
+
+        if (harvestLevel < ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
+            || harvestLevel > ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel) {
+
+          if (debug) {
+            logFile.debug("[MATCH] [!!] Harvest tool outside of level range");
+          }
+          return false;
+        }
+
+        if (debug) {
+          logFile.debug("[MATCH] [OK] Harvest tool inside of level range");
+        }
+
+      } else { // BLACKLIST
+        Set<String> toolClasses = item.getToolClasses(heldItemStack);
+
+        if (toolClasses.contains(toolClass)) {
+
+          if (debug) {
+            logFile.debug("[MATCH] [!!] Held item has an excluded tool class: " + toolClass);
+          }
+          return false;
+        }
+
+        if (debug) {
+          logFile.debug("[MATCH] [OK] Held item doesn't have an excluded tool class: " + toolClass);
+        }
+
+        if (harvestLevel >= ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
+            && harvestLevel <= ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel) {
+
+          if (debug) {
+            logFile.debug("[MATCH] [!!] Harvest tool inside of level range");
+          }
+          return false;
+        }
+
+        if (debug) {
+          logFile.debug("[MATCH] [OK] Harvest tool outside of level range");
+        }
+      }
+    }
+
+    return this.checkItemList(ruleMatchHarvesterHeldItemMainHand, heldItemStack, logFile, debug);
+  }
+
+  private boolean checkItemList(
       RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
       ItemStack heldItemStack,
       DebugFileWrapper logFile,
@@ -19,7 +100,7 @@ public class HeldItemMainHandMatcher {
     if (ruleMatchHarvesterHeldItemMainHand._items.isEmpty()) {
 
       if (debug) {
-        logFile.debug("[MATCH] [OK] No entries in heldItemMainHand to match");
+        logFile.debug("[MATCH] [OK] No item entries in heldItemMainHand to match");
       }
       return true;
     }
@@ -30,7 +111,6 @@ public class HeldItemMainHandMatcher {
     } else {
       return this.checkAsBlacklist(ruleMatchHarvesterHeldItemMainHand, heldItemStack, logFile, debug);
     }
-
   }
 
   private boolean checkAsWhitelist(
@@ -40,9 +120,10 @@ public class HeldItemMainHandMatcher {
       boolean debug
   ) {
 
+    Item heldItem = heldItemStack.getItem();
+    int metadata = heldItemStack.getMetadata();
+
     for (ItemStack itemStack : ruleMatchHarvesterHeldItemMainHand._items) {
-      Item heldItem = heldItemStack.getItem();
-      int metadata = heldItemStack.getMetadata();
 
       if (itemStack.getItem() != heldItem) {
 
@@ -97,9 +178,10 @@ public class HeldItemMainHandMatcher {
       boolean debug
   ) {
 
+    Item heldItem = heldItemStack.getItem();
+    int metadata = heldItemStack.getMetadata();
+
     for (ItemStack itemStack : ruleMatchHarvesterHeldItemMainHand._items) {
-      Item heldItem = heldItemStack.getItem();
-      int metadata = heldItemStack.getMetadata();
 
       if (itemStack.getItem() != heldItem) {
 

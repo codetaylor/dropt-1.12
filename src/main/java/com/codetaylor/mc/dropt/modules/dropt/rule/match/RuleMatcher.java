@@ -67,7 +67,7 @@ public class RuleMatcher {
     boolean result = this.matchVerticalRange(ruleMatch, this.posY, logFile, debug)
         && this.blockMatcher.matches(ruleMatch.blocks, this.blockState, logFile, debug)
         && this.dropMatcher.matches(ruleMatch.drops, logFile, debug, this.drops)
-        && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, logFile, debug)
+        && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, this.blockState, logFile, debug)
         && this.biomeMatcher.matches(ruleMatch.biomes, this.biome, logFile, debug)
         && this.dimensionMatcher.matches(ruleMatch.dimensions, this.dimension, logFile, debug);
 

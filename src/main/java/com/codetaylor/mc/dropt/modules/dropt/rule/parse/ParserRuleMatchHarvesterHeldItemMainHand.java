@@ -73,5 +73,33 @@ public class ParserRuleMatchHarvesterHeldItemMainHand
         debugFileWrapper.debug("[PARSE] Added itemStack to match: " + itemStack);
       }
     }
+
+    String harvestLevel = rule.match.harvester.heldItemMainHand.harvestLevel;
+
+    if (harvestLevel != null) {
+      String[] split = harvestLevel.split(";");
+
+      if (split.length != 3) {
+        logger.error("[PARSE] Invalid harvest level string: " + harvestLevel);
+
+      } else {
+        rule.match.harvester.heldItemMainHand._toolClass = split[0];
+
+        try {
+          rule.match.harvester.heldItemMainHand._minHarvestLevel = Integer.valueOf(split[1]);
+          rule.match.harvester.heldItemMainHand._maxHarvestLevel = Integer.valueOf(split[2]);
+        } catch (Exception e) {
+          logger.error("[PARSE] Invalid harvest level string: " + harvestLevel);
+        }
+
+        if (rule.match.harvester.heldItemMainHand._minHarvestLevel < 0) {
+          rule.match.harvester.heldItemMainHand._minHarvestLevel = Integer.MIN_VALUE;
+        }
+
+        if (rule.match.harvester.heldItemMainHand._maxHarvestLevel < 0) {
+          rule.match.harvester.heldItemMainHand._maxHarvestLevel = Integer.MAX_VALUE;
+        }
+      }
+    }
   }
 }
