@@ -189,7 +189,8 @@ This object defines conditions for matching held items.
 <big><pre>
 {
 &nbsp;&nbsp;"type": enum,
-&nbsp;&nbsp;"items": String[]
+&nbsp;&nbsp;"items": String[],
+&nbsp;&nbsp;"harvestLevel": String
 }
 </pre></big>
 
@@ -202,6 +203,12 @@ This object defines conditions for matching held items.
   * &#x1F539;*Optional* - if omitted, all held items will be matched.
   * Syntax: `domain:path:meta`, `meta` can be a wildcard `*`. It is advised to use the meta wildcard `*` when matching tools.
   * Note: To match an empty hand, use `"EMTPY"`; ie. `"items": ["EMPTY"]`
+
+* `harvestLevel`: `String`
+  * &#x1F539;*Optional* - if omitted, harvest level is ignored.
+  * Syntax: `toolClass;min;max`; ie. `shovel;0;1` for wood and stone shovels.
+  * To set only a min or max value, set the value you want ignored to -1; ie. `pickaxe;2;-1` for iron pickaxes and above.
+  * Note that the min and max level values are inclusive and that the harvest level matching respects the `type` enum.
 
 ## IRuleMatchHarvesterGameStage
 
