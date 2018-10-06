@@ -1,3 +1,6 @@
+1.10.1
+* Allow xp to drop when item array is empty (#42)
+
 1.10.0
 * Add harvest level matching to held item matching
 
