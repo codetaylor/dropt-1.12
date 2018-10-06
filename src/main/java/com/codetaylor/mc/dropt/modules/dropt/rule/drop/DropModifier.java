@@ -111,6 +111,28 @@ public class DropModifier {
         logFile.debug("[DROP] Selected drop quantity: " + itemQuantity);
       }
 
+      int xp = ruleDrop.xp.get(RANDOM, fortuneLevel);
+
+      if (ruleDrop.xpReplaceStrategy == EnumXPReplaceStrategy.ADD) {
+        xp += experience;
+      }
+
+      if (xp > 0) {
+
+        if (debug) {
+          logFile.debug("[DROP] Dropping xp: " + xp);
+        }
+
+        while (xp > 0) {
+          int xpDrop = EntityXPOrb.getXPSplit(xp);
+          xp -= xpDrop;
+          world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xpDrop));
+        }
+
+      } else if (debug) {
+        logFile.debug("[DROP] Dropped zero xp");
+      }
+
       if (itemQuantity <= 0) {
 
         if (debug) {
@@ -133,28 +155,6 @@ public class DropModifier {
 
       if (debug) {
         logFile.debug("[DROP] Added ItemStack to drop list: " + copy);
-      }
-
-      int xp = ruleDrop.xp.get(RANDOM, fortuneLevel);
-
-      if (ruleDrop.xpReplaceStrategy == EnumXPReplaceStrategy.ADD) {
-        xp += experience;
-      }
-
-      if (xp > 0) {
-
-        if (debug) {
-          logFile.debug("[DROP] Dropping xp: " + xp);
-        }
-
-        while (xp > 0) {
-          int xpDrop = EntityXPOrb.getXPSplit(xp);
-          xp -= xpDrop;
-          world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY() + 0.5, pos.getZ(), xpDrop));
-        }
-
-      } else if (debug) {
-        logFile.debug("[DROP] Dropped zero xp");
       }
     }
 
