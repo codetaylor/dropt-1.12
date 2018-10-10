@@ -41,6 +41,10 @@ public class ParserRuleMatchItems
 
     for (String string : rule.match.drops.drops) {
 
+      if (string == null) {
+        continue;
+      }
+
       String[] split = string.split(",");
 
       ParseResult parse;
