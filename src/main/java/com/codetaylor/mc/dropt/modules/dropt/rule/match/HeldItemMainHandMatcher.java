@@ -60,29 +60,20 @@ public class HeldItemMainHandMatcher {
       } else { // BLACKLIST
         Set<String> toolClasses = item.getToolClasses(heldItemStack);
 
-        if (toolClasses.contains(toolClass)) {
+        boolean harvestLevelInRange = harvestLevel >= ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
+            && harvestLevel <= ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel;
+        boolean toolClassMatches = toolClasses.contains(toolClass);
+
+        if (toolClassMatches && harvestLevelInRange) {
 
           if (debug) {
-            logFile.debug("[MATCH] [!!] Held item has an excluded tool class: " + toolClass);
+            logFile.debug("[MATCH] [!!] Held item is excluded: " + toolClass + ";" + harvestLevel);
           }
           return false;
         }
 
         if (debug) {
-          logFile.debug("[MATCH] [OK] Held item doesn't have an excluded tool class: " + toolClass);
-        }
-
-        if (harvestLevel >= ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
-            && harvestLevel <= ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel) {
-
-          if (debug) {
-            logFile.debug("[MATCH] [!!] Harvest tool inside of level range");
-          }
-          return false;
-        }
-
-        if (debug) {
-          logFile.debug("[MATCH] [OK] Harvest tool outside of level range");
+          logFile.debug("[MATCH] [OK] Held item isn't excluded: " + toolClass + ";" + harvestLevel);
         }
       }
     }
