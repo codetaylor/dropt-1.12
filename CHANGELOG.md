@@ -1,3 +1,7 @@
+1.10.2
+* Prevent NPE (#41)
+* Fix: Blacklisted harvest level doesn't work as expected (#43)
+
 1.10.1
 * Allow xp to drop when item array is empty (#42)
 
