@@ -1,5 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
+import com.codetaylor.mc.dropt.api.api.RandomFortuneInt;
+
 public class RuleDrop {
 
   public RuleDropSelector selector = new RuleDropSelector();

@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterType;
+import com.codetaylor.mc.dropt.api.reference.EnumHarvesterType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvester;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.state.IBlockState;

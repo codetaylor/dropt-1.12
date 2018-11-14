@@ -1,14 +1,16 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
+import com.codetaylor.mc.dropt.api.event.DroptLoadRulesEvent;
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDroptConfig;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.parse.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.io.FileReader;
 import java.nio.file.DirectoryStream;
@@ -28,6 +30,18 @@ public class RuleLoader {
       ILogger logger,
       DebugFileWrapper debugFileWrapper
   ) {
+
+    long start = System.currentTimeMillis();
+
+    MinecraftForge.EVENT_BUS.post(new DroptLoadRulesEvent());
+
+    if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+      debugFileWrapper.info(String.format(
+          "Loaded %d mod rule lists in %d ms",
+          ruleLists.size(),
+          (System.currentTimeMillis() - start)
+      ));
+    }
 
     if (!Files.exists(path)) {
 
@@ -66,7 +80,7 @@ public class RuleLoader {
       debugFileWrapper.info("Located rule file: " + path.relativize(pathFile));
     }
 
-    long start = System.currentTimeMillis();
+    start = System.currentTimeMillis();
 
     for (Path jsonFile : jsonFiles) {
 

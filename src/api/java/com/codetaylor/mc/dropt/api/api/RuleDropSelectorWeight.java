@@ -1,4 +1,4 @@
-package com.codetaylor.mc.dropt.modules.dropt.rule.data;
+package com.codetaylor.mc.dropt.api.api;
 
 public class RuleDropSelectorWeight {
 

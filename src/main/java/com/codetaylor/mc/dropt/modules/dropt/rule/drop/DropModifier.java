@@ -1,6 +1,9 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.drop;
 
 import com.codetaylor.mc.athenaeum.util.WeightedPicker;
+import com.codetaylor.mc.dropt.api.reference.EnumDropStrategy;
+import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
+import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;

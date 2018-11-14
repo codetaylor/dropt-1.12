@@ -1,5 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
+import com.codetaylor.mc.dropt.api.api.RuleDropSelectorWeight;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 
 public class RuleDropSelector {

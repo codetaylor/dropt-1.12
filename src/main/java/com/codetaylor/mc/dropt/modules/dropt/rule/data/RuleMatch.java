@@ -1,5 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.api.api.RangeInt;
+
 public class RuleMatch {
 
   public RuleMatchBlocks blocks = new RuleMatchBlocks();

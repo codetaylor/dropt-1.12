@@ -1,5 +1,9 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.api.reference.EnumDropStrategy;
+import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
+import com.codetaylor.mc.dropt.api.api.RandomFortuneInt;
+
 public class Rule {
 
   public boolean debug = false;

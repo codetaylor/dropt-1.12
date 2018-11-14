@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule;
 
+import com.codetaylor.mc.dropt.api.api.RuleDropSelectorWeight;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.Block;

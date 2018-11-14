@@ -1,7 +1,12 @@
 package com.codetaylor.mc.dropt.modules.dropt;
 
 import com.codetaylor.mc.athenaeum.module.ModuleBase;
+import com.codetaylor.mc.athenaeum.util.Injector;
 import com.codetaylor.mc.dropt.ModDropt;
+import com.codetaylor.mc.dropt.api.*;
+import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
+import com.codetaylor.mc.dropt.api.api.IDroptHarvesterRuleBuilder;
+import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
 import com.codetaylor.mc.dropt.modules.dropt.command.Command;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
 import com.codetaylor.mc.dropt.modules.dropt.rule.ProfileUtil;
@@ -16,6 +21,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -28,6 +34,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class ModuleDropt
     extends ModuleBase {
@@ -43,6 +50,8 @@ public class ModuleDropt
   public static Path LOG_PATH;
   public static LogFileWriterProvider LOG_FILE_WRITER_PROVIDER;
   public static ConsoleLog CONSOLE_LOG;
+
+  private final RuleRegistrationHandler ruleRegistrationHandler;
 
   public ModuleDropt() {
 
@@ -77,6 +86,37 @@ public class ModuleDropt
     CONSOLE_LOG = new ConsoleLog(
         new HashSet<>(),
         new LinkedHashMap<>()
+    );
+
+    this.ruleRegistrationHandler = new RuleRegistrationHandler(RULE_LISTS);
+  }
+
+  @Override
+  public void onConstructionEvent(FMLConstructionEvent event) {
+
+    super.onConstructionEvent(event);
+
+    Injector injector = new Injector();
+
+    injector.inject(
+        DroptAPI.class,
+        "SUPPLIER_RULE_BUILDER",
+        (Supplier<IDroptRuleBuilder>) RuleBuilder::new
+    );
+    injector.inject(
+        DroptAPI.class,
+        "SUPPLIER_HARVESTER_RULE_BUILDER",
+        (Supplier<IDroptHarvesterRuleBuilder>) HarvesterRuleBuilder::new
+    );
+    injector.inject(
+        DroptAPI.class,
+        "SUPPLIER_DROP_BUILDER",
+        (Supplier<IDroptDropBuilder>) DropBuilder::new
+    );
+    injector.inject(
+        DroptAPI.class,
+        "CONSUMER_RULE",
+        this.ruleRegistrationHandler
     );
   }
 

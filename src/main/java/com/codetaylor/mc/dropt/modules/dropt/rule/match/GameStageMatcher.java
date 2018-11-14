@@ -1,8 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.modules.dropt.ModuleDropt;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumHarvesterGameStageType;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.EnumListType;
+import com.codetaylor.mc.dropt.api.reference.EnumHarvesterGameStageType;
+import com.codetaylor.mc.dropt.api.reference.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterGameStage;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.darkhax.gamestages.GameStageHelper;

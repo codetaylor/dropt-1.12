@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.data;
 
+import com.codetaylor.mc.dropt.api.reference.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
 
 import java.util.ArrayList;
