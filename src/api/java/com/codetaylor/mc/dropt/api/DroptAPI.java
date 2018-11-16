@@ -2,16 +2,28 @@ package com.codetaylor.mc.dropt.api;
 
 import com.codetaylor.mc.dropt.api.api.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 import java.util.function.Supplier;
 
+@SuppressWarnings("ConstantConditions")
 public final class DroptAPI {
 
+  /**
+   * The following fields are injected during Dropt's FMLConstructionEvent.
+   */
+
+  private static final Supplier<String> SUPPLIER_MOD_ID = null;
   private static final Supplier<IDroptRuleBuilder> SUPPLIER_RULE_BUILDER = null;
   private static final Supplier<IDroptHarvesterRuleBuilder> SUPPLIER_HARVESTER_RULE_BUILDER = null;
   private static final Supplier<IDroptDropBuilder> SUPPLIER_DROP_BUILDER = null;
   private static final IRuleRegistrationHandler CONSUMER_RULE = null;
+
+  public static String modId() {
+
+    return SUPPLIER_MOD_ID.get();
+  }
 
   public static void registerRuleList(ResourceLocation id, int priority, List<IDroptRuleBuilder> builders) {
 
@@ -70,6 +82,11 @@ public final class DroptAPI {
     result.value = weight;
     result.fortuneModifier = fortuneModifier;
     return result;
+  }
+
+  public static String itemString(String modId, String name, int meta) {
+
+    return modId + ":" + name + ":" + ((meta == OreDictionary.WILDCARD_VALUE) ? "*" : meta);
   }
 
 }

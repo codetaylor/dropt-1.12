@@ -100,6 +100,11 @@ public class ModuleDropt
 
     injector.inject(
         DroptAPI.class,
+        "SUPPLIER_MOD_ID",
+        (Supplier<String>) () -> ModuleDropt.MOD_ID
+    );
+    injector.inject(
+        DroptAPI.class,
         "SUPPLIER_RULE_BUILDER",
         (Supplier<IDroptRuleBuilder>) RuleBuilder::new
     );
