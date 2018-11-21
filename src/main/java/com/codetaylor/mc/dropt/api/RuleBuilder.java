@@ -18,10 +18,12 @@ public class RuleBuilder
     implements IDroptRuleBuilder {
 
   private final Rule rule;
+  private final List<RuleDrop> dropList;
 
   public RuleBuilder() {
 
     this.rule = new Rule();
+    this.dropList = new ArrayList<>();
   }
 
   @Override
@@ -139,12 +141,14 @@ public class RuleBuilder
       list.add(((DropBuilder) drop).build());
     }
 
-    this.rule.drops = list.toArray(new RuleDrop[drops.length]);
+    this.dropList.addAll(list);
 
     return this;
   }
 
   public Rule build() {
+
+    this.rule.drops = this.dropList.toArray(new RuleDrop[this.dropList.size()]);
 
     return this.rule;
   }
