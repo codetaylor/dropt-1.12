@@ -1,6 +1,7 @@
 package com.codetaylor.mc.dropt.api;
 
 import com.codetaylor.mc.dropt.api.api.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -87,6 +88,13 @@ public final class DroptAPI {
   public static String itemString(String modId, String name, int meta) {
 
     return modId + ":" + name + ":" + ((meta == OreDictionary.WILDCARD_VALUE) ? "*" : meta);
+  }
+
+  public static String itemString(ItemStack itemStack) {
+
+    ResourceLocation registryName = itemStack.getItem().getRegistryName();
+    int metadata = itemStack.getMetadata();
+    return DroptAPI.itemString(registryName.getResourceDomain(), registryName.getResourcePath(), metadata);
   }
 
 }
