@@ -1,6 +1,5 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
-import com.codetaylor.mc.dropt.api.DroptAPI;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
 import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -15,6 +14,7 @@ public class ZenRuleList {
 
   private List<IDroptRuleBuilder> ruleList;
   private ResourceLocation resourceLocation;
+  private int priority;
 
   /* package */ ZenRuleList(ResourceLocation resourceLocation) {
 
@@ -30,15 +30,24 @@ public class ZenRuleList {
   }
 
   @ZenMethod
-  public void register() {
+  public ZenRuleList priority(int priority) {
 
-    this.register(0);
+    this.priority = priority;
+    return this;
   }
 
-  @ZenMethod
-  public void register(int priority) {
+  public List<IDroptRuleBuilder> getRuleList() {
 
-    DroptAPI.registerRuleList(this.resourceLocation, priority, this.ruleList);
+    return this.ruleList;
   }
 
+  public ResourceLocation getResourceLocation() {
+
+    return this.resourceLocation;
+  }
+
+  public int getPriority() {
+
+    return this.priority;
+  }
 }
