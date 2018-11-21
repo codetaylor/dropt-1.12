@@ -80,7 +80,8 @@ public class ZenDropt {
     return new ZenWeight(DroptAPI.weight(value, fortuneModifier));
   }
 
-  public static String[] getItemStrings(IItemStack[] items) {
+  /* package */
+  static String[] getItemStrings(IItemStack[] items) {
 
     ItemStack[] itemStacks = CTInputHelper.toStacks(items);
     String[] itemStrings = new String[itemStacks.length];
