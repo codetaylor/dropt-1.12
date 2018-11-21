@@ -2,12 +2,14 @@ package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
 import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTInputHelper;
 import com.codetaylor.mc.dropt.api.DroptAPI;
+import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +87,23 @@ public class ZenDropt {
 
     for (int i = 0; i < itemStacks.length; i++) {
       itemStrings[i] = DroptAPI.itemString(itemStacks[i]);
+    }
+    return itemStrings;
+  }
+
+  /* package */
+  static String[] getItemStrings(IIngredient[] items) {
+
+    ArrayList<ItemStack> itemStacks = new ArrayList<>();
+
+    for (int i = 0; i < items.length; i++) {
+      CTInputHelper.getMatchingStacks(items[i], itemStacks);
+    }
+
+    String[] itemStrings = new String[itemStacks.size()];
+
+    for (int i = 0; i < itemStacks.size(); i++) {
+      itemStrings[i] = DroptAPI.itemString(itemStacks.get(i));
     }
     return itemStrings;
   }

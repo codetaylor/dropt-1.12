@@ -1,6 +1,5 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
-import com.codetaylor.mc.athenaeum.integration.crafttweaker.mtlib.helpers.CTInputHelper;
 import com.codetaylor.mc.dropt.api.DroptAPI;
 import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
@@ -8,11 +7,8 @@ import com.codetaylor.mc.dropt.api.reference.EnumDropStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumListType;
 import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
 import crafttweaker.api.item.IIngredient;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-
-import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 @ZenClass("mods.dropt.Rule")
@@ -49,14 +45,14 @@ public class ZenRule {
   @ZenMethod
   public ZenRule matchDrops(IIngredient[] items) {
 
-    this.rule.matchDrops(this.getItemStrings(items));
+    this.rule.matchDrops(ZenDropt.getItemStrings(items));
     return this;
   }
 
   @ZenMethod
   public ZenRule matchDrops(String type, IIngredient[] items) {
 
-    this.rule.matchDrops(EnumListType.valueOf(type), this.getItemStrings(items));
+    this.rule.matchDrops(EnumListType.valueOf(type), ZenDropt.getItemStrings(items));
     return this;
   }
 
@@ -128,22 +124,6 @@ public class ZenRule {
 
     this.rule.addDrops(new IDroptDropBuilder[]{drop.getDrop()});
     return this;
-  }
-
-  private String[] getItemStrings(IIngredient[] items) {
-
-    ArrayList<ItemStack> itemStacks = new ArrayList<>();
-
-    for (int i = 0; i < items.length; i++) {
-      CTInputHelper.getMatchingStacks(items[i], itemStacks);
-    }
-
-    String[] itemStrings = new String[itemStacks.size()];
-
-    for (int i = 0; i < itemStacks.size(); i++) {
-      itemStrings[i] = DroptAPI.itemString(itemStacks.get(i));
-    }
-    return itemStrings;
   }
 
   public IDroptRuleBuilder getRule() {
