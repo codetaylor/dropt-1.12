@@ -8,6 +8,7 @@ import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
 import com.codetaylor.mc.dropt.api.api.IDroptHarvesterRuleBuilder;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
 import com.codetaylor.mc.dropt.modules.dropt.command.Command;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.CTCompatEventHandler;
 import com.codetaylor.mc.dropt.modules.dropt.events.EventHandler;
 import com.codetaylor.mc.dropt.modules.dropt.rule.ProfileUtil;
 import com.codetaylor.mc.dropt.modules.dropt.rule.RuleLoader;
@@ -21,10 +22,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.match.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -146,6 +144,10 @@ public class ModuleDropt
   public void onPreInitializationEvent(FMLPreInitializationEvent event) {
 
     super.onPreInitializationEvent(event);
+
+    if (Loader.isModLoaded("crafttweaker")) {
+      MinecraftForge.EVENT_BUS.register(new CTCompatEventHandler());
+    }
 
     MOD_GAMESTAGES = Loader.isModLoaded("gamestages");
     LOGGER = LogManager.getLogger(MOD_ID + "." + this.getClass().getSimpleName());
