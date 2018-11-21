@@ -57,6 +57,23 @@ public class ModuleDropt
 
     super(0, MOD_ID);
 
+    String[] plugins = new String[]{
+        "ZenDrop",
+        "ZenDropt",
+        "ZenHarvester",
+        "ZenRange",
+        "ZenRule",
+        "ZenRuleList",
+        "ZenWeight"
+    };
+
+    for (String plugin : plugins) {
+      this.registerIntegrationPlugin(
+          "crafttweaker",
+          "com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker." + plugin
+      );
+    }
+
     MinecraftForge.EVENT_BUS.register(
         new EventHandler(
             new RuleLocator(
