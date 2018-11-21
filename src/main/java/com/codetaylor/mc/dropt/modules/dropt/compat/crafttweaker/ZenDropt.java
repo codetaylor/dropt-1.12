@@ -24,6 +24,7 @@ public class ZenDropt {
 
     if (list == null) {
       list = new ZenRuleList(new ResourceLocation("crafttweaker", name));
+      LISTS.put(name, list);
     }
 
     return list;
