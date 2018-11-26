@@ -1,5 +1,7 @@
 All parameters are required unless explicitly marked &#x1F539;*Optional*.
 
+---
+
 ## IRuleList
 
 This is the main object of any `.json` rule files.
@@ -19,6 +21,8 @@ Rule files are processed in the order in which they are loaded. Files with a hig
 
 * `rules`: <code>[IRule](#irule)[]</code>
     + This array contains objects which define match and replace behavior.
+
+---
 
 ## IRule
 
@@ -66,6 +70,8 @@ Each `IRule` entry is matched in the same order it is defined the file.
     + &#x1F539;*Optional* - if omitted, no drops will be processed.
     + This array defines the potential drops for this rule.
 
+---
+
 ## IRuleMatch
 
 The `IRuleMatch` is responsible for matching a rule using defined conditions. 
@@ -107,6 +113,8 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
     + &#x1F539;*Optional* - if omitted, defaults to full height range.
     + This object defines the vertical range condition.
 
+---
+
 ## IRuleMatchBlocks
 
 This object defines conditions to match the broken blockstate.
@@ -129,6 +137,8 @@ This object defines conditions to match the broken blockstate.
     + Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
     + Example: `minecraft:stone:0`
 
+---
+
 ## IRuleMatchDrops
 
 This object defines conditions to match the items dropped by the broken block.
@@ -150,6 +160,8 @@ This object defines conditions to match the items dropped by the broken block.
     + This string array defines items to be matched against the items dropped.
     + Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`. OreDict values are accepted.
     + Example: `minecraft:stone:0`
+
+---
 
 ## IRuleMatchHarvester
 
@@ -182,6 +194,8 @@ This object defines conditions specific to the entity that broke the block.
     + &#x1F539;*Optional* - if omitted, this condition will pass.
     + This object defines conditions for matching player names.
 
+---
+
 ## IRuleMatchHarvesterHeldItemMainHand
 
 This object defines conditions for matching held items.
@@ -210,6 +224,8 @@ This object defines conditions for matching held items.
     + To set only a min or max value, set the value you want ignored to -1; ie. `pickaxe;2;-1` for iron pickaxes and above.
     + Note that the min and max level values are inclusive and that the harvest level matching respects the `type` enum.
 
+---
+
 ## IRuleMatchHarvesterGameStage
 
 This object defines conditions for matching gamestages.
@@ -235,6 +251,8 @@ This object defines conditions for matching gamestages.
 * `stages`: `String[]`
     + This string array lists the gamestages required to match.
 
+---
+
 ## IRuleMatchHarvesterPlayerName
 
 This object defines conditions for matching player names.
@@ -254,6 +272,8 @@ This object defines conditions for matching player names.
 * `playerName`: `String[]`
     + &#x1F539;*Optional* - if omitted, this condition will pass.
     + This array defines player names to match.
+
+---
 
 ## IRuleMatchBiome
 
@@ -275,7 +295,9 @@ This object defines conditions for matching biomes.
     + This string array contains the biome ids required to match.
     + Syntax: `domain:path`
     + Example: `minecraft:birch_forest_hills`
-  
+
+---
+
 ## IRuleMatchDimension
 
 This object defines conditions for matching dimensions.
@@ -294,7 +316,9 @@ This object defines conditions for matching dimensions.
   
 * `ids`: `int[]`
     + This array contains the integer id's of the dimensions required to match.
-  
+
+---
+
 ## IRangeInt
 
 This object defines a range between a min and max integer value.
@@ -313,6 +337,8 @@ This object defines a range between a min and max integer value.
 * `max`: `int`
     + &#x1F539;*Optional* - if omitted, defaults to the maximum value of the enclosing context.
     + This integer defines the maximum value of this range (inclusive).
+
+---
 
 ## IRandomFortuneInt
 
@@ -344,6 +370,8 @@ Calculation: `random(max - min) + min + fortuneModifier * fortuneLevel`
 * `fortuneModifier`
     + &#x1F539;*Optional* - if omitted, defaults to `0`.
     + This value will be added to the result of the random value for each level of fortune passed into the `BlockEvent.HarvestDropsEvent`.
+
+---
 
 ## IRuleDrop
 
@@ -378,6 +406,8 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
     + `ADD`: Add the specified xp to any xp dropped.
     + `REPLACE`: Replace any xp dropped with the specified xp.
 
+---
+
 ## IRuleDropSelector
 
 This object acts as a predicate to identify drop candidates. 
@@ -406,6 +436,8 @@ If a rule is matched, the `IRuleDropSelector` is queried to determine a drop's c
     + &#x1F539;*Optional* - if omitted, defaults to `0`.
     + The minimum fortune level required for this drop to be a candidate.
 
+---
+
 ## IRuleDropSelectorWeight
 
 This object defines the fortune modified weight to use when adding a drop to the weighted picker
@@ -426,7 +458,9 @@ Calculation: `value + fortuneModifier * fortuneLevel`
 * `fortuneModifier`: `int`
     + &#x1F539;*Optional* - if omitted, defaults to `0`.
     + This value will be added to weight value for each level of fortune passed into the `BlockEvent.HarvestDropsEvent`.
-  
+
+---
+
 ## IRuleDropItem
 
 <big><pre>
