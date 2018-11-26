@@ -1,0 +1,20 @@
+site_name: Dropt
+
+pages:
+- Introduction: index.md
+- ChangeLog: changelog.md
+- Configuration Files: configuration.md
+- ZenScript:
+  - Reference: zs/reference.md
+  - Example: zs/example.md
+- JSON:
+  - Syntax: json/syntax.md
+- API:
+  - Reference: api/reference.md
+- Development:
+  - Contributor's License Agreement: cla.md
+
+theme: readthedocs
+
+markdown_extensions:
+- admonition
