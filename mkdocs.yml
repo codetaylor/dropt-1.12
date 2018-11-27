@@ -4,6 +4,8 @@ pages:
 - Introduction: index.md
 - ChangeLog: changelog.md
 - Configuration Files: configuration.md
+- Commands: commands.md
+- How It Works: howitworks.md
 - ZenScript:
   - Reference: zs/reference.md
   - Example: zs/example.md
