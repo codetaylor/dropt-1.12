@@ -5,7 +5,11 @@ public static String modId()
  * **Returns:** the mod id of Dropt
 
 ```java
-public static void registerRuleList(ResourceLocation id, int priority, List<IDroptRuleBuilder> builders)
+public static void registerRuleList(
+    ResourceLocation id,
+    int priority,
+    List<IDroptRuleBuilder> builders
+)
 ```
 
 Call this during `com.codetaylor.mc.dropt.api.event.DroptLoadRulesEvent` to register rule lists.
@@ -34,14 +38,19 @@ public static IDroptDropBuilder drop()
  * **Returns:** a new drop builder
 
 ```java
-public static RandomFortuneInt range(int fixed)
+public static RandomFortuneInt range(
+    int fixed
+)
 ```
 
  * **Parameters:** `fixed` — the fixed range
  * **Returns:** a new fixed range
 
 ```java
-public static RandomFortuneInt range(int min, int max)
+public static RandomFortuneInt range(
+    int min,
+    int max
+)
 ```
 
  * **Parameters:**
@@ -50,7 +59,11 @@ public static RandomFortuneInt range(int min, int max)
  * **Returns:** a new range
 
 ```java
-public static RandomFortuneInt range(int min, int max, int fortuneModifier)
+public static RandomFortuneInt range(
+    int min,
+    int max,
+    int fortuneModifier
+)
 ```
 
  * **Parameters:**
@@ -60,14 +73,19 @@ public static RandomFortuneInt range(int min, int max, int fortuneModifier)
  * **Returns:** a new fortune modified range
 
 ```java
-public static RuleDropSelectorWeight weight(int weight)
+public static RuleDropSelectorWeight weight(
+    int weight
+)
 ```
 
  * **Parameters:** `weight` — the weight
  * **Returns:** a new weight
 
 ```java
-public static RuleDropSelectorWeight weight(int weight, int fortuneModifier)
+public static RuleDropSelectorWeight weight(
+    int weight,
+    int fortuneModifier
+)
 ```
 
  * **Parameters:**
@@ -76,7 +94,10 @@ public static RuleDropSelectorWeight weight(int weight, int fortuneModifier)
  * **Returns:** a new fortune modified weight
 
 ```java
-public static String itemString(String domain, String path)
+public static String itemString(
+    String domain,
+    String path
+)
 ```
 
  * **Parameters:**
@@ -86,7 +107,11 @@ public static String itemString(String domain, String path)
  * **See also:** #itemString(String, String, int, NBTTagCompound)
 
 ```java
-public static String itemString(String domain, String path, int meta)
+public static String itemString(
+    String domain,
+    String path,
+    int meta
+)
 ```
 
  * **Parameters:**
@@ -97,7 +122,12 @@ public static String itemString(String domain, String path, int meta)
  * **See also:** #itemString(String, String, int, NBTTagCompound)
 
 ```java
-public static String itemString(String domain, String path, int meta, @Nullable NBTTagCompound tag)
+public static String itemString(
+    String domain,
+    String path,
+    int meta,
+    @Nullable NBTTagCompound tag
+)
 ```
 
 Returns a ready-to-parse string in the format:
@@ -112,7 +142,9 @@ Returns a ready-to-parse string in the format:
  * **Returns:** a ready-to-parse string
 
 ```java
-public static String itemString(ItemStack itemStack)
+public static String itemString(
+    ItemStack itemStack
+)
 ```
 
 Returns a ready-to-parse string from the given {@link ItemStack}.

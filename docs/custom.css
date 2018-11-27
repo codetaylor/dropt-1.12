@@ -15,6 +15,10 @@ pre {
     padding: 8px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color: #95d7da;
+}
+
 hr {
     border-top: 1px solid rgba(255, 255, 255, .1);
 }
@@ -22,6 +26,14 @@ hr {
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 0px;
     margin-top: 16px;
+}
+
+.wy-nav-top {
+    background: #b786b7;
+}
+
+.wy-nav-content {
+    background: #1d1d1d !important;
 }
 
 .wy-nav-content-wrap {
@@ -42,6 +54,10 @@ hr {
     background: #443144;
 }
 
+.wy-menu-vertical li ul.subnav ul.subnav {
+    padding-left: 0em;
+}
+
 .wy-menu-vertical li.on a, .wy-menu-vertical li.current>a {
     color: #443144;
     //background: #fbd2fb;
@@ -60,8 +76,7 @@ hr {
 }
 
 .wy-menu-vertical li.current a:hover {
-    //background: #fbd2fb;
-
+    background: #fbd2fb;
 }
 
 .wy-menu-vertical a {
