@@ -11,6 +11,9 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @SuppressWarnings("unused")
+@ZenDocClass(value = "mods.dropt.Rule", description = {
+    "@see /json/syntax/#irule"
+})
 @ZenClass("mods.dropt.Rule")
 public class ZenRule {
 
@@ -21,6 +24,15 @@ public class ZenRule {
     this.rule = DroptAPI.rule();
   }
 
+  @ZenDocMethod(
+      order = 1,
+      description = {
+          "Enable logging debug output for this rule.",
+          "",
+          "Make sure to disable this when you're done using it. It can create a significant amount of output in the Dropt log.",
+          "@see /json/syntax/#irule"
+      }
+  )
   @ZenMethod
   public ZenRule debug() {
 
@@ -28,6 +40,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 2,
+      description = {
+          "Describes which blocks this rule will match.",
+          "@see /json/syntax/#irulematchblocks"
+      },
+      args = {"blockStrings"}
+  )
   @ZenMethod
   public ZenRule matchBlocks(String[] blockStrings) {
 
@@ -35,6 +55,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 3,
+      description = {
+          "Describes which blocks this rule will match.",
+          "@see /json/syntax/#irulematchblocks"
+      },
+      args = {"type", "blockStrings"}
+  )
   @ZenMethod
   public ZenRule matchBlocks(String type, String[] blockStrings) {
 
@@ -42,6 +70,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 4,
+      description = {
+          "Describes which dropped items to match.",
+          "@see /json/syntax/#irulematchdrops"
+      },
+      args = {"items"}
+  )
   @ZenMethod
   public ZenRule matchDrops(IIngredient[] items) {
 
@@ -49,6 +85,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 5,
+      description = {
+          "Describes which dropped items to match.",
+          "@see /json/syntax/#irulematchdrops"
+      },
+      args = {"type", "items"}
+  )
   @ZenMethod
   public ZenRule matchDrops(String type, IIngredient[] items) {
 
@@ -56,6 +100,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 6,
+      description = {
+          "Describes criteria about the harvester to match.",
+          "@see /json/syntax/#irulematchharvester"
+      },
+      args = {"harvester"}
+  )
   @ZenMethod
   public ZenRule matchHarvester(ZenHarvester harvester) {
 
@@ -63,6 +115,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 7,
+      description = {
+          "Describes biome id's to match.",
+          "@see /json/syntax/#irulematchbiome"
+      },
+      args = {"ids"}
+  )
   @ZenMethod
   public ZenRule matchBiomes(String[] ids) {
 
@@ -70,6 +130,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 8,
+      description = {
+          "Describes biome id's to match.",
+          "@see /json/syntax/#irulematchbiome"
+      },
+      args = {"type", "ids"}
+  )
   @ZenMethod
   public ZenRule matchBiomes(String type, String[] ids) {
 
@@ -77,6 +145,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 9,
+      description = {
+          "Describes dimension id's to match.",
+          "@see /json/syntax/#irulematchdimension"
+      },
+      args = {"ids"}
+  )
   @ZenMethod
   public ZenRule matchDimensions(int[] ids) {
 
@@ -84,6 +160,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 10,
+      description = {
+          "Describes dimension id's to match.",
+          "@see /json/syntax/#irulematchdimension"
+      },
+      args = {"type", "ids"}
+  )
   @ZenMethod
   public ZenRule matchDimensions(String type, int[] ids) {
 
@@ -91,6 +175,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 11,
+      description = {
+          "Describes a vertical range to match.",
+          "@see /json/syntax/#irulematch"
+      },
+      args = {"min", "max"}
+  )
   @ZenMethod
   public ZenRule matchVerticalRange(int min, int max) {
 
@@ -98,6 +190,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 12,
+      description = {
+          "Describes if and how the drops will be replaced.",
+          "@see /json/syntax/#irule"
+      },
+      args = {"strategy"}
+  )
   @ZenMethod
   public ZenRule replaceStrategy(String strategy) {
 
@@ -105,6 +205,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 13,
+      description = {
+          "Describes how drops will be selected from the weighted picker.",
+          "@see /json/syntax/#irule"
+      },
+      args = {"strategy"}
+  )
   @ZenMethod
   public ZenRule dropStrategy(String strategy) {
 
@@ -112,6 +220,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 14,
+      description = {
+          "Describes how many times the weighted picker will be queried for drops.",
+          "@see /json/syntax/#irule"
+      },
+      args = {"range"}
+  )
   @ZenMethod
   public ZenRule dropCount(ZenRange range) {
 
@@ -119,6 +235,14 @@ public class ZenRule {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 15,
+      description = {
+          "Add a drop to this rule.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"drop"}
+  )
   @ZenMethod
   public ZenRule addDrop(ZenDrop drop) {
 

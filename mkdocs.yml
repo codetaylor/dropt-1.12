@@ -7,7 +7,11 @@ pages:
 - Commands: commands.md
 - How It Works: howitworks.md
 - ZenScript:
-  - Reference: zs/reference.md
+  - Dropt: zs/dropt.md
+  - RuleList: zs/rulelist.md
+  - Rule: zs/rule.md
+  - Harvester: zs/harvester.md
+  - Drop: zs/drop.md
   - Example: zs/example.md
 - JSON:
   - Syntax: json/syntax.md

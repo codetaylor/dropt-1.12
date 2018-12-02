@@ -9,6 +9,12 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @SuppressWarnings("unused")
+@ZenDocClass(
+    value = "mods.dropt.Drop",
+    description = {
+        "@see /json/syntax/#iruledrop"
+    }
+)
 @ZenClass("mods.dropt.Drop")
 public class ZenDrop {
 
@@ -19,6 +25,14 @@ public class ZenDrop {
     this.drop = DroptAPI.drop();
   }
 
+  @ZenDocMethod(
+      order = 1,
+      description = {
+          "Defines a selector for this drop.",
+          "@see /json/syntax/#iruledropselector"
+      },
+      args = {"weight"}
+  )
   @ZenMethod
   public ZenDrop selector(ZenWeight weight) {
 
@@ -26,6 +40,14 @@ public class ZenDrop {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 2,
+      description = {
+          "Defines a selector for this drop.",
+          "@see /json/syntax/#iruledropselector"
+      },
+      args = {"weight", "silkTouch"}
+  )
   @ZenMethod
   public ZenDrop selector(ZenWeight weight, String silkTouch) {
 
@@ -33,6 +55,14 @@ public class ZenDrop {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 3,
+      description = {
+          "Defines a selector for this drop.",
+          "@see /json/syntax/#iruledropselector"
+      },
+      args = {"weight", "silkTouch", "fortuneLevelRequired"}
+  )
   @ZenMethod
   public ZenDrop selector(ZenWeight weight, String silkTouch, int fortuneLevelRequired) {
 
@@ -40,6 +70,14 @@ public class ZenDrop {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 4,
+      description = {
+          "Defines the item list for this drop.",
+          "@see /json/syntax/#iruledropitem"
+      },
+      args = {"items"}
+  )
   @ZenMethod
   public ZenDrop items(IItemStack[] items) {
 
@@ -47,6 +85,14 @@ public class ZenDrop {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 5,
+      description = {
+          "Defines the item list for this drop.",
+          "@see /json/syntax/#iruledropitem"
+      },
+      args = {"items", "range"}
+  )
   @ZenMethod
   public ZenDrop items(IItemStack[] items, ZenRange range) {
 
@@ -54,6 +100,14 @@ public class ZenDrop {
     return this;
   }
 
+  @ZenDocMethod(
+      order = 6,
+      description = {
+          "Defines an experience drop.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"replace", "amount"}
+  )
   @ZenMethod
   public ZenDrop xp(String replace, ZenRange amount) {
 

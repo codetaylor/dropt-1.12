@@ -28,6 +28,19 @@ hr {
     margin-top: 16px;
 }
 
+.zen-description {
+    padding-left: 32px;
+    padding-bottom: 32px;
+}
+
+.zen-description ul {
+    margin-bottom: 0px !important;
+}
+
+.zen-method {
+    padding-left: 32px;
+}
+
 .wy-nav-top {
     background: #b786b7;
 }
@@ -103,6 +116,7 @@ hr {
     overflow-x: auto;
     color: #BBB;
     -webkit-text-size-adjust: none;
+    font-size: 16px;
 }
 
 .hljs-comment, .diff .hljs-header, .hljs-javadoc {

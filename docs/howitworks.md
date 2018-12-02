@@ -6,7 +6,7 @@ Dropt maintains a collection of rule lists sorted by each list's priority. Rule 
 
 Rule lists can be defined using ZenScript and CraftTweaker.
 
-See the [ZenScript reference](zs/reference.md) for details.
+See the [ZenScript Dropt reference](zs/dropt.md) for details.
 
 Familiarize yourself with [CraftTweaker and ZenScript here](https://crafttweaker.readthedocs.io/en/latest/).
 

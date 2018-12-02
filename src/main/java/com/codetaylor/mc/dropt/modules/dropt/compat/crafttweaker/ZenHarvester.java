@@ -10,6 +10,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
 @SuppressWarnings("unused")
+@ZenDocClass("mods.dropt.Harvester")
 @ZenClass("mods.dropt.Harvester")
 public class ZenHarvester {
 
@@ -20,6 +21,7 @@ public class ZenHarvester {
     this.harvester = DroptAPI.harvester();
   }
 
+  @ZenDocMethod(order = 1, args = {"type"})
   @ZenMethod
   public ZenHarvester type(String type) {
 
@@ -27,6 +29,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 2, args = {"harvestLevel"})
   @ZenMethod
   public ZenHarvester mainHand(String harvestLevel) {
 
@@ -34,6 +37,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 3, args = {"items"})
   @ZenMethod
   public ZenHarvester mainHand(IItemStack[] items) {
 
@@ -41,6 +45,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 4, args = {"type", "items"})
   @ZenMethod
   public ZenHarvester mainHand(String type, IItemStack[] items) {
 
@@ -48,6 +53,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 5, args = {"type", "items", "harvestLevel"})
   @ZenMethod
   public ZenHarvester mainHand(String type, IItemStack[] items, String harvestLevel) {
 
@@ -55,6 +61,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 6, args = {"stages"})
   @ZenMethod
   public ZenHarvester gameStages(String[] stages) {
 
@@ -62,6 +69,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 7, args = {"require", "stages"})
   @ZenMethod
   public ZenHarvester gameStages(String require, String[] stages) {
 
@@ -69,6 +77,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 8, args = {"type", "require", "stages"})
   @ZenMethod
   public ZenHarvester gameStages(String type, String require, String[] stages) {
 
@@ -76,6 +85,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 9, args = {"names"})
   @ZenMethod
   public ZenHarvester playerName(String[] names) {
 
@@ -83,6 +93,7 @@ public class ZenHarvester {
     return this;
   }
 
+  @ZenDocMethod(order = 10, args = {"type", "names"})
   @ZenMethod
   public ZenHarvester playerName(String type, String[] names) {
 
