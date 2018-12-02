@@ -1,3 +1,10 @@
+1.11.0
+
+  * Added:
+    * ZenScript support for the DroptAPI
+    * A proper DroptAPI
+    * New documentation
+
 1.10.2
 
   * Prevent NPE (#41)

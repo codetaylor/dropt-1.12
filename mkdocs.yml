@@ -5,16 +5,18 @@ pages:
 - ChangeLog: changelog.md
 - Configuration Files: configuration.md
 - Commands: commands.md
-- How It Works: howitworks.md
+- Under the Hood: howitworks.md
+- Debugging: debugging.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md
   - Rule: zs/rule.md
   - Harvester: zs/harvester.md
   - Drop: zs/drop.md
-  - Example: zs/example.md
+  - Examples: zs/example.md
 - JSON:
   - Syntax: json/syntax.md
+  - Examples: json/examples.md
 - API:
   - Reference: api/reference.md
 - Development:
