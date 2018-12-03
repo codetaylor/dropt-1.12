@@ -7,6 +7,8 @@ pages:
 - Commands: commands.md
 - Under the Hood: howitworks.md
 - Debugging: debugging.md
+- Examples:
+  - Simple Replacement: examples/simple_replacement.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

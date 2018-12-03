@@ -131,7 +131,7 @@ li.zen-description {
     overflow-x: auto;
     color: #BBB;
     -webkit-text-size-adjust: none;
-    font-size: 16px;
+    /*font-size: 16px;*/
 }
 
 .hljs-comment, .diff .hljs-header, .hljs-javadoc {
@@ -151,4 +151,28 @@ li.zen-description {
 
 .hljs-string, .hljs-tag .hljs-value, .hljs-phpdoc, .hljs-dartdoc, .tex .hljs-formula {
     color: #caaa70;
+}
+
+.hljs-tag, .hljs-attribute {
+    color: #95d7da;
+}
+
+.hljs-tag .hljs-title {
+    color: #95d7da;
+}
+
+div.admonition.warning, div.admonition.note {
+    color: #222;
+}
+
+div.admonition.warning a, div.admonition.note a {
+    font-weight: bold;
+}
+
+div.admonition.note a {
+    color: #6ab0de;
+}
+
+div.admonition a:hover {
+    color: #000;
 }

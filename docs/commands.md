@@ -6,7 +6,9 @@
 
 Reload configuration during runtime.
 
-This command will not work for rule lists loaded with ZenScript and will only work for rule lists loaded with the DroptAPI if you hotswap your changes.
+!!! warning
+    This command only works with JSON and the DroptAPI.
+    Reload will not work for rule lists loaded with ZenScript and will only work for rule lists loaded with the DroptAPI if you hotswap your changes before reloading.
 
 ## Hand
 
