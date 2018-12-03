@@ -1,3 +1,8 @@
+1.11.2
+
+  * Fixed:
+    * Dependency cycle (#45)
+
 1.11.1
 
   * Fixed:
