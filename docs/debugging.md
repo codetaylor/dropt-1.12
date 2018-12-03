@@ -10,7 +10,7 @@ Note: Be careful how many rules you enable debug for; enable too many and your l
 
 Enabling the debug output for the rule from Example #1, the debug output looks like this:
 
-```
+```text
 [INFO]  Located rule file: test.json
 [INFO]  Rule file loaded: test.json
 [DEBUG] --------------------------------------------------------------------------------------
