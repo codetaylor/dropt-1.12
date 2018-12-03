@@ -28,7 +28,6 @@ public class ZenRule {
       order = 1,
       description = {
           "Enable logging debug output for this rule.",
-          "",
           "Make sure to disable this when you're done using it. It can create a significant amount of output in the Dropt log.",
           "@see /json/syntax/#irule"
       }

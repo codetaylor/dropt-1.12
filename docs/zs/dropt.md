@@ -8,10 +8,6 @@ This class acts as an entry point to the Dropt API.
 {: .zen-description }
 
 
-
-{: .zen-description }
-
-
 Each method returns either a ready-to-configure object or a pre-configured object using the given parameters.
 {: .zen-description }
 
@@ -99,9 +95,6 @@ static Range range(int min, int max);
 Returns a range object with a minimum and maximum value.
 {: .zen-description }
 
-
-{: .zen-description }
-
 The minimum and maximum values are inclusive.
 {: .zen-description }
 
@@ -117,9 +110,6 @@ static Range range(int min, int max, int fortuneModifier);
 ```
 
 Returns a range object with the given minimum, maximum, and fortune modifier value.
-{: .zen-description }
-
-
 {: .zen-description }
 
 The minimum and maximum values are inclusive.

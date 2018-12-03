@@ -16,7 +16,6 @@ import java.util.Map;
 @SuppressWarnings("unused")
 @ZenDocClass(value = "mods.dropt.Dropt", description = {
     "This class acts as an entry point to the Dropt API.",
-    "",
     "Each method returns either a ready-to-configure object or a pre-configured object using the given parameters."
 })
 @ZenClass("mods.dropt.Dropt")
@@ -94,7 +93,6 @@ public class ZenDropt {
   @ZenDocMethod(order = 6,
       description = {
           "Returns a range object with a minimum and maximum value.",
-          "",
           "The minimum and maximum values are inclusive.",
           "@see /json/syntax/#irangeint"
       },
@@ -108,7 +106,6 @@ public class ZenDropt {
   @ZenDocMethod(order = 7,
       description = {
           "Returns a range object with the given minimum, maximum, and fortune modifier value.",
-          "",
           "The minimum and maximum values are inclusive.",
           "@see /json/syntax/#irandomfortuneint"
       },
