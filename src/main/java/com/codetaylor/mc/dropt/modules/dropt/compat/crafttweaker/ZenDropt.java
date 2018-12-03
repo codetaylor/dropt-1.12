@@ -29,7 +29,7 @@ public class ZenDropt {
       description = {
           "Returns a new, ready-to-configure list object.",
           "Subsequent calls with the same name will return the same list object.",
-          "@see json/syntax/#irulelist"
+          "@see /json/syntax/#irulelist"
       },
       args = {"name"}
   )
@@ -49,7 +49,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 2,
       description = {
           "Returns a new, ready-to-configure Rule object.",
-          "@see json/syntax/#irule"
+          "@see /json/syntax/#irule"
       })
   @ZenMethod
   public static ZenRule rule() {
@@ -60,7 +60,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 3,
       description = {
           "Returns a new, ready-to-configure Harvester object.",
-          "@see json/syntax/#irulematchharvester"
+          "@see /json/syntax/#irulematchharvester"
       })
   @ZenMethod
   public static ZenHarvester harvester() {
@@ -71,7 +71,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 4,
       description = {
           "Returns a new, ready-to-configure Drop object.",
-          "@see json/syntax/#iruledrop"
+          "@see /json/syntax/#iruledrop"
       })
   @ZenMethod
   public static ZenDrop drop() {
@@ -82,7 +82,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 5,
       description = {
           "Returns a range object with a fixed value.",
-          "@see json/syntax/#irangeint"
+          "@see /json/syntax/#irangeint"
       },
       args = {"fixed"})
   @ZenMethod
@@ -96,7 +96,7 @@ public class ZenDropt {
           "Returns a range object with a minimum and maximum value.",
           "",
           "The minimum and maximum values are inclusive.",
-          "@see json/syntax/#irangeint"
+          "@see /json/syntax/#irangeint"
       },
       args = {"min", "max"})
   @ZenMethod
@@ -110,7 +110,7 @@ public class ZenDropt {
           "Returns a range object with the given minimum, maximum, and fortune modifier value.",
           "",
           "The minimum and maximum values are inclusive.",
-          "@see json/syntax/#irandomfortuneint"
+          "@see /json/syntax/#irandomfortuneint"
       },
       args = {"min", "max", "fortuneModifier"})
   @ZenMethod
@@ -122,7 +122,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 8,
       description = {
           "Returns a weight object with the given weight.",
-          "@see json/syntax/#iruledropselectorweight"
+          "@see /json/syntax/#iruledropselectorweight"
       },
       args = {"weight"})
   @ZenMethod
@@ -134,7 +134,7 @@ public class ZenDropt {
   @ZenDocMethod(order = 9,
       description = {
           "Returns a weight object with the given weight and fortune modifier.",
-          "@see json/syntax/#iruledropselectorweight"
+          "@see /json/syntax/#iruledropselectorweight"
       },
       args = {"weight", "fortuneModifier"})
   @ZenMethod

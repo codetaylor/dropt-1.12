@@ -23,6 +23,14 @@ hr {
     border-top: 1px solid rgba(255, 255, 255, .1);
 }
 
+section a, section a:visited {
+  color: #caaa70;
+}
+
+section a:hover {
+  color: #EDCB8C;
+}
+
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 0px;
     margin-top: 16px;
@@ -30,10 +38,13 @@ hr {
 
 .zen-description {
     padding-left: 32px;
-    padding-bottom: 32px;
+    padding-bottom: 0px;
+    margin-bottom: 8px;
 }
 
-.zen-description ul {
+li.zen-description {
+    padding-left: 0px;
+    margin-left: 56px !important;
     margin-bottom: 0px !important;
 }
 

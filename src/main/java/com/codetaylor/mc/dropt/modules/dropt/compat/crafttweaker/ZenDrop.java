@@ -12,7 +12,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 @ZenDocClass(
     value = "mods.dropt.Drop",
     description = {
-        "@see json/syntax/#iruledrop"
+        "@see /json/syntax/#iruledrop"
     }
 )
 @ZenClass("mods.dropt.Drop")
@@ -29,7 +29,7 @@ public class ZenDrop {
       order = 1,
       description = {
           "Defines a selector for this drop.",
-          "@see json/syntax/#iruledropselector"
+          "@see /json/syntax/#iruledropselector"
       },
       args = {"weight"}
   )
@@ -44,7 +44,7 @@ public class ZenDrop {
       order = 2,
       description = {
           "Defines a selector for this drop.",
-          "@see json/syntax/#iruledropselector"
+          "@see /json/syntax/#iruledropselector"
       },
       args = {"weight", "silkTouch"}
   )
@@ -59,7 +59,7 @@ public class ZenDrop {
       order = 3,
       description = {
           "Defines a selector for this drop.",
-          "@see json/syntax/#iruledropselector"
+          "@see /json/syntax/#iruledropselector"
       },
       args = {"weight", "silkTouch", "fortuneLevelRequired"}
   )
@@ -74,7 +74,7 @@ public class ZenDrop {
       order = 4,
       description = {
           "Defines the item list for this drop.",
-          "@see json/syntax/#iruledropitem"
+          "@see /json/syntax/#iruledropitem"
       },
       args = {"items"}
   )
@@ -89,7 +89,7 @@ public class ZenDrop {
       order = 5,
       description = {
           "Defines the item list for this drop.",
-          "@see json/syntax/#iruledropitem"
+          "@see /json/syntax/#iruledropitem"
       },
       args = {"items", "range"}
   )
@@ -104,7 +104,7 @@ public class ZenDrop {
       order = 6,
       description = {
           "Defines an experience drop.",
-          "@see json/syntax/#iruledrop"
+          "@see /json/syntax/#iruledrop"
       },
       args = {"replace", "amount"}
   )

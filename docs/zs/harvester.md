@@ -5,66 +5,152 @@
 import mods.dropt.Harvester
 ```
 
-<div class="zen-description zen-class-description">
-</div>
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvester](/json/syntax/#irulematchharvester)
+{: .zen-description }
+
+
+
 #### Methods
 
 ```java
 Harvester type(string type);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on player / non-player.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvester](/json/syntax/#irulematchharvester)
+{: .zen-description }
+
 
 ```java
 Harvester mainHand(string harvestLevel);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+{: .zen-description }
+
 
 ```java
 Harvester mainHand(IItemStack[] items);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+{: .zen-description }
+
 
 ```java
 Harvester mainHand(string type, IItemStack[] items);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+{: .zen-description }
+
 
 ```java
 Harvester mainHand(string type, IItemStack[] items, string harvestLevel);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+{: .zen-description }
+
 
 ```java
 Harvester gameStages(string[] stages);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on which game stages the player has or has not unlocked.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvestergamestage](/json/syntax/#irulematchharvestergamestage)
+{: .zen-description }
+
 
 ```java
 Harvester gameStages(string require, string[] stages);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on which game stages the player has or has not unlocked.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvestergamestage](/json/syntax/#irulematchharvestergamestage)
+{: .zen-description }
+
 
 ```java
 Harvester gameStages(string type, string require, string[] stages);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on which game stages the player has or has not unlocked.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvestergamestage](/json/syntax/#irulematchharvestergamestage)
+{: .zen-description }
+
 
 ```java
 Harvester playerName(string[] names);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on player name.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterplayername](/json/syntax/#irulematchharvesterplayername)
+{: .zen-description }
+
 
 ```java
 Harvester playerName(string type, string[] names);
 ```
-<div class="zen-description zen-method-description">
-</div>
+
+Matches based on player name.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterplayername](/json/syntax/#irulematchharvesterplayername)
+{: .zen-description }
+

@@ -5,131 +5,228 @@
 import mods.dropt.Rule
 ```
 
-<div class="zen-description zen-class-description">
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irule">json/syntax/#irule</a></li></ul><br/>
+For more information, see:
+{: .zen-description }
 
-</div>
+  * [/json/syntax/#irule](/json/syntax/#irule)
+{: .zen-description }
+
+
+
 #### Methods
 
 ```java
 Rule debug();
 ```
-<div class="zen-description zen-method-description">
-Enable logging debug output for this rule.<br/>
-<br/>
-Make sure to disable this when you're done using it. It can create a significant amount of output in the Dropt log.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irule">json/syntax/#irule</a></li></ul></div>
+
+Enable logging debug output for this rule.
+{: .zen-description }
+
+
+{: .zen-description }
+
+Make sure to disable this when you're done using it. It can create a significant amount of output in the Dropt log.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irule](/json/syntax/#irule)
+{: .zen-description }
+
 
 ```java
 Rule matchBlocks(string[] blockStrings);
 ```
-<div class="zen-description zen-method-description">
-Describes which blocks this rule will match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchblocks">json/syntax/#irulematchblocks</a></li></ul></div>
+
+Describes which blocks this rule will match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchblocks](/json/syntax/#irulematchblocks)
+{: .zen-description }
+
 
 ```java
 Rule matchBlocks(string type, string[] blockStrings);
 ```
-<div class="zen-description zen-method-description">
-Describes which blocks this rule will match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchblocks">json/syntax/#irulematchblocks</a></li></ul></div>
+
+Describes which blocks this rule will match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchblocks](/json/syntax/#irulematchblocks)
+{: .zen-description }
+
 
 ```java
 Rule matchDrops(IIngredient[] items);
 ```
-<div class="zen-description zen-method-description">
-Describes which dropped items to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchdrops">json/syntax/#irulematchdrops</a></li></ul></div>
+
+Describes which dropped items to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchdrops](/json/syntax/#irulematchdrops)
+{: .zen-description }
+
 
 ```java
 Rule matchDrops(string type, IIngredient[] items);
 ```
-<div class="zen-description zen-method-description">
-Describes which dropped items to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchdrops">json/syntax/#irulematchdrops</a></li></ul></div>
+
+Describes which dropped items to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchdrops](/json/syntax/#irulematchdrops)
+{: .zen-description }
+
 
 ```java
 Rule matchHarvester(Harvester harvester);
 ```
-<div class="zen-description zen-method-description">
-Describes criteria about the harvester to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchharvester">json/syntax/#irulematchharvester</a></li></ul></div>
+
+Describes criteria about the harvester to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvester](/json/syntax/#irulematchharvester)
+{: .zen-description }
+
 
 ```java
 Rule matchBiomes(string[] ids);
 ```
-<div class="zen-description zen-method-description">
-Describes biome id's to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchbiome">json/syntax/#irulematchbiome</a></li></ul></div>
+
+Describes biome id's to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchbiome](/json/syntax/#irulematchbiome)
+{: .zen-description }
+
 
 ```java
 Rule matchBiomes(string type, string[] ids);
 ```
-<div class="zen-description zen-method-description">
-Describes biome id's to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchbiome">json/syntax/#irulematchbiome</a></li></ul></div>
+
+Describes biome id's to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchbiome](/json/syntax/#irulematchbiome)
+{: .zen-description }
+
 
 ```java
 Rule matchDimensions(int[] ids);
 ```
-<div class="zen-description zen-method-description">
-Describes dimension id's to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchdimension">json/syntax/#irulematchdimension</a></li></ul></div>
+
+Describes dimension id's to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchdimension](/json/syntax/#irulematchdimension)
+{: .zen-description }
+
 
 ```java
 Rule matchDimensions(string type, int[] ids);
 ```
-<div class="zen-description zen-method-description">
-Describes dimension id's to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematchdimension">json/syntax/#irulematchdimension</a></li></ul></div>
+
+Describes dimension id's to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchdimension](/json/syntax/#irulematchdimension)
+{: .zen-description }
+
 
 ```java
 Rule matchVerticalRange(int min, int max);
 ```
-<div class="zen-description zen-method-description">
-Describes a vertical range to match.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irulematch">json/syntax/#irulematch</a></li></ul></div>
+
+Describes a vertical range to match.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematch](/json/syntax/#irulematch)
+{: .zen-description }
+
 
 ```java
 Rule replaceStrategy(string strategy);
 ```
-<div class="zen-description zen-method-description">
-Describes if and how the drops will be replaced.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irule">json/syntax/#irule</a></li></ul></div>
+
+Describes if and how the drops will be replaced.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irule](/json/syntax/#irule)
+{: .zen-description }
+
 
 ```java
 Rule dropStrategy(string strategy);
 ```
-<div class="zen-description zen-method-description">
-Describes how drops will be selected from the weighted picker.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irule">json/syntax/#irule</a></li></ul></div>
+
+Describes how drops will be selected from the weighted picker.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irule](/json/syntax/#irule)
+{: .zen-description }
+
 
 ```java
 Rule dropCount(Range range);
 ```
-<div class="zen-description zen-method-description">
-Describes how many times the weighted picker will be queried for drops.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#irule">json/syntax/#irule</a></li></ul></div>
+
+Describes how many times the weighted picker will be queried for drops.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irule](/json/syntax/#irule)
+{: .zen-description }
+
 
 ```java
 Rule addDrop(Drop drop);
 ```
-<div class="zen-description zen-method-description">
-Add a drop to this rule.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledrop">json/syntax/#iruledrop</a></li></ul></div>
+
+Add a drop to this rule.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+

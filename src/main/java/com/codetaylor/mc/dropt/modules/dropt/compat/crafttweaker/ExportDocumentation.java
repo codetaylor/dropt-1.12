@@ -59,17 +59,15 @@ public class ExportDocumentation {
 
       // --- Class Description
 
-      out.append("<div class=\"zen-description zen-class-description\">\n");
       String[] description = zenClass.description();
 
       if (description.length > 0) {
 
         for (String line : description) {
-          out.append(this.parse(line)).append("<br/>\n");
+          out.append(this.parse(line)).append("\n");
         }
         out.append("\n");
       }
-      out.append("</div>\n");
 
       // --- Methods
 
@@ -159,9 +157,7 @@ public class ExportDocumentation {
 
     out.append(");\n");
 
-    out.append("```").append("\n");
-
-    out.append("<div class=\"zen-description zen-method-description\">\n");
+    out.append("```").append("\n\n");
 
     String[] description = annotation.description();
 
@@ -171,7 +167,6 @@ public class ExportDocumentation {
         out.append(this.parse(line));
       }
     }
-    out.append("</div>\n");
   }
 
   private String parse(String line) {
@@ -179,19 +174,17 @@ public class ExportDocumentation {
     if (line.startsWith("@see")) {
       String[] links = line.substring(4).trim().split(" ");
 
-      StringBuilder sb = new StringBuilder("<br/>For more information, see:\n<ul>");
+      StringBuilder sb = new StringBuilder("For more information, see:\n{: .zen-description }\n\n");
 
       for (String link : links) {
-        sb.append("<li>");
-        sb.append("<a href=\"").append(link).append("\">").append(link).append("</a>");
-        sb.append("</li>");
+        sb.append("  * [").append(link).append("](").append(link).append(")\n");
+        sb.append("{: .zen-description }\n\n");
       }
-      sb.append("</ul>");
 
       return sb.toString();
     }
 
-    return line + "<br/>\n";
+    return line + "\n{: .zen-description }\n\n";
   }
 
   private List<MethodAnnotationPair> getSortedMethodList(Method[] methods) {

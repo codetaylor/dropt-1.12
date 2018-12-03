@@ -5,57 +5,96 @@
 import mods.dropt.Drop
 ```
 
-<div class="zen-description zen-class-description">
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledrop">json/syntax/#iruledrop</a></li></ul><br/>
+For more information, see:
+{: .zen-description }
 
-</div>
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+
+
+
 #### Methods
 
 ```java
 Drop selector(Weight weight);
 ```
-<div class="zen-description zen-method-description">
-Defines a selector for this drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledropselector">json/syntax/#iruledropselector</a></li></ul></div>
+
+Defines a selector for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropselector](/json/syntax/#iruledropselector)
+{: .zen-description }
+
 
 ```java
 Drop selector(Weight weight, string silkTouch);
 ```
-<div class="zen-description zen-method-description">
-Defines a selector for this drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledropselector">json/syntax/#iruledropselector</a></li></ul></div>
+
+Defines a selector for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropselector](/json/syntax/#iruledropselector)
+{: .zen-description }
+
 
 ```java
 Drop selector(Weight weight, string silkTouch, int fortuneLevelRequired);
 ```
-<div class="zen-description zen-method-description">
-Defines a selector for this drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledropselector">json/syntax/#iruledropselector</a></li></ul></div>
+
+Defines a selector for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropselector](/json/syntax/#iruledropselector)
+{: .zen-description }
+
 
 ```java
 Drop items(IItemStack[] items);
 ```
-<div class="zen-description zen-method-description">
-Defines the item list for this drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledropitem">json/syntax/#iruledropitem</a></li></ul></div>
+
+Defines the item list for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropitem](/json/syntax/#iruledropitem)
+{: .zen-description }
+
 
 ```java
 Drop items(IItemStack[] items, Range range);
 ```
-<div class="zen-description zen-method-description">
-Defines the item list for this drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledropitem">json/syntax/#iruledropitem</a></li></ul></div>
+
+Defines the item list for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropitem](/json/syntax/#iruledropitem)
+{: .zen-description }
+
 
 ```java
 Drop xp(string replace, Range amount);
 ```
-<div class="zen-description zen-method-description">
-Defines an experience drop.<br/>
-<br/>For more information, see:
-<ul><li><a href="json/syntax/#iruledrop">json/syntax/#iruledrop</a></li></ul></div>
+
+Defines an experience drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+
