@@ -9,7 +9,7 @@ import mods.dropt.RuleList
 This class is a container for rules.<br/>
 <br/>
 <br/>For more information, see:
-<ul><li><a href="/json/syntax/#irulelist">/json/syntax/#irulelist</a></li></ul><br/>
+<ul><li><a href="json/syntax/#irulelist">json/syntax/#irulelist</a></li></ul><br/>
 
 </div>
 #### Methods
@@ -21,7 +21,7 @@ RuleList priority(int priority);
 Set the priority of this rule list.<br/>
 Rule lists with a larger priority will be matched first.<br/>
 <br/>For more information, see:
-<ul><li><a href="/json/syntax/#irulelist">/json/syntax/#irulelist</a></li></ul></div>
+<ul><li><a href="json/syntax/#irulelist">json/syntax/#irulelist</a></li></ul></div>
 
 ```java
 RuleList add(Rule rule);
@@ -29,4 +29,4 @@ RuleList add(Rule rule);
 <div class="zen-description zen-method-description">
 Add a configured rule to this rule list.<br/>
 <br/>For more information, see:
-<ul><li><a href="/json/syntax/#irulelist">/json/syntax/#irulelist</a></li></ul></div>
+<ul><li><a href="json/syntax/#irulelist">json/syntax/#irulelist</a></li></ul></div>

@@ -12,7 +12,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 
 @SuppressWarnings("unused")
 @ZenDocClass(value = "mods.dropt.Rule", description = {
-    "@see /json/syntax/#irule"
+    "@see json/syntax/#irule"
 })
 @ZenClass("mods.dropt.Rule")
 public class ZenRule {
@@ -30,7 +30,7 @@ public class ZenRule {
           "Enable logging debug output for this rule.",
           "",
           "Make sure to disable this when you're done using it. It can create a significant amount of output in the Dropt log.",
-          "@see /json/syntax/#irule"
+          "@see json/syntax/#irule"
       }
   )
   @ZenMethod
@@ -44,7 +44,7 @@ public class ZenRule {
       order = 2,
       description = {
           "Describes which blocks this rule will match.",
-          "@see /json/syntax/#irulematchblocks"
+          "@see json/syntax/#irulematchblocks"
       },
       args = {"blockStrings"}
   )
@@ -59,7 +59,7 @@ public class ZenRule {
       order = 3,
       description = {
           "Describes which blocks this rule will match.",
-          "@see /json/syntax/#irulematchblocks"
+          "@see json/syntax/#irulematchblocks"
       },
       args = {"type", "blockStrings"}
   )
@@ -74,7 +74,7 @@ public class ZenRule {
       order = 4,
       description = {
           "Describes which dropped items to match.",
-          "@see /json/syntax/#irulematchdrops"
+          "@see json/syntax/#irulematchdrops"
       },
       args = {"items"}
   )
@@ -89,7 +89,7 @@ public class ZenRule {
       order = 5,
       description = {
           "Describes which dropped items to match.",
-          "@see /json/syntax/#irulematchdrops"
+          "@see json/syntax/#irulematchdrops"
       },
       args = {"type", "items"}
   )
@@ -104,7 +104,7 @@ public class ZenRule {
       order = 6,
       description = {
           "Describes criteria about the harvester to match.",
-          "@see /json/syntax/#irulematchharvester"
+          "@see json/syntax/#irulematchharvester"
       },
       args = {"harvester"}
   )
@@ -119,7 +119,7 @@ public class ZenRule {
       order = 7,
       description = {
           "Describes biome id's to match.",
-          "@see /json/syntax/#irulematchbiome"
+          "@see json/syntax/#irulematchbiome"
       },
       args = {"ids"}
   )
@@ -134,7 +134,7 @@ public class ZenRule {
       order = 8,
       description = {
           "Describes biome id's to match.",
-          "@see /json/syntax/#irulematchbiome"
+          "@see json/syntax/#irulematchbiome"
       },
       args = {"type", "ids"}
   )
@@ -149,7 +149,7 @@ public class ZenRule {
       order = 9,
       description = {
           "Describes dimension id's to match.",
-          "@see /json/syntax/#irulematchdimension"
+          "@see json/syntax/#irulematchdimension"
       },
       args = {"ids"}
   )
@@ -164,7 +164,7 @@ public class ZenRule {
       order = 10,
       description = {
           "Describes dimension id's to match.",
-          "@see /json/syntax/#irulematchdimension"
+          "@see json/syntax/#irulematchdimension"
       },
       args = {"type", "ids"}
   )
@@ -179,7 +179,7 @@ public class ZenRule {
       order = 11,
       description = {
           "Describes a vertical range to match.",
-          "@see /json/syntax/#irulematch"
+          "@see json/syntax/#irulematch"
       },
       args = {"min", "max"}
   )
@@ -194,7 +194,7 @@ public class ZenRule {
       order = 12,
       description = {
           "Describes if and how the drops will be replaced.",
-          "@see /json/syntax/#irule"
+          "@see json/syntax/#irule"
       },
       args = {"strategy"}
   )
@@ -209,7 +209,7 @@ public class ZenRule {
       order = 13,
       description = {
           "Describes how drops will be selected from the weighted picker.",
-          "@see /json/syntax/#irule"
+          "@see json/syntax/#irule"
       },
       args = {"strategy"}
   )
@@ -224,7 +224,7 @@ public class ZenRule {
       order = 14,
       description = {
           "Describes how many times the weighted picker will be queried for drops.",
-          "@see /json/syntax/#irule"
+          "@see json/syntax/#irule"
       },
       args = {"range"}
   )
@@ -239,7 +239,7 @@ public class ZenRule {
       order = 15,
       description = {
           "Add a drop to this rule.",
-          "@see /json/syntax/#iruledrop"
+          "@see json/syntax/#iruledrop"
       },
       args = {"drop"}
   )
