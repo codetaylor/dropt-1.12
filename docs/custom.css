@@ -42,6 +42,10 @@ section a:hover {
     margin-bottom: 8px;
 }
 
+.section #methods {
+    margin-top: 32px;
+}
+
 li.zen-description {
     padding-left: 0px;
     margin-left: 56px !important;
