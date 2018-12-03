@@ -1,3 +1,8 @@
+1.11.1
+
+  * Fixed:
+    * Crash due to missing the entire API -.- (#44)
+
 1.11.0
 
   * Added:
