@@ -3,6 +3,8 @@
   * Fixed:
     * Crash due to missing the entire API -.- (#44)
 
+  * Requires: Athenaeum >= 1.15.0
+
 1.11.0
 
   * Added:
