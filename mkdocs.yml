@@ -3,12 +3,14 @@ site_name: Dropt
 pages:
 - Introduction: index.md
 - ChangeLog: changelog.md
-- Configuration Files: configuration.md
-- Commands: commands.md
-- Under the Hood: howitworks.md
-- Debugging: debugging.md
+- Getting Started:
+  - Getting Started: gettingstarted.md
+  - Configuration Files: configuration.md
+  - Commands: commands.md
+  - Debugging: debugging.md
 - Examples:
-  - Simple Replacement: examples/simple_replacement.md
+  - Basic Replacement: examples/basic_replacement.md
+  - Advanced Fortune: examples/advanced_fortune.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

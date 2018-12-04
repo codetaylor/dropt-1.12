@@ -2,8 +2,11 @@
 !!! note
     If you find any issues with the examples, please [report them here](https://github.com/codetaylor/dropt/issues).
 
+---
 
-When `<minecraft:stone>` breaks, replace all drops with `<minecraft:string> * 1`.
+Goal: When `<minecraft:stone>` breaks, replace all drops with `<minecraft:string> * 1`.
+
+---
 
 ### ZenScript
 
