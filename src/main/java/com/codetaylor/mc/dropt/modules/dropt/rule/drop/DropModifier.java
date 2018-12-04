@@ -57,12 +57,18 @@ public class DropModifier {
 
       if (drop.selector.isValidCandidate(isSilkTouching, fortuneLevel, logFile, debug)) {
         int weight = drop.selector.weight.value + (fortuneLevel * drop.selector.weight.fortuneModifier);
-        picker.add(weight, drop);
-        candidatesFound += 1;
 
-        if (debug) {
-          logFile.debug("[DROP] Added drop to weighted picker: " + drop.item.toString());
-          logFile.debug("[DROP] Added drop using weight value: " + weight);
+        if (weight > 0) {
+          picker.add(weight, drop);
+          candidatesFound += 1;
+
+          if (debug) {
+            logFile.debug("[DROP] Added drop to weighted picker: " + drop.item.toString());
+            logFile.debug("[DROP] Added drop using weight value: " + weight);
+          }
+
+        } else if (debug) {
+          logFile.debug("[DROP] Skipped adding drop " + drop.item.toString() + " to weighted picker due to calculated weight <= 0: " + weight);
         }
       }
     }
