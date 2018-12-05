@@ -36,6 +36,10 @@ section a:hover {
     color: #c0c0c0 !important;
 }
 
+.ethical-footer a, .ethical-footer a:visited, .ethical-footer a:hover, .ethical-footer a:active {
+    color: #caaa70 !important;
+}
+
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 0px;
     margin-top: 16px;
