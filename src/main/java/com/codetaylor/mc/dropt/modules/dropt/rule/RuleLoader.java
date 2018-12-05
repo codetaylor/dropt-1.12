@@ -8,21 +8,19 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.parse.*;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.io.FileReader;
+import java.lang.reflect.Field;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RuleLoader {
-
-  private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
   public static void loadRuleLists(
       Path path,
@@ -82,10 +80,21 @@ public class RuleLoader {
 
     start = System.currentTimeMillis();
 
+    GsonBuilder gsonBuilder = new GsonBuilder();
+
+    if (ModuleDroptConfig.JSON_STRICT_MODE) {
+      gsonBuilder.registerTypeAdapterFactory(new ValidatorAdapterFactory());
+    }
+
+    Gson gson = gsonBuilder
+        .setPrettyPrinting()
+        .create();
+
     for (Path jsonFile : jsonFiles) {
 
       try {
-        RuleList ruleList = GSON.fromJson(new FileReader(jsonFile.toFile()), RuleList.class);
+        RuleList ruleList = gson
+            .fromJson(new FileReader(jsonFile.toFile()), RuleList.class);
         ruleList._filename = path.relativize(jsonFile).toString();
         ruleLists.add(ruleList);
         debugFileWrapper.info("Rule file loaded: " + ruleList._filename);
@@ -162,6 +171,56 @@ public class RuleLoader {
 
     if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
       debugFileWrapper.info(String.format("Parsed %d rules in %d ms", rulesParsed, (System.currentTimeMillis() - start)));
+    }
+  }
+
+  private static class ValidatorAdapterFactory
+      implements TypeAdapterFactory {
+
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+
+      // If the type adapter is a reflective type adapter, we want to modify the implementation using reflection. The
+      // trick is to replace the Map object used to lookup the property name. Instead of returning null if the
+      // property is not found, we throw a Json exception to terminate the deserialization.
+      TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);
+
+      // Check if the type adapter is a reflective, cause this solution only work for reflection.
+      if (delegate instanceof ReflectiveTypeAdapterFactory.Adapter) {
+
+        try {
+          // Get reference to the existing boundFields.
+          Field f = delegate.getClass().getDeclaredField("boundFields");
+          f.setAccessible(true);
+          Map boundFields = (Map) f.get(delegate);
+
+          // Then replace it with our implementation throwing exception if the value is null.
+          //noinspection unchecked
+          boundFields = new LinkedHashMap(boundFields) {
+
+            @Override
+            public Object get(Object key) {
+
+              Object value = super.get(key);
+
+              if (value == null) {
+                throw new JsonParseException("Invalid property name: " + key);
+              }
+
+              return value;
+            }
+          };
+
+          // Finally, push our custom map back using reflection.
+          f.set(delegate, boundFields);
+
+        } catch (Exception e) {
+          // Should never happen if the implementation doesn't change.
+          throw new IllegalStateException(e);
+        }
+
+      }
+      return delegate;
     }
   }
 }

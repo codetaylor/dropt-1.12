@@ -16,4 +16,9 @@ public class ModuleDroptConfig {
   })
   public static boolean INJECT_PROFILING_RULES = false;
 
+  @Config.Comment({
+      "Set to false to ignore unknown fields when deserializing JSON."
+  })
+  public static boolean JSON_STRICT_MODE = true;
+
 }
