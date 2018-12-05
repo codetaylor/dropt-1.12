@@ -40,11 +40,15 @@ Dropt.list("list_name")
         }
       },
       // drop these items
-      "drops": {
-        "drops" : [
-          "minecraft:string"
-        ]
-      }
+      "drops": [
+        {
+          "item": {
+            "items" : [
+              "minecraft:string"
+            ]
+          }
+        }
+      ]
     }
   ]
 }
@@ -59,16 +63,16 @@ public void on(DroptLoadRulesEvent event) {
   List<IDroptRuleBuilder> list = new ArrayList<>();
 
   list.add(DroptAPI.rule()
-    // whitelist match against these blocks
-    .matchBlocks(new String[]{
-      "minecraft:stone"
-    })
-    // drop these items
-    .addDrops(new IDroptDropBuilder[]{
-      drop().items(new String[]{
-        DroptAPI.itemString(Items.STRING)
+      // whitelist match against these blocks
+      .matchBlocks(new String[]{
+          "minecraft:stone"
       })
-    })
+      // drop these items
+      .addDrops(new IDroptDropBuilder[]{
+          DroptAPI.drop().items(new String[]{
+              DroptAPI.itemString(Items.STRING)
+          })
+      })
   );
 
   ResourceLocation resourceLocation = new ResourceLocation("my_mod_id", "rule_list_name");

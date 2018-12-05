@@ -10,6 +10,8 @@ pages:
   - Debugging: debugging.md
 - Examples:
   - Basic Replacement: examples/basic_replacement.md
+  - Grass Drops: examples/grass_drops.md
+  - Tool Restriction: examples/tool_restriction.md
   - Advanced Fortune: examples/advanced_fortune.md
 - ZenScript:
   - Dropt: zs/dropt.md
