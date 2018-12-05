@@ -10,6 +10,7 @@ pages:
   - Debugging: debugging.md
 - Examples:
   - Basic Replacement: examples/basic_replacement.md
+  - Basic Removal: examples/basic_removal.md
   - Grass Drops: examples/grass_drops.md
   - Tool Restriction: examples/tool_restriction.md
   - Advanced Fortune: examples/advanced_fortune.md
