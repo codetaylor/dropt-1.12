@@ -1,3 +1,13 @@
+1.12.0
+
+  * Changed:
+    * Dropt will now fail to load JSON rule lists with unknown fields and will log the failure to the console and log file. This should assist in debugging your JSON structure.
+
+  * Added:
+    * Config option to disable the strict JSON parsing, reverting to the previous behavior.
+
+---
+
 1.11.2
 
   * Fixed:
