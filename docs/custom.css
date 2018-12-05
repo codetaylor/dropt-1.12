@@ -31,6 +31,11 @@ section a:hover {
   color: #EDCB8C;
 }
 
+/* Let's make sure we don't make the ads invisible. It's just... ethical? */
+.ethical-footer {
+    color: #c0c0c0;
+}
+
 .rst-content .section ol p, .rst-content .section ul p {
     margin-bottom: 0px;
     margin-top: 16px;
