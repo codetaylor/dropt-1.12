@@ -174,6 +174,10 @@ public class RuleLoader {
     }
   }
 
+  /**
+   * Workaround for strict parsing with the reflection adapter.
+   * https://github.com/google/gson/issues/188#issuecomment-282746095
+   */
   private static class ValidatorAdapterFactory
       implements TypeAdapterFactory {
 
