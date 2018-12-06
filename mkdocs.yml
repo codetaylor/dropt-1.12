@@ -10,8 +10,9 @@ pages:
   - Debugging: debugging.md
 - Examples:
   - Basic Replacement: examples/basic_replacement.md
-  - Basic Removal: examples/basic_removal.md
+  - Selective Removal: examples/selective_removal.md
   - Grass Drops: examples/grass_drops.md
+  - Leaf Drops: examples/leaf_drops.md
   - Tool Restriction: examples/tool_restriction.md
   - Advanced Fortune: examples/advanced_fortune.md
 - ZenScript:

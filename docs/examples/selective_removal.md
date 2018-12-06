@@ -1,6 +1,6 @@
 
 !!! note
-    If you find any issues with the examples, please [report them here](https://github.com/codetaylor/dropt/issues).
+    To report an issue, or to request a new example, please use the [issue tracker](https://github.com/codetaylor/dropt/issues).
 
 ---
 
@@ -29,7 +29,7 @@ Dropt.list("list_name")
 
 ### JSON
 
-```js
+```json
 {
   "rules": [
     {
@@ -46,7 +46,7 @@ Dropt.list("list_name")
           ]
         }
       },
-      "replaceStrategy": "REPLACE_ITEMS"
+      "replaceStrategy": "REPLACE_ITEMS",
       "drops": [{}]
     }
   ]

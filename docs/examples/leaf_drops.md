@@ -4,7 +4,15 @@
 
 ---
 
-Goal: When `<minecraft:stone>` breaks, replace all drops with `<minecraft:string> * 1`.
+Goal: Add `<minecraft:stick>` to leaf drops.
+
+---
+
+Leaf blocks have a different block state depending on whether or not they should check for decay. This makes it hard to know what metadata needs to be supplied to the matcher.
+
+Fortunately, Dropt has a command to assist: `/dropt verbose`.
+
+The command can be toggled on and off, and while on, will log the info of all broken blocks. So run the command, break some blocks, and inspect the results to extract the info you need.
 
 ---
 
@@ -16,9 +24,9 @@ import mods.dropt.Dropt;
 Dropt.list("list_name")
 
   .add(Dropt.rule()
-      .matchBlocks(["minecraft:stone"])
+      .matchBlocks(["minecraft:leaves:*"])
       .addDrop(Dropt.drop()
-          .items([<minecraft:string>])
+          .items([<minecraft:stick>])
       )
   );
 ```
@@ -32,15 +40,16 @@ Dropt.list("list_name")
       "match": {
         "blocks": {
           "blocks": [
-            "minecraft:stone:0"
+            "minecraft:leaves:*"
           ]
         }
       },
+      "replaceStrategy": "ADD",
       "drops": [
         {
           "item": {
-            "items" : [
-              "minecraft:string"
+            "items": [
+              "minecraft:stick"
             ]
           }
         }
@@ -60,11 +69,12 @@ public void on(DroptLoadRulesEvent event) {
 
   list.add(DroptAPI.rule()
       .matchBlocks(new String[]{
-          "minecraft:stone"
+          "minecraft:leaves:*"
       })
+      .replaceStrategy(EnumReplaceStrategy.ADD)
       .addDrops(new IDroptDropBuilder[]{
           DroptAPI.drop().items(new String[]{
-              DroptAPI.itemString(Items.STRING)
+              DroptAPI.itemString(Items.STICK)
           })
       })
   );
