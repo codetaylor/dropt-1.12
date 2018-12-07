@@ -16,6 +16,8 @@ This bit is doing the heavy lifting for this example. What we've done is told Dr
 
 The `shovel;0;-1` harvest level string tells Dropt to match a `shovel` with a minimum harvest level of `0` and a maximum harvest level of `-1`, which is just ignored because it is `-1`. We then simply inverse that with the `BLACKLIST` type.
 
+Finally, we tell Dropt that when this rule matches, replace all drops with nothing. This is done by supplying an empty drop to the drop list. Nothing has to be changed to replace all drops because, by default, the replace strategy is `REPLACE_ALL`.
+
 ---
 
 ### ZenScript
@@ -28,12 +30,10 @@ Dropt.list("list_name")
   .add(Dropt.rule()
       .matchBlocks(["minecraft:dirt:*"])
       .matchHarvester(Dropt.harvester()
-          .type("PLAYER") // restrict to player
+          .type("PLAYER")
           .mainHand("BLACKLIST", [], "shovel;0;-1")
       )
-      .addDrop(Dropt.drop()
-          .items([<minecraft:string>])
-      )
+      .addDrop(Dropt.drop())
   );
 ```
 
@@ -57,15 +57,7 @@ Dropt.list("list_name")
           }
         }
       },
-      "drops": [
-        {
-          "item": {
-            "items" : [
-              "minecraft:string"
-            ]
-          }
-        }
-      ]
+      "drops": [{}]
     }
   ]
 }
@@ -89,7 +81,6 @@ public void on(DroptLoadRulesEvent event) {
       )
       .addDrops(new IDroptDropBuilder[]{
           DroptAPI.drop()
-              .items(new String[]{DroptAPI.itemString(Items.STRING)})
       })
   );
 
