@@ -1,5 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
+import com.codetaylor.mc.athenaeum.tools.ZenDocClass;
+import com.codetaylor.mc.athenaeum.tools.ZenDocMethod;
 import com.codetaylor.mc.dropt.api.DroptAPI;
 import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
