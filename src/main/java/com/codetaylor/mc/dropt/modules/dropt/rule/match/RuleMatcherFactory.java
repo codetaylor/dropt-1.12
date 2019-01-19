@@ -18,7 +18,8 @@ public class RuleMatcherFactory {
 
   public RuleMatcherFactory(
       BlockMatcher blockMatcher,
-      DropMatcher dropMatcher, HarvesterMatcher harvesterMatcher,
+      DropMatcher dropMatcher,
+      HarvesterMatcher harvesterMatcher,
       BiomeMatcher biomeMatcher,
       DimensionMatcher dimensionMatcher
   ) {
@@ -35,7 +36,8 @@ public class RuleMatcherFactory {
       EntityPlayer harvester,
       BlockPos pos,
       IBlockState blockState,
-      List<ItemStack> drops
+      List<ItemStack> drops,
+      boolean isExplosion
   ) {
 
     return new RuleMatcher(
@@ -44,6 +46,7 @@ public class RuleMatcherFactory {
         pos,
         blockState,
         drops,
+        isExplosion,
         this.blockMatcher,
         this.dropMatcher,
         this.harvesterMatcher,

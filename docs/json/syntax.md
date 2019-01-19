@@ -181,6 +181,7 @@ This object defines conditions specific to the entity that broke the block.
     + `PLAYER`: The block must be broken by a player to match.
     + `NON_PLAYER`: The block must not be broken by a player to match.
     + `ANY`: The matcher does not care what broke the block.<br/>If a player broke the block and `heldItemMainHand`, `gamestages`, or `playerName` is provided, they will be checked.
+    + `EXPLOSION`: The matcher will only match blocks broken by explosions.<br/>NOTE: some dropped items will be destroyed as per the normal explosion mechanics.
   
 * `heldItemMainHand`: <code>[IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand)</code>
     + &#x1F539;*Optional* - if omitted, this condition will pass.

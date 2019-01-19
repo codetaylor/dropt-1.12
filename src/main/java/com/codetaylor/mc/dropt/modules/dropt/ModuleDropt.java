@@ -94,7 +94,8 @@ public class ModuleDropt
             ),
             new ExperienceCache(
                 new HashMap<>()
-            )
+            ),
+            new HashSet<>()
         )
     );
 

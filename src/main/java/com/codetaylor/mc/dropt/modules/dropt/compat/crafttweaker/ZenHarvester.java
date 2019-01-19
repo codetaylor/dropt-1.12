@@ -31,7 +31,7 @@ public class ZenHarvester {
   @ZenDocMethod(
       order = 1,
       description = {
-          "Matches based on player / non-player.",
+          "Matches based on player / non-player / explosion.",
           "@see /json/syntax/#irulematchharvester"
       },
       args = {"type"}

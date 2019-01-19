@@ -19,7 +19,7 @@ For more information, see:
 Harvester type(string type);
 ```
 
-Matches based on player / non-player.
+Matches based on player / non-player / explosion.
 {: .zen-description }
 
 For more information, see:

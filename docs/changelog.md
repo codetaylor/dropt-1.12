@@ -1,3 +1,13 @@
+1.13.0
+
+  * Added:
+    * EXPLOSION harvester type that will match only when the block being harvested is destroyed by an explosion. Note that some dropped items are still destroyed by explosions as per the normal mechanics. (#
+
+  * Changed:
+    * Bumped API to version 2
+
+---
+
 1.12.0
 
   * Changed:

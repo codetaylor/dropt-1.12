@@ -40,7 +40,8 @@ public class RuleLocator {
       BlockPos pos,
       IBlockState blockState,
       List<ItemStack> drops,
-      HeldItemCache heldItemCache
+      HeldItemCache heldItemCache,
+      boolean isExplosion
   ) {
 
     if (blockState == null) {
@@ -55,7 +56,7 @@ public class RuleLocator {
       this.map.put(blockState, ruleList);
     }
 
-    return this.matchRule(world, harvester, pos, blockState, drops, heldItemCache, ruleList);
+    return this.matchRule(world, harvester, pos, blockState, drops, heldItemCache, isExplosion, ruleList);
   }
 
   @Nonnull
@@ -116,11 +117,12 @@ public class RuleLocator {
       IBlockState blockState,
       List<ItemStack> drops,
       HeldItemCache heldItemCache,
+      boolean isExplosion,
       List<Rule> ruleList
   ) {
 
     DebugFileWrapper debugFileWrapper = null;
-    RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(world, harvester, pos, blockState, drops);
+    RuleMatcher ruleMatcher = this.ruleMatcherFactory.create(world, harvester, pos, blockState, drops, isExplosion);
 
     long start = System.currentTimeMillis();
     int checkedRuleCount = 0;

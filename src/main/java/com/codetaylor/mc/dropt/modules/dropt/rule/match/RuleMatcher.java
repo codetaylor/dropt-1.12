@@ -25,6 +25,7 @@ public class RuleMatcher {
   private final int posY;
   private final IBlockState blockState;
   private final List<ItemStack> drops;
+  private final boolean isExplosion;
 
   public RuleMatcher(
       World world,
@@ -32,12 +33,14 @@ public class RuleMatcher {
       BlockPos pos,
       IBlockState blockState,
       List<ItemStack> drops,
+      boolean isExplosion,
       BlockMatcher blockMatcher,
       DropMatcher dropMatcher,
       HarvesterMatcher harvesterMatcher,
       BiomeMatcher biomeMatcher,
       DimensionMatcher dimensionMatcher
   ) {
+
 
     this.blockMatcher = blockMatcher;
     this.dropMatcher = dropMatcher;
@@ -51,6 +54,7 @@ public class RuleMatcher {
     this.posY = pos.getY();
     this.blockState = blockState;
     this.drops = drops;
+    this.isExplosion = isExplosion;
   }
 
   public boolean matches(
@@ -67,7 +71,7 @@ public class RuleMatcher {
     boolean result = this.matchVerticalRange(ruleMatch, this.posY, logFile, debug)
         && this.blockMatcher.matches(ruleMatch.blocks, this.blockState, logFile, debug)
         && this.dropMatcher.matches(ruleMatch.drops, logFile, debug, this.drops)
-        && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, this.blockState, logFile, debug)
+        && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, this.blockState, this.isExplosion, logFile, debug)
         && this.biomeMatcher.matches(ruleMatch.biomes, this.biome, logFile, debug)
         && this.dimensionMatcher.matches(ruleMatch.dimensions, this.dimension, logFile, debug);
 

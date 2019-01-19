@@ -30,6 +30,7 @@ public class HarvesterMatcher {
       HeldItemCache heldItemCache,
       @Nullable EntityPlayer harvester,
       IBlockState blockState,
+      boolean isExplosion,
       DebugFileWrapper logFile,
       boolean debug
   ) {
@@ -129,6 +130,20 @@ public class HarvesterMatcher {
       }
 
       return result;
+
+    } else if (ruleMatchHarvester.type == EnumHarvesterType.EXPLOSION) {
+
+      if (debug) {
+
+        if (isExplosion) {
+          logFile.debug("[MATCH] [OK] Harvester is an explosion");
+
+        } else {
+          logFile.debug("[MATCH] [!!] Harvester is not an explosion: " + harvester);
+        }
+      }
+
+      return isExplosion;
     }
 
     return false;

@@ -17,15 +17,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
+import java.util.Set;
 
 public class EventHandler {
 
@@ -35,18 +38,21 @@ public class EventHandler {
 
   private HeldItemCache heldItemCache;
   private ExperienceCache experienceCache;
+  private Set<BlockPos> explosionCache;
 
   public EventHandler(
       RuleLocator ruleLocator,
       DropModifier dropModifier,
       HeldItemCache heldItemCache,
-      ExperienceCache experienceCache
+      ExperienceCache experienceCache,
+      Set<BlockPos> explosionCache
   ) {
 
     this.ruleLocator = ruleLocator;
     this.dropModifier = dropModifier;
     this.heldItemCache = heldItemCache;
     this.experienceCache = experienceCache;
+    this.explosionCache = explosionCache;
   }
 
   @SubscribeEvent
@@ -55,7 +61,20 @@ public class EventHandler {
     if (event.side == Side.SERVER) {
       ModuleDropt.CONSOLE_LOG.update();
     }
+  }
 
+  @SubscribeEvent
+  public void onExplosionEvent(ExplosionEvent.Detonate event) {
+
+    this.explosionCache.addAll(event.getAffectedBlocks());
+  }
+
+  @SubscribeEvent
+  public void onServerTickEvent(TickEvent.ServerTickEvent event) {
+
+    if (event.phase == TickEvent.Phase.START) {
+      this.explosionCache.clear();
+    }
   }
 
   @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -92,6 +111,7 @@ public class EventHandler {
     int meta = block.getMetaFromState(blockState);
     ResourceLocation registryName = block.getRegistryName();
     World world = event.getWorld();
+    BlockPos blockPos = event.getPos();
 
     if (registryName != null) {
       ModuleDropt.CONSOLE_LOG.increment(registryName, meta);
@@ -100,10 +120,11 @@ public class EventHandler {
     Rule matchedRule = this.ruleLocator.locate(
         world,
         event.getHarvester(),
-        event.getPos(),
+        blockPos,
         blockState,
         event.getDrops(),
-        this.heldItemCache
+        this.heldItemCache,
+        this.explosionCache.contains(blockPos)
     );
 
     int experience = 0;
@@ -121,7 +142,7 @@ public class EventHandler {
 
       this.dropModifier.modifyDrops(
           world,
-          event.getPos(),
+          blockPos,
           matchedRule,
           event.getDrops(),
           this.isSilkTouching(event, this.heldItemCache),
@@ -147,9 +168,9 @@ public class EventHandler {
         experience -= xpDrop;
         world.spawnEntity(new EntityXPOrb(
             world,
-            event.getPos().getX(),
-            event.getPos().getY() + 0.5,
-            event.getPos().getZ(),
+            blockPos.getX(),
+            blockPos.getY() + 0.5,
+            blockPos.getZ(),
             xpDrop
         ));
       }
