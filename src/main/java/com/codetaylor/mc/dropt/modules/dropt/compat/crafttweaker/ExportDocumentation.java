@@ -1,6 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
-import com.codetaylor.mc.athenaeum.tools.ZenDocExporter;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocExporter;
 
 import java.nio.file.Paths;
 
