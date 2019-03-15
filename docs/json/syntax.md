@@ -178,10 +178,12 @@ This object defines conditions specific to the entity that broke the block.
 
 * `type`: `enum`
     + &#x1F539;*Optional* - if omitted, defaults to `ANY`.
-    + `PLAYER`: The block must be broken by a player to match.
+    + `PLAYER`: The block must be broken by a player (fake or real) to match.
     + `NON_PLAYER`: The block must not be broken by a player to match.
     + `ANY`: The matcher does not care what broke the block.<br/>If a player broke the block and `heldItemMainHand`, `gamestages`, or `playerName` is provided, they will be checked.
     + `EXPLOSION`: The matcher will only match blocks broken by explosions.<br/>NOTE: some dropped items will be destroyed as per the normal explosion mechanics.
+    + `REAL_PLAYER`: The harvester must be a real player.
+    + `FAKE_PLAYER`: The harvester must be a fake player.
   
 * `heldItemMainHand`: <code>[IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand)</code>
     + &#x1F539;*Optional* - if omitted, this condition will pass.

@@ -1,13 +1,13 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
-import com.codetaylor.mc.athenaeum.tools.ZenDocClass;
-import com.codetaylor.mc.athenaeum.tools.ZenDocMethod;
 import com.codetaylor.mc.dropt.api.DroptAPI;
 import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
 import com.codetaylor.mc.dropt.api.reference.EnumDropStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumListType;
 import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocClass;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocMethod;
 import crafttweaker.api.item.IIngredient;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;

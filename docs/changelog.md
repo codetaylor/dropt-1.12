@@ -1,3 +1,11 @@
+1.14.0
+
+  * Added:
+    * REAL_PLAYER and FAKE_PLAYER harvester type
+
+  * Changed:
+    * Bumped API to version 3
+
 1.13.0
 
   * Added:

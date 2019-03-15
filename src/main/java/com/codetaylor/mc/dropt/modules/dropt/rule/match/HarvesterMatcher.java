@@ -3,10 +3,19 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 import com.codetaylor.mc.dropt.api.reference.EnumHarvesterType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvester;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerList;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.util.FakePlayer;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 public class HarvesterMatcher {
 
@@ -144,9 +153,110 @@ public class HarvesterMatcher {
       }
 
       return isExplosion;
+
+    } else if (ruleMatchHarvester.type == EnumHarvesterType.REAL_PLAYER) {
+
+      if (harvester == null) {
+
+        if (debug) {
+          logFile.debug("[MATCH] [!!] Harvester is null");
+        }
+        return false;
+      }
+
+      boolean realPlayer = this.isRealPlayer(harvester);
+
+      if (debug) {
+
+        if (realPlayer) {
+          logFile.debug("[MATCH] [OK] Harvester is a real player");
+
+        } else {
+          logFile.debug("[MATCH] [!!] Harvester is not a real player: " + harvester);
+        }
+      }
+
+      return realPlayer;
+
+    } else if (ruleMatchHarvester.type == EnumHarvesterType.FAKE_PLAYER) {
+
+      if (harvester == null) {
+
+        if (debug) {
+          logFile.debug("[MATCH] [!!] Harvester is null");
+        }
+        return false;
+      }
+
+      boolean fakePlayer = this.isFakePlayer(harvester);
+
+      if (debug) {
+
+        if (fakePlayer) {
+          logFile.debug("[MATCH] [OK] Harvester is a fake player");
+
+        } else {
+          logFile.debug("[MATCH] [!!] Harvester is not a fake player: " + harvester);
+        }
+      }
+
+      return fakePlayer;
     }
 
     return false;
+  }
+
+  /**
+   * Makes a good attempt to suss out fake players.
+   * <p>
+   * From: https://github.com/McJtyMods/InControl/blob/9da5907a62635b47a4c667fa4207c551b84a19de/src/main/java/mcjty/incontrol/rules/support/GenericRuleEvaluator.java
+   * <p>
+   * Thank you McJty!
+   *
+   * @param entity the entity to test
+   * @return true if the given entity is a fake player
+   */
+  private boolean isFakePlayer(Entity entity) {
+
+    if (!(entity instanceof EntityPlayer)) {
+      return false;
+    }
+
+    if (entity instanceof FakePlayer) {
+      return true;
+    }
+
+    // If this returns false it is still possible we have a fake player. Try to find the player in the list of online players
+    WorldServer worldServer = DimensionManager.getWorld(0);
+    MinecraftServer minecraftServer = worldServer.getMinecraftServer();
+
+    if (minecraftServer == null) {
+      return false;
+    }
+
+    PlayerList playerList = minecraftServer.getPlayerList();
+    GameProfile gameProfile = ((EntityPlayer) entity).getGameProfile();
+    UUID gameProfileId = gameProfile.getId();
+    EntityPlayerMP playerByUUID = playerList.getPlayerByUUID(gameProfileId);
+
+    //noinspection ConstantConditions
+    if (playerByUUID == null) {
+
+      // The player isn't online. Then it can't be real
+      return true;
+    }
+
+    // The player is in the list. But is it this player?
+    return entity != playerByUUID;
+  }
+
+  private boolean isRealPlayer(Entity entity) {
+
+    if (!(entity instanceof EntityPlayer)) {
+      return false;
+    }
+
+    return !this.isFakePlayer(entity);
   }
 
 }

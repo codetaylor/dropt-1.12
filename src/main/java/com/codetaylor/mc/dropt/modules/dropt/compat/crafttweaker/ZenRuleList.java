@@ -1,8 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
-import com.codetaylor.mc.athenaeum.tools.ZenDocClass;
-import com.codetaylor.mc.athenaeum.tools.ZenDocMethod;
 import com.codetaylor.mc.dropt.api.api.IDroptRuleBuilder;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocClass;
+import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocMethod;
 import net.minecraft.util.ResourceLocation;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
