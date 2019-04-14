@@ -15,6 +15,7 @@ pages:
   - Leaf Drops: examples/leaf_drops.md
   - Tool Restriction: examples/tool_restriction.md
   - Advanced Fortune: examples/advanced_fortune.md
+  - Silk Touch: examples/silk_touch.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md
