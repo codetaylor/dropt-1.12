@@ -136,6 +136,7 @@ This object defines conditions to match the broken blockstate.
     + This string array defines blocks to be matched against the block broken.
     + Syntax: `domain:path:meta`, meta may be a wildcard `*`. Multiple meta values can be specified using `domain:path:meta,meta,meta`.
     + Example: `minecraft:stone:0`
+    + Note: These block strings are matched against blockStates and OreDict values are *not* valid.
 
 ---
 
