@@ -158,6 +158,9 @@ public class RuleLoader {
         // Parse item held in main hand strings
         new ParserRuleMatchHarvesterHeldItemMainHand().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
+        // Parse item held in off hand strings
+        new ParserRuleMatchHarvesterHeldItemOffHand().parse(parser, ruleList, rule, logger, debugFileWrapper);
+
         // Parse biomes
         new ParserRuleMatchBiome().parse(parser, ruleList, rule, logger, debugFileWrapper);
 

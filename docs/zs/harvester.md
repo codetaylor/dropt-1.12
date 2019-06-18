@@ -19,7 +19,7 @@ For more information, see:
 Harvester type(string type);
 ```
 
-Matches based on player / non-player / explosion / real player / fake player.
+Matches based on player / non-player / explosion.
 {: .zen-description }
 
 For more information, see:
@@ -39,7 +39,7 @@ Matches based on what the player is or isn't holding.
 For more information, see:
 {: .zen-description }
 
-  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
 {: .zen-description }
 
 
@@ -53,7 +53,7 @@ Matches based on what the player is or isn't holding.
 For more information, see:
 {: .zen-description }
 
-  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
 {: .zen-description }
 
 
@@ -67,7 +67,7 @@ Matches based on what the player is or isn't holding.
 For more information, see:
 {: .zen-description }
 
-  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
 {: .zen-description }
 
 
@@ -81,7 +81,63 @@ Matches based on what the player is or isn't holding.
 For more information, see:
 {: .zen-description }
 
-  * [/json/syntax/#irulematchharvesterhelditemmainhand](/json/syntax/#irulematchharvesterhelditemmainhand)
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
+{: .zen-description }
+
+
+```java
+Harvester offHand(string harvestLevel);
+```
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
+{: .zen-description }
+
+
+```java
+Harvester offHand(IItemStack[] items);
+```
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
+{: .zen-description }
+
+
+```java
+Harvester offHand(string type, IItemStack[] items);
+```
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
+{: .zen-description }
+
+
+```java
+Harvester offHand(string type, IItemStack[] items, string harvestLevel);
+```
+
+Matches based on what the player is or isn't holding.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematchharvesterhelditem](/json/syntax/#irulematchharvesterhelditem)
 {: .zen-description }
 
 

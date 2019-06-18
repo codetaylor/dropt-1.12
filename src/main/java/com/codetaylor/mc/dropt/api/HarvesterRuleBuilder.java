@@ -72,6 +72,53 @@ public class HarvesterRuleBuilder
   }
 
   @Override
+  public IDroptHarvesterRuleBuilder offHand(String[] items) {
+
+    this.rule.heldItemOffHand.items = ArrayHelper.copy(items);
+    return this;
+  }
+
+  @Override
+  public IDroptHarvesterRuleBuilder offHand(String harvestLevel) {
+
+    this.rule.heldItemOffHand.harvestLevel = harvestLevel;
+    return this;
+  }
+
+  @Override
+  public IDroptHarvesterRuleBuilder offHand(String[] items, String harvestLevel) {
+
+    this.rule.heldItemOffHand.items = ArrayHelper.copy(items);
+    this.rule.heldItemOffHand.harvestLevel = harvestLevel;
+    return this;
+  }
+
+  @Override
+  public IDroptHarvesterRuleBuilder offHand(EnumListType type, String[] items) {
+
+    this.rule.heldItemOffHand.type = type;
+    this.rule.heldItemOffHand.items = ArrayHelper.copy(items);
+    return this;
+  }
+
+  @Override
+  public IDroptHarvesterRuleBuilder offHand(EnumListType type, String harvestLevel) {
+
+    this.rule.heldItemOffHand.type = type;
+    this.rule.heldItemOffHand.harvestLevel = harvestLevel;
+    return this;
+  }
+
+  @Override
+  public IDroptHarvesterRuleBuilder offHand(EnumListType type, String[] items, String harvestLevel) {
+
+    this.rule.heldItemOffHand.type = type;
+    this.rule.heldItemOffHand.items = ArrayHelper.copy(items);
+    this.rule.heldItemOffHand.harvestLevel = harvestLevel;
+    return this;
+  }
+
+  @Override
   public IDroptHarvesterRuleBuilder gameStages(String[] stages) {
 
     this.rule.gamestages.stages = ArrayHelper.copy(stages);

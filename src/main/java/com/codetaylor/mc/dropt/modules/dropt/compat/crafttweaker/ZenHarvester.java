@@ -47,7 +47,7 @@ public class ZenHarvester {
       order = 2,
       description = {
           "Matches based on what the player is or isn't holding.",
-          "@see /json/syntax/#irulematchharvesterhelditemmainhand"
+          "@see /json/syntax/#irulematchharvesterhelditem"
       },
       args = {"harvestLevel"}
   )
@@ -62,7 +62,7 @@ public class ZenHarvester {
       order = 3,
       description = {
           "Matches based on what the player is or isn't holding.",
-          "@see /json/syntax/#irulematchharvesterhelditemmainhand"
+          "@see /json/syntax/#irulematchharvesterhelditem"
       },
       args = {"items"}
   )
@@ -77,7 +77,7 @@ public class ZenHarvester {
       order = 4,
       description = {
           "Matches based on what the player is or isn't holding.",
-          "@see /json/syntax/#irulematchharvesterhelditemmainhand"
+          "@see /json/syntax/#irulematchharvesterhelditem"
       },
       args = {"type", "items"}
   )
@@ -92,7 +92,7 @@ public class ZenHarvester {
       order = 5,
       description = {
           "Matches based on what the player is or isn't holding.",
-          "@see /json/syntax/#irulematchharvesterhelditemmainhand"
+          "@see /json/syntax/#irulematchharvesterhelditem"
       },
       args = {"type", "items", "harvestLevel"}
   )
@@ -105,6 +105,66 @@ public class ZenHarvester {
 
   @ZenDocMethod(
       order = 6,
+      description = {
+          "Matches based on what the player is or isn't holding.",
+          "@see /json/syntax/#irulematchharvesterhelditem"
+      },
+      args = {"harvestLevel"}
+  )
+  @ZenMethod
+  public ZenHarvester offHand(String harvestLevel) {
+
+    this.harvester.offHand(harvestLevel);
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 7,
+      description = {
+          "Matches based on what the player is or isn't holding.",
+          "@see /json/syntax/#irulematchharvesterhelditem"
+      },
+      args = {"items"}
+  )
+  @ZenMethod
+  public ZenHarvester offHand(IItemStack[] items) {
+
+    this.harvester.offHand(ZenDropt.getItemStrings(items));
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 8,
+      description = {
+          "Matches based on what the player is or isn't holding.",
+          "@see /json/syntax/#irulematchharvesterhelditem"
+      },
+      args = {"type", "items"}
+  )
+  @ZenMethod
+  public ZenHarvester offHand(String type, IItemStack[] items) {
+
+    this.harvester.offHand(EnumListType.valueOf(type), ZenDropt.getItemStrings(items));
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 9,
+      description = {
+          "Matches based on what the player is or isn't holding.",
+          "@see /json/syntax/#irulematchharvesterhelditem"
+      },
+      args = {"type", "items", "harvestLevel"}
+  )
+  @ZenMethod
+  public ZenHarvester offHand(String type, IItemStack[] items, String harvestLevel) {
+
+    this.harvester.offHand(EnumListType.valueOf(type), ZenDropt.getItemStrings(items), harvestLevel);
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 10,
       description = {
           "Matches based on which game stages the player has or has not unlocked.",
           "@see /json/syntax/#irulematchharvestergamestage"
@@ -119,7 +179,7 @@ public class ZenHarvester {
   }
 
   @ZenDocMethod(
-      order = 7,
+      order = 11,
       description = {
           "Matches based on which game stages the player has or has not unlocked.",
           "@see /json/syntax/#irulematchharvestergamestage"
@@ -134,7 +194,7 @@ public class ZenHarvester {
   }
 
   @ZenDocMethod(
-      order = 8,
+      order = 12,
       description = {
           "Matches based on which game stages the player has or has not unlocked.",
           "@see /json/syntax/#irulematchharvestergamestage"
@@ -149,7 +209,7 @@ public class ZenHarvester {
   }
 
   @ZenDocMethod(
-      order = 9,
+      order = 13,
       description = {
           "Matches based on player name.",
           "@see /json/syntax/#irulematchharvesterplayername"
@@ -164,7 +224,7 @@ public class ZenHarvester {
   }
 
   @ZenDocMethod(
-      order = 10,
+      order = 14,
       description = {
           "Matches based on player name.",
           "@see /json/syntax/#irulematchharvesterplayername"

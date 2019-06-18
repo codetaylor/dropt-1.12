@@ -20,17 +20,17 @@ import java.util.UUID;
 public class HarvesterMatcher {
 
   private GameStageMatcher gameStageMatcher;
-  private HeldItemMainHandMatcher heldItemMainHandMatcher;
+  private HeldItemMatcher heldItemMatcher;
   private PlayerNameMatcher playerNameMatcher;
 
   public HarvesterMatcher(
       GameStageMatcher gameStageMatcher,
-      HeldItemMainHandMatcher heldItemMainHandMatcher,
+      HeldItemMatcher heldItemMatcher,
       PlayerNameMatcher playerNameMatcher
   ) {
 
     this.gameStageMatcher = gameStageMatcher;
-    this.heldItemMainHandMatcher = heldItemMainHandMatcher;
+    this.heldItemMatcher = heldItemMatcher;
     this.playerNameMatcher = playerNameMatcher;
   }
 
@@ -56,16 +56,24 @@ public class HarvesterMatcher {
           logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
         }
 
-        boolean result = this.heldItemMainHandMatcher.matches(
+        boolean result = this.heldItemMatcher.matches(
             ruleMatchHarvester.heldItemMainHand,
             heldItemCache.get(harvester.getName()),
             blockState,
             harvester,
             logFile,
             debug
-        )
-            && this.playerNameMatcher.matches(ruleMatchHarvester.playerName, harvester.getName(), logFile, debug)
-            && this.gameStageMatcher.matches(ruleMatchHarvester.gamestages, harvester, logFile, debug);
+        );
+        result = result && this.heldItemMatcher.matches(
+            ruleMatchHarvester.heldItemOffHand,
+            harvester.getHeldItemOffhand(),
+            blockState,
+            harvester,
+            logFile,
+            debug
+        );
+        result = result && this.playerNameMatcher.matches(ruleMatchHarvester.playerName, harvester.getName(), logFile, debug);
+        result = result && this.gameStageMatcher.matches(ruleMatchHarvester.gamestages, harvester, logFile, debug);
 
         if (debug) {
 
@@ -117,7 +125,7 @@ public class HarvesterMatcher {
         logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
       }
 
-      boolean result = this.heldItemMainHandMatcher.matches(
+      boolean result = this.heldItemMatcher.matches(
           ruleMatchHarvester.heldItemMainHand,
           heldItemCache.get(harvester.getName()),
           blockState,

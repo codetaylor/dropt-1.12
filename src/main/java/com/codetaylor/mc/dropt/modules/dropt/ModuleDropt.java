@@ -80,7 +80,7 @@ public class ModuleDropt
                     new DropMatcher(),
                     new HarvesterMatcher(
                         new GameStageMatcher(),
-                        new HeldItemMainHandMatcher(),
+                        new HeldItemMatcher(),
                         new PlayerNameMatcher()
                     ),
                     new BiomeMatcher(),

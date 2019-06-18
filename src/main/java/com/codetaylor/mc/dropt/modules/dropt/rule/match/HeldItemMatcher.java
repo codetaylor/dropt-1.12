@@ -1,7 +1,7 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
 import com.codetaylor.mc.dropt.api.reference.EnumListType;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterHeldItemMainHand;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchHarvesterHeldItem;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,10 +11,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
 
-public class HeldItemMainHandMatcher {
+public class HeldItemMatcher {
 
   public boolean matches(
-      RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
+      RuleMatchHarvesterHeldItem ruleMatchHarvesterHeldItem,
       ItemStack heldItemStack,
       IBlockState blockState,
       EntityPlayer harvester,
@@ -23,13 +23,13 @@ public class HeldItemMainHandMatcher {
   ) {
 
     Item item = heldItemStack.getItem();
-    String toolClass = ruleMatchHarvesterHeldItemMainHand._toolClass;
+    String toolClass = ruleMatchHarvesterHeldItem._toolClass;
 
     if (toolClass != null) {
       int harvestLevel = item.getHarvestLevel(heldItemStack, toolClass, harvester, blockState);
 
       // WHITELIST
-      if (ruleMatchHarvesterHeldItemMainHand.type == EnumListType.WHITELIST) {
+      if (ruleMatchHarvesterHeldItem.type == EnumListType.WHITELIST) {
         Set<String> toolClasses = item.getToolClasses(heldItemStack);
 
         if (!toolClasses.contains(toolClass)) {
@@ -44,8 +44,8 @@ public class HeldItemMainHandMatcher {
           logFile.debug("[MATCH] [OK] Held item has required tool class: " + toolClass);
         }
 
-        if (harvestLevel < ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
-            || harvestLevel > ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel) {
+        if (harvestLevel < ruleMatchHarvesterHeldItem._minHarvestLevel
+            || harvestLevel > ruleMatchHarvesterHeldItem._maxHarvestLevel) {
 
           if (debug) {
             logFile.debug("[MATCH] [!!] Harvest tool outside of level range");
@@ -60,8 +60,8 @@ public class HeldItemMainHandMatcher {
       } else { // BLACKLIST
         Set<String> toolClasses = item.getToolClasses(heldItemStack);
 
-        boolean harvestLevelInRange = harvestLevel >= ruleMatchHarvesterHeldItemMainHand._minHarvestLevel
-            && harvestLevel <= ruleMatchHarvesterHeldItemMainHand._maxHarvestLevel;
+        boolean harvestLevelInRange = harvestLevel >= ruleMatchHarvesterHeldItem._minHarvestLevel
+            && harvestLevel <= ruleMatchHarvesterHeldItem._maxHarvestLevel;
         boolean toolClassMatches = toolClasses.contains(toolClass);
 
         if (toolClassMatches && harvestLevelInRange) {
@@ -78,34 +78,34 @@ public class HeldItemMainHandMatcher {
       }
     }
 
-    return this.checkItemList(ruleMatchHarvesterHeldItemMainHand, heldItemStack, logFile, debug);
+    return this.checkItemList(ruleMatchHarvesterHeldItem, heldItemStack, logFile, debug);
   }
 
   private boolean checkItemList(
-      RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
+      RuleMatchHarvesterHeldItem ruleMatchHarvesterHeldItem,
       ItemStack heldItemStack,
       DebugFileWrapper logFile,
       boolean debug
   ) {
 
-    if (ruleMatchHarvesterHeldItemMainHand._items.isEmpty()) {
+    if (ruleMatchHarvesterHeldItem._items.isEmpty()) {
 
       if (debug) {
-        logFile.debug("[MATCH] [OK] No item entries in heldItemMainHand to match");
+        logFile.debug("[MATCH] [OK] No item entries to match");
       }
       return true;
     }
 
-    if (ruleMatchHarvesterHeldItemMainHand.type == EnumListType.WHITELIST) {
-      return this.checkAsWhitelist(ruleMatchHarvesterHeldItemMainHand, heldItemStack, logFile, debug);
+    if (ruleMatchHarvesterHeldItem.type == EnumListType.WHITELIST) {
+      return this.checkAsWhitelist(ruleMatchHarvesterHeldItem, heldItemStack, logFile, debug);
 
     } else {
-      return this.checkAsBlacklist(ruleMatchHarvesterHeldItemMainHand, heldItemStack, logFile, debug);
+      return this.checkAsBlacklist(ruleMatchHarvesterHeldItem, heldItemStack, logFile, debug);
     }
   }
 
   private boolean checkAsWhitelist(
-      RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
+      RuleMatchHarvesterHeldItem ruleMatchHarvesterHeldItem,
       ItemStack heldItemStack,
       DebugFileWrapper logFile,
       boolean debug
@@ -114,13 +114,13 @@ public class HeldItemMainHandMatcher {
     Item heldItem = heldItemStack.getItem();
     int metadata = heldItemStack.getMetadata();
 
-    for (ItemStack itemStack : ruleMatchHarvesterHeldItemMainHand._items) {
+    for (ItemStack itemStack : ruleMatchHarvesterHeldItem._items) {
 
       if (itemStack.getItem() != heldItem) {
 
         if (debug) {
           logFile.debug(String.format(
-              "[MATCH] [!!] HeldItemMainHand item mismatch: (match) %s != %s (candidate)",
+              "[MATCH] [!!] Held item mismatch: (match) %s != %s (candidate)",
               itemStack.getItem(),
               heldItem
           ));
@@ -129,7 +129,7 @@ public class HeldItemMainHandMatcher {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[MATCH] [OK] HeldItemMainHand item match: (match) %s == %s (candidate)",
+            "[MATCH] [OK] Held item match: (match) %s == %s (candidate)",
             itemStack.getItem(),
             heldItem
         ));
@@ -139,17 +139,17 @@ public class HeldItemMainHandMatcher {
 
         if (debug) {
           logFile.debug(String.format(
-              "[MATCH] [OK] HeldItemMainHand meta match: (match) %d == %d (candidate)",
+              "[MATCH] [OK] Held item meta match: (match) %d == %d (candidate)",
               itemStack.getMetadata(),
               metadata
           ));
-          logFile.debug("[MATCH] [OK] Found heldItemMainHand match in whitelist");
+          logFile.debug("[MATCH] [OK] Found held item match in whitelist");
         }
         return true;
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[MATCH] [!!] HeldItemMainHand meta mismatch: (match) %d != %d (candidate)",
+            "[MATCH] [!!] Held item meta mismatch: (match) %d != %d (candidate)",
             itemStack.getMetadata(),
             metadata
         ));
@@ -163,7 +163,7 @@ public class HeldItemMainHandMatcher {
   }
 
   private boolean checkAsBlacklist(
-      RuleMatchHarvesterHeldItemMainHand ruleMatchHarvesterHeldItemMainHand,
+      RuleMatchHarvesterHeldItem ruleMatchHarvesterHeldItem,
       ItemStack heldItemStack,
       DebugFileWrapper logFile,
       boolean debug
@@ -172,13 +172,13 @@ public class HeldItemMainHandMatcher {
     Item heldItem = heldItemStack.getItem();
     int metadata = heldItemStack.getMetadata();
 
-    for (ItemStack itemStack : ruleMatchHarvesterHeldItemMainHand._items) {
+    for (ItemStack itemStack : ruleMatchHarvesterHeldItem._items) {
 
       if (itemStack.getItem() != heldItem) {
 
         if (debug) {
           logFile.debug(String.format(
-              "[MATCH] [OK] HeldItemMainHand item mismatch: (match) %s != %s (candidate)",
+              "[MATCH] [OK] Held item item mismatch: (match) %s != %s (candidate)",
               itemStack.getItem(),
               heldItem
           ));
@@ -187,7 +187,7 @@ public class HeldItemMainHandMatcher {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[MATCH] [!!] HeldItemMainHand item match: (match) %s == %s (candidate)",
+            "[MATCH] [!!] Held item item match: (match) %s == %s (candidate)",
             itemStack.getItem(),
             heldItem
         ));
@@ -197,7 +197,7 @@ public class HeldItemMainHandMatcher {
 
         if (debug) {
           logFile.debug(String.format(
-              "[MATCH] [!!] HeldItemMainHand meta match: (match) %d == %d (candidate)",
+              "[MATCH] [!!] Held item meta match: (match) %d == %d (candidate)",
               itemStack.getMetadata(),
               metadata
           ));
@@ -207,7 +207,7 @@ public class HeldItemMainHandMatcher {
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[MATCH] [OK] HeldItemMainHand meta mismatch: (match) %d != %d (candidate)",
+            "[MATCH] [OK] Held item meta mismatch: (match) %d != %d (candidate)",
             itemStack.getMetadata(),
             metadata
         ));

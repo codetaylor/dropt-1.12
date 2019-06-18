@@ -171,7 +171,8 @@ This object defines conditions specific to the entity that broke the block.
 <big><pre>
 {
 &nbsp;&nbsp;"type": enum,
-&nbsp;&nbsp;"heldItemMainHand": [IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand),
+&nbsp;&nbsp;"heldItemMainHand": [IRuleMatchHarvesterHeldItem](#irulematchharvesterhelditem),
+&nbsp;&nbsp;"heldItemOffHand": [IRuleMatchHarvesterHeldItem](#irulematchharvesterhelditem),
 &nbsp;&nbsp;"gamestages": [IRuleMatchHarvesterGameStage](#irulematchharvestergamestage),
 &nbsp;&nbsp;"playerName": [IRuleMatchHarvesterPlayerName](#irulematchharvesterplayername)
 }
@@ -186,7 +187,7 @@ This object defines conditions specific to the entity that broke the block.
     + `REAL_PLAYER`: The harvester must be a real player.
     + `FAKE_PLAYER`: The harvester must be a fake player.
   
-* `heldItemMainHand`: <code>[IRuleMatchHarvesterHeldItemMainHand](#irulematchharvesterhelditemmainhand)</code>
+* `heldItemMainHand`: <code>[IRuleMatchHarvesterHeldItem](#irulematchharvesterhelditemmainhand)</code>
     + &#x1F539;*Optional* - if omitted, this condition will pass.
     + This object defines conditions for matching held items.
 
@@ -200,7 +201,7 @@ This object defines conditions specific to the entity that broke the block.
 
 ---
 
-## IRuleMatchHarvesterHeldItemMainHand
+## IRuleMatchHarvesterHeldItem
 
 This object defines conditions for matching held items.
 

@@ -1,3 +1,10 @@
+1.15.0
+
+  * Added:
+    * Harvester rule to match item held in off-hand (#53) Note: the main hand rule and off hand rule, if both defined, must both match for the rule to match. In other words, it's main hand match AND off hand match.
+
+---
+
 1.14.0
 
   * Added:
@@ -5,6 +12,8 @@
 
   * Changed:
     * Bumped API to version 3
+
+---
 
 1.13.0
 

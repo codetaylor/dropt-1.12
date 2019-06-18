@@ -20,6 +20,18 @@ public interface IDroptHarvesterRuleBuilder {
 
   IDroptHarvesterRuleBuilder mainHand(EnumListType type, String[] items, String harvestLevel);
 
+  IDroptHarvesterRuleBuilder offHand(String[] items);
+
+  IDroptHarvesterRuleBuilder offHand(String harvestLevel);
+
+  IDroptHarvesterRuleBuilder offHand(String[] items, String harvestLevel);
+
+  IDroptHarvesterRuleBuilder offHand(EnumListType type, String[] items);
+
+  IDroptHarvesterRuleBuilder offHand(EnumListType type, String harvestLevel);
+
+  IDroptHarvesterRuleBuilder offHand(EnumListType type, String[] items, String harvestLevel);
+
   IDroptHarvesterRuleBuilder gameStages(String[] stages);
 
   IDroptHarvesterRuleBuilder gameStages(EnumHarvesterGameStageType require, String[] stages);

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RuleMatchHarvesterHeldItemMainHand {
+public class RuleMatchHarvesterHeldItem {
 
   public transient List<ItemStack> _items = new ArrayList<>();
   public transient String _toolClass = null;
