@@ -107,7 +107,7 @@ public class ParserRuleMatchItems
         }
 
         int meta = parse.getMeta();
-        int[] metas = new int[split.length];
+        int[] metas = new int[split.length - 1];
 
         for (int i = 1; i < split.length; i++) {
 

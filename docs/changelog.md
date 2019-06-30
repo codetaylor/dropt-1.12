@@ -1,3 +1,10 @@
+1.15.1
+
+  * Fixed:
+    * Off-by-one error causing each parsed `ItemMatcher` to always match a meta of `0` (#56)
+
+---
+
 1.15.0
 
   * Added:
