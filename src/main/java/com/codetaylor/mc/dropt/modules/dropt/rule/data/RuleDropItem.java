@@ -12,13 +12,4 @@ public class RuleDropItem {
 
   public String[] items = new String[0];
   public RandomFortuneInt quantity = new RandomFortuneInt(1);
-
-  @Override
-  public String toString() {
-
-    return "RuleDropItem{" +
-        "_items=" + _items +
-        ", quantity=" + quantity +
-        '}';
-  }
 }
