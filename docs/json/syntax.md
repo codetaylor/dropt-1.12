@@ -388,6 +388,7 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 {
 &nbsp;&nbsp;"selector": [IRuleDropSelector](#iruledropselector),
 &nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem),
+&nbsp;&nbsp;"matchQuantity": [IRuleDropMatchQuantity](#iruledropmatchquantity),
 &nbsp;&nbsp;"xp": [IRandomFortuneInt](#irandomfortuneint),
 &nbsp;&nbsp;"xpReplaceStrategy": enum
 }
@@ -400,7 +401,11 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 * `item`: <code>[IRuleDropItem](#iruledropitem)</code>
     + &#x1F539;*Optional* - if omitted, no item will be dropped if this `IRuleDrop` is selected from the weighted picker.
     + This object defines the item to drop.
-  
+
+* `matchQuantity`: <code>[IRuleDropMatchQuantity](#iruledropmatchquantity)</code>
+    + &#x1F539;*Optional* - if omitted, drop quantity selection will occur as normal.
+    + This defines parameters for matching the quantity of existing drops.
+
 * `xp`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
     + &#x1F539;*Optional* - if omitted, defaults to `0`.
     + This object defines how much XP to drop when the block is broken and this drop is selected.
@@ -487,3 +492,19 @@ This defines the item for the `IRuleDrop`.
 * `quantity`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
     + &#x1F539;*Optional* - if omitted, defaults to `1`
     + This uses a random, fortune modified range to determine how many of this item will be dropped if selected.
+
+---
+
+## IRuleDropMatchQuantity
+
+This object defines parameters for setting the quantity of a drop to the quantity of an existing drop.
+
+<big><pre>
+{
+&nbsp;&nbsp;"drops": String[]
+}
+</pre></big>
+
+* `drops`: `String[]`
+    + &#x1F539;*Optional* - if omitted, defaults to an empty string array.
+    + The quantity of the parent drop will be set to the quantity of the first item in this list to match one of the unmodified dropped items.

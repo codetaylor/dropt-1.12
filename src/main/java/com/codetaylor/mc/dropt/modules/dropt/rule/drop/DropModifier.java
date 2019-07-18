@@ -4,18 +4,17 @@ import com.codetaylor.mc.athenaeum.util.WeightedPicker;
 import com.codetaylor.mc.dropt.api.reference.EnumDropStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
-import com.codetaylor.mc.dropt.modules.dropt.rule.data.*;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
+import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class DropModifier {
 
@@ -36,6 +35,10 @@ public class DropModifier {
     if (debug) {
       logFile.debug("");
     }
+
+    // Make a copy of the current drops before we start altering them.
+    // This is useful later when if we need to count the current drops.
+    List<ItemStack> currentDropsSnapshot = new ArrayList<>(currentDrops);
 
     if (rule.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL) {
       currentDrops.clear();
@@ -114,6 +117,60 @@ public class DropModifier {
       }
 
       int itemQuantity = ruleDrop.item.quantity.get(RANDOM, fortuneLevel);
+
+      if (!ruleDrop.item.matchQuantity._drops.isEmpty()
+          && !currentDropsSnapshot.isEmpty()) {
+
+        // First we count all of the dropped items.
+
+        Map<ItemStack, Integer> countMap = new LinkedHashMap<>(currentDropsSnapshot.size());
+
+        for (ItemStack droppedItemStack : currentDropsSnapshot) {
+          boolean found = false;
+
+          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+            ItemStack countStack = entry.getKey();
+
+            if (countStack.getItem() == droppedItemStack.getItem()
+                && countStack.getMetadata() == droppedItemStack.getMetadata()) {
+              found = true;
+              countMap.put(countStack, entry.getValue() + droppedItemStack.getCount());
+              break;
+            }
+          }
+
+          if (!found) {
+            countMap.put(droppedItemStack.copy(), droppedItemStack.getCount());
+          }
+        }
+
+        if (debug) {
+
+          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+            logFile.debug("[DROP] Match quantity counted [" + entry.getValue() + "] of [" + entry.getKey() + "]");
+          }
+        }
+
+        // Then we look for a match.
+
+        match:
+        for (Ingredient toMatch : ruleDrop.item.matchQuantity._drops) {
+
+          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+            ItemStack candidate = entry.getKey();
+
+            if (toMatch.apply(candidate)) {
+              itemQuantity = entry.getValue();
+
+              if (debug) {
+                logFile.debug("[DROP] Selected match quantity [" + itemQuantity + "] from [" + entry.getKey() + "]");
+              }
+
+              break match;
+            }
+          }
+        }
+      }
 
       if (debug) {
         logFile.debug("[DROP] Selected drop: " + ruleDrop.toString());

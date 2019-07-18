@@ -3,19 +3,24 @@ package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.OreIngredient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParserRuleDropItem
     implements IRuleListParser {
@@ -178,6 +183,63 @@ public class ParserRuleDropItem
             }
           }
         }
+      }
+
+      if (drop.item.matchQuantity.drops.length > 0) {
+
+        for (String itemString : drop.item.matchQuantity.drops) {
+          ParseResult parse;
+
+          try {
+            parse = parser.parse(itemString);
+
+          } catch (MalformedRecipeItemException e) {
+            logger.error("[PARSE] Unable to parse item drop <" + itemString + "> in file: " + ruleList._filename, e);
+            continue;
+          }
+
+          if ("ore".equals(parse.getDomain())) {
+            drop.item.matchQuantity._drops.add(new OreIngredient(parse.getPath()));
+
+            if (rule.debug) {
+              debugFileWrapper.debug("[PARSE] Added ore ingredient to match quantity: " + parse.getPath());
+            }
+
+          } else { // not an ore dict entry
+            Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
+
+            if (item == null) {
+              logger.error("[PARSE] Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
+              continue;
+            }
+
+            if (rule.debug) {
+              debugFileWrapper.debug("[PARSE] Found registered item: " + item);
+            }
+
+            if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
+
+              if (!item.getHasSubtypes()) {
+                logger.error("[PARSE] Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+
+              } else {
+                List<ItemStack> items = new ArrayList<>();
+                ParserUtil.addSubItemsToList(item, items, debugFileWrapper, rule.debug);
+                drop.item.matchQuantity._drops.add(Ingredient.fromStacks(items.toArray(new ItemStack[0])));
+              }
+
+            } else {
+              ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
+
+              drop.item.matchQuantity._drops.add(Ingredient.fromStacks(itemStack));
+
+              if (rule.debug) {
+                debugFileWrapper.debug("[PARSE] Added itemStack ingredient to match quantity: " + itemStack);
+              }
+            }
+          }
+        }
+
       }
 
       dropIndex += 1;

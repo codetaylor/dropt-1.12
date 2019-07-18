@@ -86,6 +86,20 @@ For more information, see:
 
 
 ```java
+Drop matchQuantity(IItemStack[] drops);
+```
+
+Defines drops to match quantity.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+
+
+```java
 Drop xp(string replace, Range amount);
 ```
 

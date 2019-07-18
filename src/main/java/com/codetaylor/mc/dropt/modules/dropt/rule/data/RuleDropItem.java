@@ -12,4 +12,5 @@ public class RuleDropItem {
 
   public String[] items = new String[0];
   public RandomFortuneInt quantity = new RandomFortuneInt(1);
+  public RuleDropItemMatchQuantity matchQuantity = new RuleDropItemMatchQuantity();
 }

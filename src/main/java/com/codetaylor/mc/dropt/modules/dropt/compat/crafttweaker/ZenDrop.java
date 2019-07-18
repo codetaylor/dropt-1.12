@@ -105,6 +105,21 @@ public class ZenDrop {
   @ZenDocMethod(
       order = 6,
       description = {
+          "Defines drops to match quantity.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"drops"}
+  )
+  @ZenMethod
+  public ZenDrop matchQuantity(IItemStack[] drops) {
+
+    this.drop.matchQuantity(ZenDropt.getItemStrings(drops));
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 7,
+      description = {
           "Defines an experience drop.",
           "@see /json/syntax/#iruledrop"
       },
