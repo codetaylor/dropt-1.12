@@ -1,3 +1,10 @@
+1.16.0
+
+  * Fixed:
+    * Edge case that caused undesired behavior if the quantity of item to drop exceeds the item's max stack size
+
+---
+
 1.15.1
 
   * Fixed:

@@ -159,8 +159,30 @@ public class DropModifier {
       }
 
       ItemStack copy = ruleDrop.item._items.get(RANDOM.nextInt(ruleDrop.item._items.size())).copy();
-      copy.setCount(itemQuantity);
-      newDrops.add(copy);
+      int maxStackSize = copy.getMaxStackSize();
+
+      // Check that the quantity we're supposed to drop doesn't exceed the item's
+      // max stack size. If it does, drop multiple stacks.
+
+      if (itemQuantity > maxStackSize) {
+        int remaining = itemQuantity;
+
+        while (remaining > maxStackSize) {
+          remaining -= maxStackSize;
+          ItemStack itemStack = copy.copy();
+          itemStack.setCount(maxStackSize);
+          newDrops.add(itemStack);
+        }
+
+        if (remaining > 0) {
+          copy.setCount(remaining);
+          newDrops.add(copy);
+        }
+
+      } else {
+        copy.setCount(itemQuantity);
+        newDrops.add(copy);
+      }
 
       if (debug) {
         logFile.debug("[DROP] Added ItemStack to drop list: " + copy);
