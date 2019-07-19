@@ -86,6 +86,7 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 &nbsp;&nbsp;"biomes": [IRuleMatchBiome](#irulematchbiome),
 &nbsp;&nbsp;"dimensions": [IRuleMatchDimension](#irulematchdimension),
 &nbsp;&nbsp;"verticalRange": [IRangeInt](#irangeint)
+&nbsp;&nbsp;"spawnDistance": [IRuleMatchSpawnDistance](#irulematchspawndistance)
 }
 </pre></big>
 
@@ -112,6 +113,10 @@ When a block is broken, the first <code>[IRule](#irule)</code> to successfully s
 * `verticalRange`: <code>[IRangeInt](#irangeint)</code>
     + &#x1F539;*Optional* - if omitted, defaults to full height range.
     + This object defines the vertical range condition.
+
+* `spawnDistance`: <code>[IRuleMatchSpawnDistance](#irulematchspawndistance)</code>
+    + &#x1F539;*Optional* - if omitted, all distances will match.
+    + This object defines the range from world spawn condition.
 
 ---
 
@@ -321,6 +326,35 @@ This object defines conditions for matching dimensions.
   
 * `ids`: `int[]`
     + This array contains the integer id's of the dimensions required to match.
+
+---
+
+## IRuleMatchSpawnDistance
+
+This object defines conditions for matching dimensions.
+
+<big><pre>
+{
+&nbsp;&nbsp;"type": enum,
+&nbsp;&nbsp;"min": int,
+&nbsp;&nbsp;"max": int
+}
+</pre></big>
+
+* `type`: `enum`
+    + &#x1F539;*Optional* - if omitted, defaults to `WHITELIST`.
+    + `WHITELIST`: If the block is broken is within the provided range, the match passes.
+    + `BLACKLIST`: If the block is broken in outside the provided range, the match passes.
+
+* `min`: `int`
+    + &#x1F539;*Optional* - if omitted, defaults to `0`.
+    + Defines the minimum distance bound.
+    + Valid range for this value is `[0,2147483647]`
+
+* `max`: `int`
+    + &#x1F539;*Optional* - if omitted, defaults to `2147483647`.
+    + Defines the maximum distance bound.
+    + Valid range for this value is `[0,2147483647]`
 
 ---
 

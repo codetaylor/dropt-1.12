@@ -140,7 +140,7 @@ public class RuleLocator {
         this.printDebugEventInfoToFile(world, harvester, pos, blockState, drops, debugFileWrapper);
       }
 
-      if (ruleMatcher.matches(rule.match, heldItemCache, debugFileWrapper, debug)) {
+      if (ruleMatcher.matches(rule.match, heldItemCache, world.getSpawnPoint(), debugFileWrapper, debug)) {
         matchedRule = rule;
         break;
       }

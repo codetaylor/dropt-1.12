@@ -10,5 +10,6 @@ public class RuleMatch {
   public RuleMatchBiome biomes = new RuleMatchBiome();
   public RuleMatchDimension dimensions = new RuleMatchDimension();
   public RangeInt verticalRange = new RangeInt(0, 255);
+  public RuleMatchSpawnDistance spawnDistance = new RuleMatchSpawnDistance();
 
 }

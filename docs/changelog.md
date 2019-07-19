@@ -2,6 +2,7 @@
 
   * Added:
     * `matchQuantity` for matching a drop's quantity to an existing drop's quantity [(#55)](https://github.com/codetaylor/dropt/issues/55) [(Examples)](examples/match_quantity.md) [(DOC)](json/syntax/#iruledropmatchquantity)
+    * `spawnDistance` for matching against distance from spawn [(#39)](https://github.com/codetaylor/dropt/issues/39) [(Examples)](examples/distance.md) [(DOC)](json/syntax/#irulematchspawndistance)
 
   * Fixed:
     * Edge case that caused undesired behavior if the quantity of item to drop exceeds the item's max stack size

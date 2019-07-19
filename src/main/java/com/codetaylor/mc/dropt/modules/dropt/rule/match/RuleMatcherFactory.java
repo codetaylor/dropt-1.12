@@ -15,13 +15,15 @@ public class RuleMatcherFactory {
   private HarvesterMatcher harvesterMatcher;
   private BiomeMatcher biomeMatcher;
   private DimensionMatcher dimensionMatcher;
+  private SpawnDistanceMatcher spawnDistanceMatcher;
 
   public RuleMatcherFactory(
       BlockMatcher blockMatcher,
       DropMatcher dropMatcher,
       HarvesterMatcher harvesterMatcher,
       BiomeMatcher biomeMatcher,
-      DimensionMatcher dimensionMatcher
+      DimensionMatcher dimensionMatcher,
+      SpawnDistanceMatcher spawnDistanceMatcher
   ) {
 
     this.blockMatcher = blockMatcher;
@@ -29,6 +31,7 @@ public class RuleMatcherFactory {
     this.harvesterMatcher = harvesterMatcher;
     this.biomeMatcher = biomeMatcher;
     this.dimensionMatcher = dimensionMatcher;
+    this.spawnDistanceMatcher = spawnDistanceMatcher;
   }
 
   public RuleMatcher create(
@@ -51,7 +54,8 @@ public class RuleMatcherFactory {
         this.dropMatcher,
         this.harvesterMatcher,
         this.biomeMatcher,
-        this.dimensionMatcher
+        this.dimensionMatcher,
+        this.spawnDistanceMatcher
     );
   }
 
