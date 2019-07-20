@@ -20,37 +20,37 @@ public class SpawnDistanceMatcher {
 
     int diffX = spawnPoint.getX() - position.getX();
     int diffZ = spawnPoint.getZ() - position.getZ();
-    int distanceSq = diffX * diffX + diffZ * diffZ;
+    double distance = Math.sqrt(diffX * diffX + diffZ * diffZ);
 
-    if (distanceSq <= max * max && distanceSq >= min * min) {
-      boolean result = ruleMatchSpawnDistance.type == EnumListType.WHITELIST;
+    if (distance <= max && distance >= min) {
+      boolean isWhitelist = ruleMatchSpawnDistance.type == EnumListType.WHITELIST;
 
       if (debug) {
 
-        if (result) {
-          logFile.debug("[MATCH] [OK] Distance [" + Math.sqrt(distanceSq) + "] within range [" + min + "," + max + "]");
+        if (isWhitelist) {
+          logFile.debug("[MATCH] [OK] Distance [" + distance + "] within range [" + min + "," + max + "]");
 
         } else {
-          logFile.debug("[MATCH] [!!] Distance [" + Math.sqrt(distanceSq) + "] outside range [" + min + "," + max + "]");
+          logFile.debug("[MATCH] [!!] Distance [" + distance + "] outside range [" + min + "," + max + "]");
         }
       }
 
-      return result;
+      return isWhitelist;
 
     } else {
-      boolean result = ruleMatchSpawnDistance.type == EnumListType.BLACKLIST;
+      boolean isBlacklist = ruleMatchSpawnDistance.type == EnumListType.BLACKLIST;
 
       if (debug) {
 
-        if (result) {
-          logFile.debug("[MATCH] [OK] Distance [" + Math.sqrt(distanceSq) + "] outside range [" + min + "," + max + "]");
+        if (isBlacklist) {
+          logFile.debug("[MATCH] [OK] Distance [" + distance + "] outside range [" + min + "," + max + "]");
 
         } else {
-          logFile.debug("[MATCH] [!!] Distance [" + Math.sqrt(distanceSq) + "] inside range [" + min + "," + max + "]");
+          logFile.debug("[MATCH] [!!] Distance [" + distance + "] inside range [" + min + "," + max + "]");
         }
       }
 
-      return result;
+      return isBlacklist;
     }
   }
 }
