@@ -11,8 +11,6 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -68,52 +66,23 @@ public class ParserRuleDropItem
       }
 
       for (String itemString : drop.item.items) {
-        ParseResult parse;
 
-        NBTTagCompound tag = null;
-        String[] split = itemString.split("#");
-
-        if (split.length > 1) {
-          // this indicates that there is an nbt tag to parse
-
-          String nbtString = split[1];
-
-          if (split.length > 2) {
-            // this indicates that the character # was used inside the NBT string and
-            // we need to stitch this back together
-
-            StringBuilder sb = new StringBuilder(nbtString);
-
-            for (int i = 2; i < split.length; i++) {
-              sb.append("#").append(split[i]);
-            }
-
-            nbtString = sb.toString();
-          }
-
-          try {
-            tag = JsonToNBT.getTagFromJson(nbtString);
-
-          } catch (Exception e) {
-            logger.error("[PARSE] Unable to parse nbt string: " + split[1]);
-            continue;
-          }
-
-          if (rule.debug) {
-            debugFileWrapper.debug("[PARSE] Parsed item drop nbt: " + nbtString);
-          }
-        }
+        ParserUtil.NBTParseResult parse;
 
         try {
-          parse = parser.parse(split[0]);
+          parse = ParserUtil.parseWithNBT(itemString, logger);
 
         } catch (MalformedRecipeItemException e) {
-          logger.error("[PARSE] Unable to parse item drop <" + split[0] + "> in file: " + ruleList._filename, e);
+          logger.error("[PARSE] Unable to parse itemString <" + itemString + "> in file: " + ruleList._filename, e);
           continue;
         }
 
         if (rule.debug) {
-          debugFileWrapper.debug("[PARSE] Parsed item drop: " + parse);
+          debugFileWrapper.debug("[PARSE] Parsed item drop: " + parse.getDomain() + ":" + parse.getPath());
+
+          if (parse.getTag() != null) {
+            debugFileWrapper.debug("[PARSE] Parsed item drop nbt: " + parse.getTag());
+          }
         }
 
         if ("ore".equals(parse.getDomain())) {
@@ -134,9 +103,9 @@ public class ParserRuleDropItem
             } else {
               ItemStack itemStack = new ItemStack(ore.getItem(), 1, ore.getMetadata());
 
-              if (tag != null) {
+              if (parse.getTag() != null) {
                 // we have a nbt tag to apply
-                itemStack.setTagCompound(tag.copy());
+                itemStack.setTagCompound(parse.getTag().copy());
               }
 
               drop.item._items.add(itemStack);
@@ -171,9 +140,9 @@ public class ParserRuleDropItem
           } else {
             ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
 
-            if (tag != null) {
+            if (parse.getTag() != null) {
               // we have a nbt tag to apply
-              itemStack.setTagCompound(tag.copy());
+              itemStack.setTagCompound(parse.getTag().copy());
             }
 
             drop.item._items.add(itemStack);
