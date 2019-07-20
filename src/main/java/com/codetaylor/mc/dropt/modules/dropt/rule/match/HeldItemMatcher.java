@@ -145,7 +145,6 @@ public class HeldItemMatcher {
           ));
           logFile.debug("[MATCH] [OK] Found held item match in whitelist");
         }
-        return true;
 
       } else if (debug) {
         logFile.debug(String.format(
@@ -153,6 +152,44 @@ public class HeldItemMatcher {
             itemStack.getMetadata(),
             metadata
         ));
+        continue;
+      }
+
+      if (itemStack.getTagCompound() != null) {
+
+        if (heldItemStack.getTagCompound() == null) {
+
+          if (debug) {
+            logFile.debug(String.format(
+                "[MATCH] [!!] Held item tag mismatch: (match) %s != %s (candidate)",
+                itemStack.getTagCompound(),
+                heldItemStack.getTagCompound()
+            ));
+          }
+          continue;
+        }
+
+        boolean result = itemStack.getTagCompound().equals(heldItemStack.getTagCompound());
+
+        if (debug) {
+
+          if (result) {
+            logFile.debug("[MATCH] [OK] Item NBT matches: " + itemStack.getTagCompound());
+
+          } else {
+            logFile.debug(String.format(
+                "[MATCH] [!!] Held item tag mismatch: (match) %s != %s (candidate)",
+                itemStack.getTagCompound(),
+                heldItemStack.getTagCompound()
+            ));
+          }
+        }
+
+        return result;
+
+      } else if (debug) {
+        logFile.debug("[MATCH] [OK] Match has no tag");
+        return true;
       }
     }
 
@@ -203,7 +240,7 @@ public class HeldItemMatcher {
           ));
           logFile.debug("[MATCH] [!!] Found heldItemMainHand match in blacklist");
         }
-        return false;
+        continue;
 
       } else if (debug) {
         logFile.debug(String.format(
@@ -211,6 +248,43 @@ public class HeldItemMatcher {
             itemStack.getMetadata(),
             metadata
         ));
+      }
+
+      if (itemStack.getTagCompound() != null) {
+
+        if (heldItemStack.getTagCompound() == null) {
+
+          if (debug) {
+            logFile.debug(String.format(
+                "[MATCH] [OK] Held item tag mismatch: (match) %s != %s (candidate)",
+                itemStack.getTagCompound(),
+                heldItemStack.getTagCompound()
+            ));
+          }
+          return true;
+        }
+
+        boolean result = itemStack.getTagCompound().equals(heldItemStack.getTagCompound());
+
+        if (debug) {
+
+          if (result) {
+            logFile.debug("[MATCH] [!!] Item NBT matches: " + itemStack.getTagCompound());
+
+          } else {
+            logFile.debug(String.format(
+                "[MATCH] [OK] Held item tag mismatch: (match) %s != %s (candidate)",
+                itemStack.getTagCompound(),
+                heldItemStack.getTagCompound()
+            ));
+          }
+        }
+
+        return !result;
+
+      } else if (debug) {
+        logFile.debug("[MATCH] [OK] Match has no tag");
+        return true;
       }
     }
 

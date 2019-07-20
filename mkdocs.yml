@@ -18,6 +18,7 @@ pages:
   - Silk Touch: examples/silk_touch.md
   - Match Quantity: examples/match_quantity.md
   - Distance From Spawn: examples/distance.md
+  - NBT: examples/nbt.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

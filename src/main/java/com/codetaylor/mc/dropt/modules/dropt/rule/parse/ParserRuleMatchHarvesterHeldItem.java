@@ -1,7 +1,6 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.parse;
 
 import com.codetaylor.mc.athenaeum.parser.recipe.item.MalformedRecipeItemException;
-import com.codetaylor.mc.athenaeum.parser.recipe.item.ParseResult;
 import com.codetaylor.mc.athenaeum.parser.recipe.item.RecipeItemParser;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleList;
@@ -44,10 +43,10 @@ public abstract class ParserRuleMatchHarvesterHeldItem
         continue;
       }
 
-      ParseResult parse;
+      ParserUtil.NBTParseResult parse;
 
       try {
-        parse = parser.parse(string);
+        parse = ParserUtil.parseWithNBT(string, logger);
 
       } catch (MalformedRecipeItemException e) {
         logger.error("[PARSE] Unable to parse item <" + string + "> in file: " + ruleList._filename, e);
@@ -56,6 +55,10 @@ public abstract class ParserRuleMatchHarvesterHeldItem
 
       if (rule.debug) {
         debugFileWrapper.debug("[PARSE] Parsed item match: " + parse);
+
+        if (parse.getTag() != null) {
+          debugFileWrapper.debug("[PARSE] Parsed item match nbt: " + parse.getTag());
+        }
       }
 
       Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
@@ -70,6 +73,11 @@ public abstract class ParserRuleMatchHarvesterHeldItem
       }
 
       ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
+
+      if (parse.getTag() != null) {
+        itemStack.setTagCompound(parse.getTag().copy());
+      }
+
       heldItemData._items.add(itemStack);
 
       if (rule.debug) {
