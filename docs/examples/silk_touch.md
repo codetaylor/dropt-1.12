@@ -43,10 +43,10 @@ Dropt.list("list_name")
       "replaceStrategy": "REPLACE_ALL_IF_SELECTED",
       "drops": [
         {
+          "selector": {
+            "silktouch": "REQUIRED"
+          },
           "item": {
-            "selector": {
-              "silktouch": "REQUIRED"
-            },
             "items" : [
               "minecraft:string"
             ]
