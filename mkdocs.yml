@@ -16,6 +16,9 @@ pages:
   - Tool Restriction: examples/tool_restriction.md
   - Advanced Fortune: examples/advanced_fortune.md
   - Silk Touch: examples/silk_touch.md
+  - Match Quantity: examples/match_quantity.md
+  - Distance From Spawn: examples/distance.md
+  - NBT: examples/nbt.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

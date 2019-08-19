@@ -28,6 +28,8 @@ public interface IDroptRuleBuilder {
 
   IDroptRuleBuilder matchVerticalRange(int min, int max);
 
+  IDroptRuleBuilder matchSpawnDistance(EnumListType type, int min, int max);
+
   IDroptRuleBuilder replaceStrategy(EnumReplaceStrategy strategy);
 
   IDroptRuleBuilder dropStrategy(EnumDropStrategy strategy);

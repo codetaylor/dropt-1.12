@@ -173,6 +173,34 @@ For more information, see:
 
 
 ```java
+Rule matchSpawnDistance(int min, int max);
+```
+
+Describes a range to match against distance from spawn.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematch](/json/syntax/#irulematch)
+{: .zen-description }
+
+
+```java
+Rule matchSpawnDistance(string type, int min, int max);
+```
+
+Describes a range to match against distance from spawn.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#irulematch](/json/syntax/#irulematch)
+{: .zen-description }
+
+
+```java
 Rule replaceStrategy(string strategy);
 ```
 

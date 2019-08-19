@@ -73,6 +73,13 @@ public class DropBuilder
   }
 
   @Override
+  public IDroptDropBuilder matchQuantity(String[] drops) {
+
+    this.rule.item.matchQuantity.drops = drops;
+    return this;
+  }
+
+  @Override
   public IDroptDropBuilder xp(EnumXPReplaceStrategy replace, RandomFortuneInt amount) {
 
     this.rule.xpReplaceStrategy = replace;

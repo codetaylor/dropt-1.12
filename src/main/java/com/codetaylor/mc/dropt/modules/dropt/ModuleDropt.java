@@ -84,7 +84,8 @@ public class ModuleDropt
                         new PlayerNameMatcher()
                     ),
                     new BiomeMatcher(),
-                    new DimensionMatcher()
+                    new DimensionMatcher(),
+                    new SpawnDistanceMatcher()
                 ),
                 RULE_CACHE
             ),

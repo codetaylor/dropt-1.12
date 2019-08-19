@@ -18,11 +18,13 @@ public class RuleMatcher {
   private final HarvesterMatcher harvesterMatcher;
   private final BiomeMatcher biomeMatcher;
   private final DimensionMatcher dimensionMatcher;
+  private final SpawnDistanceMatcher spawnDistanceMatcher;
 
   private final EntityPlayer harvester;
   private final Biome biome;
   private final int dimension;
   private final int posY;
+  private final BlockPos pos;
   private final IBlockState blockState;
   private final List<ItemStack> drops;
   private final boolean isExplosion;
@@ -38,20 +40,22 @@ public class RuleMatcher {
       DropMatcher dropMatcher,
       HarvesterMatcher harvesterMatcher,
       BiomeMatcher biomeMatcher,
-      DimensionMatcher dimensionMatcher
+      DimensionMatcher dimensionMatcher,
+      SpawnDistanceMatcher spawnDistanceMatcher
   ) {
-
 
     this.blockMatcher = blockMatcher;
     this.dropMatcher = dropMatcher;
     this.harvesterMatcher = harvesterMatcher;
     this.biomeMatcher = biomeMatcher;
     this.dimensionMatcher = dimensionMatcher;
+    this.spawnDistanceMatcher = spawnDistanceMatcher;
 
     this.harvester = harvester;
     this.biome = world.getBiome(pos);
     this.dimension = world.provider.getDimension();
     this.posY = pos.getY();
+    this.pos = new BlockPos(pos);
     this.blockState = blockState;
     this.drops = drops;
     this.isExplosion = isExplosion;
@@ -60,6 +64,7 @@ public class RuleMatcher {
   public boolean matches(
       RuleMatch ruleMatch,
       HeldItemCache heldItemCache,
+      BlockPos worldSpawnPoint,
       DebugFileWrapper logFile,
       boolean debug
   ) {
@@ -69,6 +74,7 @@ public class RuleMatcher {
     }
 
     boolean result = this.matchVerticalRange(ruleMatch, this.posY, logFile, debug)
+        && this.spawnDistanceMatcher.matches(ruleMatch.spawnDistance, this.pos, worldSpawnPoint, logFile, debug)
         && this.blockMatcher.matches(ruleMatch.blocks, this.blockState, logFile, debug)
         && this.dropMatcher.matches(ruleMatch.drops, logFile, debug, this.drops)
         && this.harvesterMatcher.matches(ruleMatch.harvester, heldItemCache, this.harvester, this.blockState, this.isExplosion, logFile, debug)

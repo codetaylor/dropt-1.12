@@ -194,6 +194,36 @@ public class ZenRule {
   @ZenDocMethod(
       order = 12,
       description = {
+          "Describes a range to match against distance from spawn.",
+          "@see /json/syntax/#irulematch"
+      },
+      args = {"min", "max"}
+  )
+  @ZenMethod
+  public ZenRule matchSpawnDistance(int min, int max) {
+
+    this.rule.matchSpawnDistance(EnumListType.WHITELIST, min, max);
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 13,
+      description = {
+          "Describes a range to match against distance from spawn.",
+          "@see /json/syntax/#irulematch"
+      },
+      args = {"type", "min", "max"}
+  )
+  @ZenMethod
+  public ZenRule matchSpawnDistance(String type, int min, int max) {
+
+    this.rule.matchSpawnDistance(EnumListType.valueOf(type), min, max);
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 14,
+      description = {
           "Describes if and how the drops will be replaced.",
           "@see /json/syntax/#irule"
       },
@@ -207,7 +237,7 @@ public class ZenRule {
   }
 
   @ZenDocMethod(
-      order = 13,
+      order = 15,
       description = {
           "Describes how drops will be selected from the weighted picker.",
           "@see /json/syntax/#irule"
@@ -222,7 +252,7 @@ public class ZenRule {
   }
 
   @ZenDocMethod(
-      order = 14,
+      order = 16,
       description = {
           "Describes how many times the weighted picker will be queried for drops.",
           "@see /json/syntax/#irule"
@@ -237,7 +267,7 @@ public class ZenRule {
   }
 
   @ZenDocMethod(
-      order = 15,
+      order = 17,
       description = {
           "Add a drop to this rule.",
           "@see /json/syntax/#iruledrop"

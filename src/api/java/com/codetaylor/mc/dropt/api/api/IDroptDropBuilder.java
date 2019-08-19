@@ -17,6 +17,8 @@ public interface IDroptDropBuilder {
 
   IDroptDropBuilder items(String[] items, RandomFortuneInt count);
 
+  IDroptDropBuilder matchQuantity(String[] drops);
+
   IDroptDropBuilder xp(EnumXPReplaceStrategy replace, RandomFortuneInt amount);
 
 }

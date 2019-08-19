@@ -109,6 +109,15 @@ public class RuleBuilder
   }
 
   @Override
+  public IDroptRuleBuilder matchSpawnDistance(EnumListType type, int min, int max) {
+
+    this.rule.match.spawnDistance.type = type;
+    this.rule.match.spawnDistance.min = min;
+    this.rule.match.spawnDistance.max = max;
+    return this;
+  }
+
+  @Override
   public IDroptRuleBuilder replaceStrategy(EnumReplaceStrategy strategy) {
 
     this.rule.replaceStrategy = strategy;
