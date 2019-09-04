@@ -125,7 +125,7 @@ public class HeldItemMatcher {
               heldItem
           ));
         }
-        continue;
+        continue; // items do not match, keep looking
 
       } else if (debug) {
         logFile.debug(String.format(
@@ -152,7 +152,7 @@ public class HeldItemMatcher {
             itemStack.getMetadata(),
             metadata
         ));
-        continue;
+        continue; // meta does not match, keep looking
       }
 
       if (itemStack.getTagCompound() != null) {
@@ -166,7 +166,7 @@ public class HeldItemMatcher {
                 heldItemStack.getTagCompound()
             ));
           }
-          continue;
+          continue; // item to match has tag, held item does not, keep looking
         }
 
         boolean result = itemStack.getTagCompound().equals(heldItemStack.getTagCompound());
@@ -185,12 +185,14 @@ public class HeldItemMatcher {
           }
         }
 
-        return result;
+        return result; // both items have tag, return true if tags are equal
 
       } else if (debug) {
         logFile.debug("[MATCH] [OK] Match has no tag");
-        return true;
       }
+
+      // items match, metas match, and item to match doesn't have a tag
+      return true;
     }
 
     if (debug) {
@@ -209,6 +211,7 @@ public class HeldItemMatcher {
     Item heldItem = heldItemStack.getItem();
     int metadata = heldItemStack.getMetadata();
 
+    // iterate blacklist
     for (ItemStack itemStack : ruleMatchHarvesterHeldItem._items) {
 
       if (itemStack.getItem() != heldItem) {
@@ -220,6 +223,7 @@ public class HeldItemMatcher {
               heldItem
           ));
         }
+        // items do not match, keep looking
         continue;
 
       } else if (debug) {
@@ -230,26 +234,29 @@ public class HeldItemMatcher {
         ));
       }
 
-      if ((itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) || (itemStack.getMetadata() == metadata)) {
+      // items match, compare metas
+      if ((itemStack.getMetadata() != OreDictionary.WILDCARD_VALUE) && (itemStack.getMetadata() != metadata)) {
 
         if (debug) {
           logFile.debug(String.format(
-              "[MATCH] [!!] Held item meta match: (match) %d == %d (candidate)",
+              "[MATCH] [OK] Held item meta mismatch: (match) %d != %d (candidate)",
               itemStack.getMetadata(),
               metadata
           ));
-          logFile.debug("[MATCH] [!!] Found heldItemMainHand match in blacklist");
         }
+        // held item meta does not match blacklist item, keep looking
         continue;
 
       } else if (debug) {
         logFile.debug(String.format(
-            "[MATCH] [OK] Held item meta mismatch: (match) %d != %d (candidate)",
+            "[MATCH] [!!] Held item meta match: (match) %d == %d (candidate)",
             itemStack.getMetadata(),
             metadata
         ));
+        logFile.debug("[MATCH] [!!] Found heldItemMainHand match in blacklist");
       }
 
+      // metas match, compare tags if item to match has a tag
       if (itemStack.getTagCompound() != null) {
 
         if (heldItemStack.getTagCompound() == null) {
@@ -261,14 +268,14 @@ public class HeldItemMatcher {
                 heldItemStack.getTagCompound()
             ));
           }
-          return true;
+          continue; // held item doesn't have a tag, keep looking
         }
 
-        boolean result = itemStack.getTagCompound().equals(heldItemStack.getTagCompound());
+        boolean areTagsEqual = itemStack.getTagCompound().equals(heldItemStack.getTagCompound());
 
         if (debug) {
 
-          if (result) {
+          if (areTagsEqual) {
             logFile.debug("[MATCH] [!!] Item NBT matches: " + itemStack.getTagCompound());
 
           } else {
@@ -280,12 +287,15 @@ public class HeldItemMatcher {
           }
         }
 
-        return !result;
+        if (areTagsEqual) {
+          return false; // if the tags match, return false, otherwise keep looking
+        }
 
       } else if (debug) {
         logFile.debug("[MATCH] [OK] Match has no tag");
-        return true;
       }
+
+      return false; // items match, metas match, item to match doesn't have a tag
     }
 
     if (debug) {

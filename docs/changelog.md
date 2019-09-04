@@ -1,3 +1,10 @@
+1.16.1
+
+  * **Fixed:**
+    * Egregious logic error in the held item matcher [(#61)](https://github.com/codetaylor/dropt/issues/61)
+
+---
+
 1.16.0
 
   * Added:
