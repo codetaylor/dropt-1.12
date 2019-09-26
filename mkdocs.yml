@@ -1,6 +1,6 @@
 site_name: Dropt
 
-pages:
+nav:
 - Introduction: index.md
 - ChangeLog: changelog.md
 - Getting Started:
@@ -8,6 +8,7 @@ pages:
   - Configuration Files: configuration.md
   - Commands: commands.md
   - Debugging: debugging.md
+  - Block Strings: blockstrings.md
 - Examples:
   - Basic Replacement: examples/basic_replacement.md
   - Selective Removal: examples/selective_removal.md

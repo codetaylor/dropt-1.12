@@ -6,7 +6,8 @@ being tested. Additionally, you'll be able to see how the rule is affecting the 
 
 Debug output will be saved to the log file in the instance's root folder: `[instance]/dropt.log`.
 
-Note: Be careful how many rules you enable debug for; enable too many and your log file will explode.
+!!! Note
+    Be careful how many rules you enable debug for; enable too many and your log file will explode.
 
 Enabling the debug output for the rule from Example #1, the debug output looks like this:
 
