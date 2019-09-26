@@ -1,6 +1,6 @@
 site_name: Dropt
 
-nav:
+pages:
 - Introduction: index.md
 - ChangeLog: changelog.md
 - Getting Started:
