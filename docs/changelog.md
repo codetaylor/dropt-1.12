@@ -1,3 +1,10 @@
+1.17.0
+
+  * **Added:**
+    * Command `/dropt export` to export all rules currently loaded in memory as json files
+
+---
+
 1.16.1
 
   * **Fixed:**
