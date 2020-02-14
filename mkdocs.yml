@@ -21,6 +21,7 @@ pages:
   - Distance From Spawn: examples/distance.md
   - NBT: examples/nbt.md
   - GameStages: examples/gamestages.md
+  - Forced Drops: examples/forced_drops.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md
