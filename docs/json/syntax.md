@@ -65,6 +65,7 @@ Each `IRule` entry is matched in the same order it is defined the file.
 * `dropCount`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
     + &#x1F539;*Optional* - if omitted, defaults to `1`.
     + This object defines how many times the weighted picker will be queried for drops.
+    + Note: `dropCount` does not apply to forced drops.
 
 * `drops`: <code>[IRuleDrop](#iruledrop)[]</code>
     + &#x1F539;*Optional* - if omitted, no drops will be processed.
@@ -420,6 +421,7 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 
 <big><pre>
 {
+&nbsp;&nbsp;"force": boolean,
 &nbsp;&nbsp;"selector": [IRuleDropSelector](#iruledropselector),
 &nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem),
 &nbsp;&nbsp;"matchQuantity": [IRuleDropMatchQuantity](#iruledropmatchquantity),
@@ -428,6 +430,11 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 }
 </pre></big>
 
+* `force`: `boolean`
+    + &#x1F539;*Optional* - if omitted, defaults to `false`.
+    + If true, the selector is ignored and this drop definition will always be processed.
+    + Note: a forced drop does not count toward the `dropCount` value.
+  
 * `selector`: <code>[IRuleDropSelector](#iruledropselector)</code>
     + &#x1F539;*Optional* - if omitted, no selection conditions will apply to the drop's candidacy and the weight will default to `1`.
     + This object defines conditions for the drop's candidacy as well as its chance to drop.

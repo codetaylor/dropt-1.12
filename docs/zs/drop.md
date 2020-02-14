@@ -16,6 +16,20 @@ For more information, see:
 #### Methods
 
 ```java
+Drop force();
+```
+
+Forces a drop to always drop, ignores selector.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+
+
+```java
 Drop selector(Weight weight);
 ```
 
