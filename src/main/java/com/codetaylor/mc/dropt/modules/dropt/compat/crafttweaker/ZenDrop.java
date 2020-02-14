@@ -28,6 +28,20 @@ public class ZenDrop {
   }
 
   @ZenDocMethod(
+      order = 0,
+      description = {
+          "Forces a drop to always drop, ignores selector.",
+          "@see /json/syntax/#iruledrop"
+      }
+  )
+  @ZenMethod
+  public ZenDrop force() {
+
+    this.drop.force();
+    return this;
+  }
+
+  @ZenDocMethod(
       order = 1,
       description = {
           "Defines a selector for this drop.",

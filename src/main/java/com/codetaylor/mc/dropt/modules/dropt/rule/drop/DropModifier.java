@@ -37,8 +37,8 @@ public class DropModifier {
     }
 
     // Make a copy of the current drops before we start altering them.
-    // This is useful later when if we need to count the current drops.
-    List<ItemStack> currentDropsSnapshot = new ArrayList<>(currentDrops);
+    // This is useful later if we need to count the current drops.
+    List<ItemStack> originalDrops = new ArrayList<>(currentDrops);
 
     if (rule.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL) {
       currentDrops.clear();
@@ -55,10 +55,14 @@ public class DropModifier {
     }
 
     int candidatesFound = 0;
+    List<RuleDrop> forcedDrops = new ArrayList<>();
 
     for (RuleDrop drop : rule.drops) {
 
-      if (drop.selector.isValidCandidate(isSilkTouching, fortuneLevel, logFile, debug)) {
+      if (drop.force) {
+        forcedDrops.add(drop);
+
+      } else if (drop.selector.isValidCandidate(isSilkTouching, fortuneLevel, logFile, debug)) {
         int weight = drop.selector.weight.value + (fortuneLevel * drop.selector.weight.fortuneModifier);
 
         if (weight > 0) {
@@ -76,7 +80,7 @@ public class DropModifier {
       }
     }
 
-    if (picker.getTotal() == 0) {
+    if (picker.getTotal() == 0 && forcedDrops.isEmpty()) {
 
       if (debug) {
         logFile.debug("[DROP] No valid drop candidates were found");
@@ -86,6 +90,7 @@ public class DropModifier {
 
     } else if (debug) {
       logFile.debug("[DROP] Valid drop candidates found: " + candidatesFound);
+      logFile.debug("[DROP] Forced drops found: " + forcedDrops.size());
       logFile.debug("[DROP] Total weight: " + picker.getTotal());
     }
 
@@ -96,6 +101,7 @@ public class DropModifier {
     }
 
     List<ItemStack> newDrops = new ArrayList<>();
+    List<RuleDrop> pickedDrops = new ArrayList<>(forcedDrops);
 
     for (int i = 0; i < dropCount; i++) {
 
@@ -116,61 +122,11 @@ public class DropModifier {
         ruleDrop = picker.get();
       }
 
-      int itemQuantity = ruleDrop.item.quantity.get(RANDOM, fortuneLevel);
+      pickedDrops.add(ruleDrop);
+    }
 
-      if (!ruleDrop.item.matchQuantity._drops.isEmpty()
-          && !currentDropsSnapshot.isEmpty()) {
-
-        // First we count all of the dropped items.
-
-        Map<ItemStack, Integer> countMap = new LinkedHashMap<>(currentDropsSnapshot.size());
-
-        for (ItemStack droppedItemStack : currentDropsSnapshot) {
-          boolean found = false;
-
-          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
-            ItemStack countStack = entry.getKey();
-
-            if (countStack.getItem() == droppedItemStack.getItem()
-                && countStack.getMetadata() == droppedItemStack.getMetadata()) {
-              found = true;
-              countMap.put(countStack, entry.getValue() + droppedItemStack.getCount());
-              break;
-            }
-          }
-
-          if (!found) {
-            countMap.put(droppedItemStack.copy(), droppedItemStack.getCount());
-          }
-        }
-
-        if (debug) {
-
-          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
-            logFile.debug("[DROP] Match quantity counted [" + entry.getValue() + "] of [" + entry.getKey() + "]");
-          }
-        }
-
-        // Then we look for a match.
-
-        match:
-        for (Ingredient toMatch : ruleDrop.item.matchQuantity._drops) {
-
-          for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
-            ItemStack candidate = entry.getKey();
-
-            if (toMatch.apply(candidate)) {
-              itemQuantity = entry.getValue();
-
-              if (debug) {
-                logFile.debug("[DROP] Selected match quantity [" + itemQuantity + "] from [" + entry.getKey() + "]");
-              }
-
-              break match;
-            }
-          }
-        }
-      }
+    for (RuleDrop ruleDrop : pickedDrops) {
+      int itemQuantity = this.getItemQuantity(fortuneLevel, logFile, debug, originalDrops, ruleDrop);
 
       if (debug) {
         logFile.debug("[DROP] Selected drop: " + ruleDrop.toString());
@@ -301,6 +257,66 @@ public class DropModifier {
     }
 
     return currentDrops;
+  }
+
+  private int getItemQuantity(int fortuneLevel, DebugFileWrapper logFile, boolean debug, List<ItemStack> originalDrops, RuleDrop ruleDrop) {
+
+    int itemQuantity = ruleDrop.item.quantity.get(RANDOM, fortuneLevel);
+
+    if (!ruleDrop.item.matchQuantity._drops.isEmpty()
+        && !originalDrops.isEmpty()) {
+
+      // First we count all of the dropped items.
+
+      Map<ItemStack, Integer> countMap = new LinkedHashMap<>(originalDrops.size());
+
+      for (ItemStack droppedItemStack : originalDrops) {
+        boolean found = false;
+
+        for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+          ItemStack countStack = entry.getKey();
+
+          if (countStack.getItem() == droppedItemStack.getItem()
+              && countStack.getMetadata() == droppedItemStack.getMetadata()) {
+            found = true;
+            countMap.put(countStack, entry.getValue() + droppedItemStack.getCount());
+            break;
+          }
+        }
+
+        if (!found) {
+          countMap.put(droppedItemStack.copy(), droppedItemStack.getCount());
+        }
+      }
+
+      if (debug) {
+
+        for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+          logFile.debug("[DROP] Match quantity counted [" + entry.getValue() + "] of [" + entry.getKey() + "]");
+        }
+      }
+
+      // Then we look for a match.
+
+      match:
+      for (Ingredient toMatch : ruleDrop.item.matchQuantity._drops) {
+
+        for (Map.Entry<ItemStack, Integer> entry : countMap.entrySet()) {
+          ItemStack candidate = entry.getKey();
+
+          if (toMatch.apply(candidate)) {
+            itemQuantity = entry.getValue();
+
+            if (debug) {
+              logFile.debug("[DROP] Selected match quantity [" + itemQuantity + "] from [" + entry.getKey() + "]");
+            }
+
+            break match;
+          }
+        }
+      }
+    }
+    return itemQuantity;
   }
 
 }

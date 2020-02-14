@@ -19,6 +19,13 @@ public class DropBuilder
   }
 
   @Override
+  public IDroptDropBuilder force() {
+
+    this.rule.force = true;
+    return this;
+  }
+
+  @Override
   public IDroptDropBuilder selector(RuleDropSelectorWeight weight) {
 
     this.rule.selector.weight.value = weight.value;
