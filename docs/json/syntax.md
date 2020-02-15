@@ -525,7 +525,8 @@ This defines the item for the `IRuleDrop`.
 
 * `items`: `String[]`
     + This array contains a list of items, of which one will be randomly selected for the drop. Each item in the list has an equal chance of being selected for the drop.
-    + Syntax: `domain:path:meta#nbt`, meta may be a wildcard `*`, see experimental feature below.
+    + Syntax: `domain:path:meta#nbt * quantity`, meta may be a wildcard `*`, see experimental feature below.
+    + If the `quantity` below is omitted or resolves to `1` and an explicit `quantity` is provided as shown in the item syntax above, the item's explicit quantity will be used.
     + NBT: the best way to generate a string with the proper NBT encoding is to hold the dropped item and use the `/dropt hand` command
     + &#x1F538;*Experimental*: OreDict entries in this array, like `ore:logWood`, are permitted and will be expanded to the best of the system's ability. *This feature is experimental and may not produce the desired results.*
     + &#x1F538;*Experimental*: If a wildcard value `*` is supplied for the meta, the system will attempt to expand that item into all of its valid subtypes. *This feature is experimental and may not produce the desired results.*
@@ -533,6 +534,7 @@ This defines the item for the `IRuleDrop`.
 * `quantity`: <code>[IRandomFortuneInt](#irandomfortuneint)</code>
     + &#x1F539;*Optional* - if omitted, defaults to `1`
     + This uses a random, fortune modified range to determine how many of this item will be dropped if selected.
+    + If this is omitted or resolves to `1`, the item's explicit quantity will be used if provided.
 
 ---
 
