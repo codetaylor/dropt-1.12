@@ -101,7 +101,7 @@ public class ParserRuleDropItem
               ParserUtil.addSubItemsToList(ore.getItem(), drop.item._items, debugFileWrapper, rule.debug);
 
             } else {
-              ItemStack itemStack = new ItemStack(ore.getItem(), 1, ore.getMetadata());
+              ItemStack itemStack = new ItemStack(ore.getItem(), parse.getQuantity(), ore.getMetadata());
 
               if (parse.getTag() != null) {
                 // we have a nbt tag to apply
@@ -138,7 +138,7 @@ public class ParserRuleDropItem
             }
 
           } else {
-            ItemStack itemStack = new ItemStack(item, 1, parse.getMeta());
+            ItemStack itemStack = new ItemStack(item, parse.getQuantity(), parse.getMeta());
 
             if (parse.getTag() != null) {
               // we have a nbt tag to apply

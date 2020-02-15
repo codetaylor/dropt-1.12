@@ -177,6 +177,10 @@ public class DropModifier {
       // Check that the quantity we're supposed to drop doesn't exceed the item's
       // max stack size. If it does, drop multiple stacks.
 
+      if (itemQuantity == 1 && copy.getCount() > 1) {
+        itemQuantity = copy.getCount();
+      }
+
       if (itemQuantity > maxStackSize) {
         int remaining = itemQuantity;
 
