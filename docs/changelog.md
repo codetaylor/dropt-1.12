@@ -6,6 +6,9 @@
     * Support for explicit item quantity declaration in the drop's item list:
         * ie. `"items": ["minecraft:string * 100"]`
 
+  * Changed:
+    * Bumped API to version 4
+    
 ---
 
 1.16.1
