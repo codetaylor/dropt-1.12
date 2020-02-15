@@ -5,6 +5,7 @@
     * `force` flag to force a drop to ignore the selector and always drop [(#65)](https://github.com/codetaylor/dropt/issues/65) [(Examples)](examples/forced_drops.md) [(DOC)](json/syntax/#iruledrop)
     * Support for explicit item quantity declaration in the drop's item list:
         * ie. `"items": ["minecraft:string * 100"]`
+    * `drop` enum to allow dropping all items listed in a drop's item list [(#62)](https://github.com/codetaylor/dropt/issues/62) [(Examples)](examples/drop_all.md) [(DOC)](json/syntax/#iruledropitem)
 
   * Changed:
     * Bumped API to version 4

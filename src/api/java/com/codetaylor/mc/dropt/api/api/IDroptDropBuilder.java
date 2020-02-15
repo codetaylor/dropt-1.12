@@ -1,5 +1,6 @@
 package com.codetaylor.mc.dropt.api.api;
 
+import com.codetaylor.mc.dropt.api.reference.EnumDropListStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 
@@ -17,7 +18,11 @@ public interface IDroptDropBuilder {
 
   IDroptDropBuilder items(String[] items);
 
+  IDroptDropBuilder items(EnumDropListStrategy dropListStrategy, String[] items);
+
   IDroptDropBuilder items(String[] items, RandomFortuneInt count);
+
+  IDroptDropBuilder items(EnumDropListStrategy dropListStrategy, String[] items, RandomFortuneInt count);
 
   IDroptDropBuilder matchQuantity(String[] drops);
 

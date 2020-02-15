@@ -86,7 +86,35 @@ For more information, see:
 
 
 ```java
+Drop items(string drop, IItemStack[] items);
+```
+
+Defines the item list for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropitem](/json/syntax/#iruledropitem)
+{: .zen-description }
+
+
+```java
 Drop items(IItemStack[] items, Range range);
+```
+
+Defines the item list for this drop.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledropitem](/json/syntax/#iruledropitem)
+{: .zen-description }
+
+
+```java
+Drop items(string drop, IItemStack[] items, Range range);
 ```
 
 Defines the item list for this drop.

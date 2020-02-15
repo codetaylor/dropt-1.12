@@ -22,6 +22,7 @@ pages:
   - NBT: examples/nbt.md
   - GameStages: examples/gamestages.md
   - Forced Drops: examples/forced_drops.md
+  - Drop All: examples/drop_all.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

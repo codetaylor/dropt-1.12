@@ -523,6 +523,11 @@ Calculation: `value + fortuneModifier * fortuneLevel`
 
 This defines the item for the `IRuleDrop`.
 
+* `drop`: `String`
+    + &#x1F539;*Optional* - if omitted, defaults to `ONE`
+    + `ONE`: One item will be randomly selected from the item list to drop.
+    + `ALL`: All items in the item list will drop.
+
 * `items`: `String[]`
     + This array contains a list of items, of which one will be randomly selected for the drop. Each item in the list has an equal chance of being selected for the drop.
     + Syntax: `domain:path:meta#nbt * quantity`, meta may be a wildcard `*`, see experimental feature below.

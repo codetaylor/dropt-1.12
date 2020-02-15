@@ -4,6 +4,7 @@ import com.codetaylor.mc.athenaeum.util.ArrayHelper;
 import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
 import com.codetaylor.mc.dropt.api.api.RandomFortuneInt;
 import com.codetaylor.mc.dropt.api.api.RuleDropSelectorWeight;
+import com.codetaylor.mc.dropt.api.reference.EnumDropListStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
@@ -69,6 +70,13 @@ public class DropBuilder
   }
 
   @Override
+  public IDroptDropBuilder items(EnumDropListStrategy dropListStrategy, String[] items) {
+
+    this.rule.item.drop = dropListStrategy;
+    return this.items(items);
+  }
+
+  @Override
   public IDroptDropBuilder items(String[] items, RandomFortuneInt count) {
 
     this.rule.item.items = ArrayHelper.copy(items);
@@ -77,6 +85,13 @@ public class DropBuilder
     this.rule.item.quantity.max = count.max;
     this.rule.item.quantity.fortuneModifier = count.fortuneModifier;
     return this;
+  }
+
+  @Override
+  public IDroptDropBuilder items(EnumDropListStrategy dropListStrategy, String[] items, RandomFortuneInt count) {
+
+    this.rule.item.drop = dropListStrategy;
+    return this.items(items, count);
   }
 
   @Override

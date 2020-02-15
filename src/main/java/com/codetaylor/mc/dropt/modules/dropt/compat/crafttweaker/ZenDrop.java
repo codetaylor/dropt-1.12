@@ -2,6 +2,7 @@ package com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker;
 
 import com.codetaylor.mc.dropt.api.DroptAPI;
 import com.codetaylor.mc.dropt.api.api.IDroptDropBuilder;
+import com.codetaylor.mc.dropt.api.reference.EnumDropListStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocClass;
@@ -107,6 +108,21 @@ public class ZenDrop {
           "Defines the item list for this drop.",
           "@see /json/syntax/#iruledropitem"
       },
+      args = {"drop", "items"}
+  )
+  @ZenMethod
+  public ZenDrop items(String drop, IItemStack[] items) {
+
+    this.drop.items(EnumDropListStrategy.valueOf(drop), ZenDropt.getItemStrings(items));
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 6,
+      description = {
+          "Defines the item list for this drop.",
+          "@see /json/syntax/#iruledropitem"
+      },
       args = {"items", "range"}
   )
   @ZenMethod
@@ -117,7 +133,22 @@ public class ZenDrop {
   }
 
   @ZenDocMethod(
-      order = 6,
+      order = 7,
+      description = {
+          "Defines the item list for this drop.",
+          "@see /json/syntax/#iruledropitem"
+      },
+      args = {"drop", "items", "range"}
+  )
+  @ZenMethod
+  public ZenDrop items(String drop, IItemStack[] items, ZenRange range) {
+
+    this.drop.items(EnumDropListStrategy.valueOf(drop), ZenDropt.getItemStrings(items), range.getRandomFortuneInt());
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 8,
       description = {
           "Defines drops to match quantity.",
           "@see /json/syntax/#iruledrop"
@@ -132,7 +163,7 @@ public class ZenDrop {
   }
 
   @ZenDocMethod(
-      order = 7,
+      order = 9,
       description = {
           "Defines an experience drop.",
           "@see /json/syntax/#iruledrop"
