@@ -9,6 +9,7 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.log.ILogger;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.BlockMatchEntry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
@@ -57,7 +58,7 @@ public class ParserRuleMatchBlocks
 
       Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
-      if (block == null) {
+      if (block == null || block == Blocks.AIR) {
         logger.error("[PARSE] Unable to find registered block: " + parse.toString());
         continue;
       }
