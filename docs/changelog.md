@@ -7,7 +7,7 @@
         * ie. `"items": ["minecraft:string * 100"]`
     * `drop` enum to allow dropping all items listed in a drop's item list [(#62)](https://github.com/codetaylor/dropt/issues/62) [(Examples)](examples/drop_all.md) [(DOC)](json/syntax/#iruledropitem)
 
-  * Changed:
+  * **Changed:**
     * Bumped API to version 4
     
 ---
