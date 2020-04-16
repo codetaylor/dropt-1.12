@@ -79,7 +79,7 @@ public class ParserRuleMatchBlocks
         }
 
         try {
-          metas[i - 1] = Integer.valueOf(split[i].trim());
+          metas[i - 1] = Integer.parseInt(split[i].trim());
 
         } catch (Exception e) {
           logger.error("[PARSE] Unable to parse extra meta for [" + string + "] in file: " + ruleList._filename, e);

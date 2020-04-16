@@ -1,7 +1,8 @@
 1.17.1
 
   * **Fixed:**
-    * Improved bracket style in log messages for clarity
+    * Improved bracket style in parser log messages for clarity
+    * Removed unnecessary boxing from parsers for performance
     
 ---
 

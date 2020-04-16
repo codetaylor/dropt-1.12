@@ -97,8 +97,8 @@ public abstract class ParserRuleMatchHarvesterHeldItem
         heldItemData._toolClass = split[0];
 
         try {
-          heldItemData._minHarvestLevel = Integer.valueOf(split[1]);
-          heldItemData._maxHarvestLevel = Integer.valueOf(split[2]);
+          heldItemData._minHarvestLevel = Integer.parseInt(split[1]);
+          heldItemData._maxHarvestLevel = Integer.parseInt(split[2]);
         } catch (Exception e) {
           logger.error("[PARSE] Invalid harvest level string: " + harvestLevel);
         }
