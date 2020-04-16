@@ -49,7 +49,7 @@ public abstract class ParserRuleMatchHarvesterHeldItem
         parse = ParserUtil.parseWithNBT(string, logger);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("[PARSE] Unable to parse item <" + string + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse item [" + string + "] in file: " + ruleList._filename, e);
         continue;
       }
 

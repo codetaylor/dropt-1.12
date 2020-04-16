@@ -48,7 +48,7 @@ public class ParserRuleMatchBlocks
         parse = parser.parse(split[0]);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("[PARSE] Unable to parse block <" + split[0] + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse block [" + split[0] + "] in file: " + ruleList._filename, e);
         continue;
       }
 
@@ -82,7 +82,7 @@ public class ParserRuleMatchBlocks
           metas[i - 1] = Integer.valueOf(split[i].trim());
 
         } catch (Exception e) {
-          logger.error("[PARSE] Unable to parse extra meta for <" + string + "> in file: " + ruleList._filename, e);
+          logger.error("[PARSE] Unable to parse extra meta for [" + string + "] in file: " + ruleList._filename, e);
         }
       }
 

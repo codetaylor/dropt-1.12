@@ -73,7 +73,7 @@ public class ParserRuleDropItem
           parse = ParserUtil.parseWithNBT(itemString, logger);
 
         } catch (MalformedRecipeItemException e) {
-          logger.error("[PARSE] Unable to parse itemString <" + itemString + "> in file: " + ruleList._filename, e);
+          logger.error("[PARSE] Unable to parse itemString [" + itemString + "] in file: " + ruleList._filename, e);
           continue;
         }
 
@@ -89,7 +89,7 @@ public class ParserRuleDropItem
           NonNullList<ItemStack> ores = OreDictionary.getOres(parse.getPath());
 
           if (ores.isEmpty()) {
-            logger.warn("[PARSE] No entries found for oreDict entry <" + "ore:" + parse.getPath() + "> in file: " + ruleList._filename);
+            logger.warn("[PARSE] No entries found for oreDict entry [" + "ore:" + parse.getPath() + "] in file: " + ruleList._filename);
 
           } else if (rule.debug) {
             debugFileWrapper.debug("[PARSE] Expanding oreDict entry: " + parse);
@@ -120,7 +120,7 @@ public class ParserRuleDropItem
           Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
           if (item == null) {
-            logger.error("[PARSE] Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
+            logger.error("[PARSE] Unable to find registered item [" + parse.toString() + "] in file: " + ruleList._filename);
             continue;
           }
 
@@ -131,7 +131,7 @@ public class ParserRuleDropItem
           if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
 
             if (!item.getHasSubtypes()) {
-              logger.error("[PARSE] Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+              logger.error("[PARSE] Wildcard used for item [" + parse.toString() + "], but item has no subtypes: " + ruleList._filename);
 
             } else {
               ParserUtil.addSubItemsToList(item, drop.item._items, debugFileWrapper, rule.debug);
@@ -163,7 +163,7 @@ public class ParserRuleDropItem
             parse = parser.parse(itemString);
 
           } catch (MalformedRecipeItemException e) {
-            logger.error("[PARSE] Unable to parse item drop <" + itemString + "> in file: " + ruleList._filename, e);
+            logger.error("[PARSE] Unable to parse item drop [" + itemString + "] in file: " + ruleList._filename, e);
             continue;
           }
 
@@ -178,7 +178,7 @@ public class ParserRuleDropItem
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(parse.getDomain(), parse.getPath()));
 
             if (item == null) {
-              logger.error("[PARSE] Unable to find registered item <" + parse.toString() + "> in file: " + ruleList._filename);
+              logger.error("[PARSE] Unable to find registered item [" + parse.toString() + "] in file: " + ruleList._filename);
               continue;
             }
 
@@ -189,7 +189,7 @@ public class ParserRuleDropItem
             if (parse.getMeta() == OreDictionary.WILDCARD_VALUE) {
 
               if (!item.getHasSubtypes()) {
-                logger.error("[PARSE] Wildcard used for item <" + parse.toString() + ">, but item has no subtypes: " + ruleList._filename);
+                logger.error("[PARSE] Wildcard used for item [" + parse.toString() + "], but item has no subtypes: " + ruleList._filename);
 
               } else {
                 List<ItemStack> items = new ArrayList<>();

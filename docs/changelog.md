@@ -1,3 +1,10 @@
+1.17.1
+
+  * **Fixed:**
+    * Improved bracket style in log messages for clarity
+    
+---
+
 1.17.0
 
   * **Added:**

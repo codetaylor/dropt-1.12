@@ -42,7 +42,7 @@ public class ParserRuleMatchBiome
         parse = parser.parse(id);
 
       } catch (MalformedRecipeItemException e) {
-        logger.error("[PARSE] Unable to parse biome <" + id + "> in file: " + ruleList._filename, e);
+        logger.error("[PARSE] Unable to parse biome [" + id + "] in file: " + ruleList._filename, e);
         continue;
       }
 
