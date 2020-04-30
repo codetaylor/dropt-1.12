@@ -11,6 +11,7 @@ import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.Collections;
 import java.util.Map;
 
 @SuppressWarnings("unused")
@@ -181,6 +182,21 @@ public class ZenDrop {
 
   @ZenDocMethod(
       order = 10,
+      description = {
+          "Defines a blockstate to replace the block with.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"block"}
+  )
+  @ZenMethod
+  public ZenDrop replaceBlock(String block) {
+
+    this.drop.replaceBlock(block, Collections.emptyMap());
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 11,
       description = {
           "Defines a blockstate to replace the block with.",
           "@see /json/syntax/#iruledrop"
