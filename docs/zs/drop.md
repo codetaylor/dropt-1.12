@@ -154,3 +154,31 @@ For more information, see:
   * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
 {: .zen-description }
 
+
+```java
+Drop replaceBlock(string block);
+```
+
+Defines a blockstate to replace the block with.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+
+
+```java
+Drop replaceBlock(string block, Map properties);
+```
+
+Defines a blockstate to replace the block with.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+

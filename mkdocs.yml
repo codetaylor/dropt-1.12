@@ -23,6 +23,7 @@ pages:
   - GameStages: examples/gamestages.md
   - Forced Drops: examples/forced_drops.md
   - Drop All: examples/drop_all.md
+  - BlockState Replacement: examples/blockstate_replacement.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md

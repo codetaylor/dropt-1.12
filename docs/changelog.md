@@ -1,4 +1,7 @@
-1.17.1
+1.18.0
+
+  * **Added:**
+    * Define a blockstate to replace the broken block with [(#69)](https://github.com/codetaylor/dropt/issues/69)
 
   * **Fixed:**
     * Improved bracket style in parser log messages for clarity

@@ -426,7 +426,8 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
 &nbsp;&nbsp;"item": [IRuleDropItem](#iruledropitem),
 &nbsp;&nbsp;"matchQuantity": [IRuleDropMatchQuantity](#iruledropmatchquantity),
 &nbsp;&nbsp;"xp": [IRandomFortuneInt](#irandomfortuneint),
-&nbsp;&nbsp;"xpReplaceStrategy": enum
+&nbsp;&nbsp;"xpReplaceStrategy": enum,
+&nbsp;&nbsp;"replaceBlock": [IBlockState](#iblockstate)
 }
 </pre></big>
 
@@ -456,6 +457,10 @@ If the drop is a valid candidate it will be placed into the weighted picker usin
     + &#x1F539;*Optional* - if omitted, defaults to `ADD`.
     + `ADD`: Add the specified xp to any xp dropped.
     + `REPLACE`: Replace any xp dropped with the specified xp.
+
+* `replaceBlock`: <code>[IBlockState](#iblockstate)</code>
+    + &#x1F539;*Optional* - if omitted, defaults to no block replacement.
+    + This defines a blockstate to replace the broken block with.
 
 ---
 
@@ -556,3 +561,24 @@ This object defines parameters for setting the quantity of a drop to the quantit
 * `drops`: `String[]`
     + &#x1F539;*Optional* - if omitted, defaults to an empty string array.
     + The quantity of the parent drop will be set to the quantity of the first item in this list to match one of the unmodified dropped items.
+
+---
+
+## IBlockState
+
+This object defines a blockstate.
+
+<big><pre>
+{
+&nbsp;&nbsp;"block": String,
+&nbsp;&nbsp;"properties": Map
+}
+</pre></big>
+
+* `block`: `String`
+    + &#x1F539;*Optional* - if omitted, defaults to null.
+    + The resource location of the block (domain):(path), ie. `minecraft:stone`.
+* `properties`: `Map`
+    + &#x1F539;*Optional* - if omitted, defaults to an empty map.
+    + This object contains string values mapped to string keys that represent block properties.
+    + For example the properties for a `minecraft:log` might look like this: `{"axis": "y", "variant": "spruce"}`.
