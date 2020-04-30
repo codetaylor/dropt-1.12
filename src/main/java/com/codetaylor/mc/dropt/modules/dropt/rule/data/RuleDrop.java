@@ -10,5 +10,6 @@ public class RuleDrop {
   public RuleDropItem item = new RuleDropItem();
   public RandomFortuneInt xp = new RandomFortuneInt();
   public EnumXPReplaceStrategy xpReplaceStrategy = EnumXPReplaceStrategy.ADD;
+  public RuleDropReplaceBlock replaceBlock = new RuleDropReplaceBlock();
 
 }

@@ -4,6 +4,8 @@ import com.codetaylor.mc.dropt.api.reference.EnumDropListStrategy;
 import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 
+import java.util.Map;
+
 public interface IDroptDropBuilder {
 
   IDroptDropBuilder force();
@@ -27,5 +29,7 @@ public interface IDroptDropBuilder {
   IDroptDropBuilder matchQuantity(String[] drops);
 
   IDroptDropBuilder xp(EnumXPReplaceStrategy replace, RandomFortuneInt amount);
+
+  IDroptDropBuilder replaceBlock(String block, Map<String, String> properties);
 
 }

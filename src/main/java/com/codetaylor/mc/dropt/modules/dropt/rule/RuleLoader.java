@@ -167,6 +167,9 @@ public class RuleLoader {
         // Parse drop items
         new ParserRuleDropItem().parse(parser, ruleList, rule, logger, debugFileWrapper);
 
+        // Parse drop replacement
+        new ParserRuleDropReplaceBlock().parse(parser, ruleList, rule, logger, debugFileWrapper);
+
         ruleIndex += 1;
         rulesParsed += 1;
       }

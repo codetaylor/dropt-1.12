@@ -9,7 +9,9 @@ import com.codetaylor.mc.dropt.modules.dropt.rule.data.Rule;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.modules.dropt.rule.match.ItemMatchEntry;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
@@ -126,12 +128,22 @@ public class DropModifier {
       pickedDrops.add(ruleDrop);
     }
 
+    IBlockState replaceBlockState = null;
+
     for (RuleDrop ruleDrop : pickedDrops) {
       int itemQuantity = this.getItemQuantity(fortuneLevel, logFile, debug, originalDrops, ruleDrop);
 
       if (debug) {
         logFile.debug("[DROP] Selected drop: " + ruleDrop.toString());
         logFile.debug("[DROP] Selected drop quantity: " + itemQuantity);
+      }
+
+      if (replaceBlockState == null && ruleDrop.replaceBlock != null && ruleDrop.replaceBlock._blockState != null) {
+        replaceBlockState = ruleDrop.replaceBlock._blockState;
+
+        if (debug) {
+          logFile.debug("[DROP] Selected replacement blockState: " + replaceBlockState.toString());
+        }
       }
 
       int xp = ruleDrop.xp.get(RANDOM, fortuneLevel);
@@ -181,6 +193,10 @@ public class DropModifier {
           this.addDrop(logFile, debug, newDrops, itemQuantity, item.copy());
         }
       }
+    }
+
+    if (replaceBlockState != null) {
+      world.setBlockState(pos, replaceBlockState);
     }
 
     if (rule.replaceStrategy == EnumReplaceStrategy.REPLACE_ALL_IF_SELECTED

@@ -9,6 +9,8 @@ import com.codetaylor.mc.dropt.api.reference.EnumSilktouch;
 import com.codetaylor.mc.dropt.api.reference.EnumXPReplaceStrategy;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleDrop;
 
+import java.util.Map;
+
 public class DropBuilder
     implements IDroptDropBuilder {
 
@@ -109,6 +111,14 @@ public class DropBuilder
     this.rule.xp.min = amount.min;
     this.rule.xp.max = amount.max;
     this.rule.xp.fortuneModifier = amount.fortuneModifier;
+    return this;
+  }
+
+  @Override
+  public IDroptDropBuilder replaceBlock(String block, Map<String, String> properties) {
+
+    this.rule.replaceBlock.block = block;
+    this.rule.replaceBlock.properties.putAll(properties);
     return this;
   }
 

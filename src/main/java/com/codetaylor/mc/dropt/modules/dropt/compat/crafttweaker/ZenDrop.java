@@ -11,6 +11,8 @@ import crafttweaker.api.item.IItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
+import java.util.Map;
+
 @SuppressWarnings("unused")
 @ZenDocClass(
     value = "mods.dropt.Drop",
@@ -174,6 +176,21 @@ public class ZenDrop {
   public ZenDrop xp(String replace, ZenRange amount) {
 
     this.drop.xp(EnumXPReplaceStrategy.valueOf(replace), amount.getRandomFortuneInt());
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 10,
+      description = {
+          "Defines a blockstate to replace the block with.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"block", "properties"}
+  )
+  @ZenMethod
+  public ZenDrop replaceBlock(String block, Map<String, String> properties) {
+
+    this.drop.replaceBlock(block, properties);
     return this;
   }
 
