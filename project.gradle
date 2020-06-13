@@ -1,6 +1,6 @@
 ext {
 
-  modid = 'athenaeum'
+  modid = 'dropt'
 
   forge = [
     version: '1.12.2-14.23.5.2847'
