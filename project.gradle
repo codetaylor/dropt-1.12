@@ -1,0 +1,37 @@
+ext {
+
+  modid = 'athenaeum'
+
+  forge = [
+    version: '1.12.2-14.23.5.2847'
+  ]
+
+  mappings = [
+    channel: 'snapshot',
+    version: 'snapshot_20171003'
+  ]
+
+  manifest = [
+    attributesEnabled: false,
+    attributes: [
+      'Specification-Title': 'examplemod',
+      'Specification-Vendor': 'examplemodsareus',
+      'Specification-Version': '1', // We are version 1 of ourselves
+      'Implementation-Title': project.name,
+      'Implementation-Version': "${version}",
+      'Implementation-Vendor' :'examplemodsareus',
+      'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+    ]
+  ]
+
+  dependencies = ',dependencies = "' +
+          'required-after:athenaeum@[1.12.2-1.15.0,);' +
+          'after:gamestages@[2.0.90,);' +
+          '"'
+}
+
+repositories {}
+
+dependencies {
+  compile project(":athenaeum")
+}
