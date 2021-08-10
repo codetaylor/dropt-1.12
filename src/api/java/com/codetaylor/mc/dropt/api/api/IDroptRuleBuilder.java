@@ -38,4 +38,6 @@ public interface IDroptRuleBuilder {
 
   IDroptRuleBuilder addDrops(IDroptDropBuilder[] drop);
 
+  IDroptRuleBuilder fallthrough(boolean fallthrough);
+
 }

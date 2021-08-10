@@ -33,6 +33,7 @@ Each `IRule` entry is matched in the same order it is defined the file.
 <big><pre>
 {
 &nbsp;&nbsp;"debug": boolean,
+&nbsp;&nbsp;"fallthrough": boolean,
 &nbsp;&nbsp;"match": [IRuleMatch](#irulematch),
 &nbsp;&nbsp;"replaceStrategy": enum,
 &nbsp;&nbsp;"dropStrategy": enum,
@@ -44,6 +45,10 @@ Each `IRule` entry is matched in the same order it is defined the file.
 * `debug`: `boolean`
     + &#x1F539;*Optional* - if omitted, defaults to `false`.
     + Prints a large amount of debug data to the log file. Be careful how many rules you enable this flag on, as it will rapidly bloat your log file. Useful for testing, see: [DEBUG.md](https://github.com/codetaylor/dropt/blob/master/DEBUG.md)
+
+* `fallthrough`: `boolean`
+    + &#x1F539;*Optional* - if omitted, defaults to `false`.
+    + Continues matching rules after this rule if this rule is matched.
 
 * `match`: <code>[IRuleMatch](#irulematch)</code>
     + &#x1F539;*Optional* - if omitted, all blocks will be matched.

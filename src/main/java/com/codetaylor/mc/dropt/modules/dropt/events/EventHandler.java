@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -117,7 +118,7 @@ public class EventHandler {
       ModuleDropt.CONSOLE_LOG.increment(registryName, meta);
     }
 
-    Rule matchedRule = this.ruleLocator.locate(
+    List<Rule> matchedRuleList = this.ruleLocator.locate(
         world,
         event.getHarvester(),
         blockPos,
@@ -133,32 +134,36 @@ public class EventHandler {
       experience = this.experienceCache.get(event.getHarvester().getName());
     }
 
-    if (matchedRule != null) {
-      long start = System.currentTimeMillis();
+    if (!matchedRuleList.isEmpty()) {
 
-      if (matchedRule.debug) {
-        this.initializeDebugFileWrapper();
-      }
+      for (Rule matchedRule : matchedRuleList) {
 
-      this.dropModifier.modifyDrops(
-          world,
-          blockPos,
-          matchedRule,
-          event.getDrops(),
-          this.isSilkTouching(event, this.heldItemCache),
-          event.getFortuneLevel(),
-          experience,
-          this.debugFileWrapper,
-          matchedRule.debug
-      );
+        long start = System.currentTimeMillis();
 
-      if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+        if (matchedRule.debug) {
+          this.initializeDebugFileWrapper();
+        }
 
-        this.initializeDebugFileWrapper();
-        this.debugFileWrapper.info(String.format(
-            "Modified drops in %d ms",
-            (System.currentTimeMillis() - start)
-        ));
+        this.dropModifier.modifyDrops(
+            world,
+            blockPos,
+            matchedRule,
+            event.getDrops(),
+            this.isSilkTouching(event, this.heldItemCache),
+            event.getFortuneLevel(),
+            experience,
+            this.debugFileWrapper,
+            matchedRule.debug
+        );
+
+        if (ModuleDroptConfig.ENABLE_PROFILE_LOG_OUTPUT) {
+
+          this.initializeDebugFileWrapper();
+          this.debugFileWrapper.info(String.format(
+              "Modified drops in %d ms",
+              (System.currentTimeMillis() - start)
+          ));
+        }
       }
 
     } else {

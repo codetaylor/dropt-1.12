@@ -255,3 +255,17 @@ For more information, see:
   * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
 {: .zen-description }
 
+
+```java
+Rule fallthrough(boolean fallthrough);
+```
+
+Continue matching rules after this rule if this rule is matched.
+{: .zen-description }
+
+For more information, see:
+{: .zen-description }
+
+  * [/json/syntax/#iruledrop](/json/syntax/#iruledrop)
+{: .zen-description }
+

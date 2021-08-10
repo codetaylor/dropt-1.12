@@ -9,6 +9,7 @@ import com.codetaylor.mc.dropt.api.reference.EnumReplaceStrategy;
 import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocClass;
 import com.codetaylor.mc.dropt.modules.dropt.compat.crafttweaker.export.ZenDocMethod;
 import crafttweaker.api.item.IIngredient;
+import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -278,6 +279,21 @@ public class ZenRule {
   public ZenRule addDrop(ZenDrop drop) {
 
     this.rule.addDrops(new IDroptDropBuilder[]{drop.getDrop()});
+    return this;
+  }
+
+  @ZenDocMethod(
+      order = 18,
+      description = {
+          "Continue matching rules after this rule if this rule is matched.",
+          "@see /json/syntax/#iruledrop"
+      },
+      args = {"fallthrough"}
+  )
+  @ZenMethod
+  public ZenRule fallthrough(@Optional(valueBoolean = true) boolean fallthrough) {
+
+    this.rule.fallthrough(fallthrough);
     return this;
   }
 

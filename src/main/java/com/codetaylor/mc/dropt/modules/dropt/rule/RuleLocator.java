@@ -34,7 +34,7 @@ public class RuleLocator {
     this.map = map;
   }
 
-  public Rule locate(
+  public List<Rule> locate(
       World world,
       EntityPlayer harvester,
       BlockPos pos,
@@ -56,7 +56,7 @@ public class RuleLocator {
       this.map.put(blockState, ruleList);
     }
 
-    return this.matchRule(world, harvester, pos, blockState, drops, heldItemCache, isExplosion, ruleList);
+    return this.matchRules(world, harvester, pos, blockState, drops, heldItemCache, isExplosion, ruleList);
   }
 
   @Nonnull
@@ -110,7 +110,7 @@ public class RuleLocator {
     return result;
   }
 
-  private Rule matchRule(
+  private List<Rule> matchRules(
       World world,
       EntityPlayer harvester,
       BlockPos pos,
@@ -126,7 +126,7 @@ public class RuleLocator {
 
     long start = System.currentTimeMillis();
     int checkedRuleCount = 0;
-    Rule matchedRule = null;
+    List<Rule> matchedRuleList = new ArrayList<>(ruleList);
 
     for (Rule rule : ruleList) {
       boolean debug = rule.debug;
@@ -141,7 +141,11 @@ public class RuleLocator {
       }
 
       if (ruleMatcher.matches(rule.match, heldItemCache, world.getSpawnPoint(), debugFileWrapper, debug)) {
-        matchedRule = rule;
+        matchedRuleList.add(rule);
+
+        if (rule.fallthrough) {
+          continue;
+        }
         break;
       }
     }
@@ -162,7 +166,7 @@ public class RuleLocator {
       debugFileWrapper.close();
     }
 
-    return matchedRule;
+    return matchedRuleList;
   }
 
   private void printDebugEventInfoToFile(

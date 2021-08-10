@@ -1,3 +1,10 @@
+1.19.0
+
+  * **Added:**
+    * Fallthrough feature to continue matching rules after a rule has been matched
+
+---
+
 1.18.0
 
   * **Added:**

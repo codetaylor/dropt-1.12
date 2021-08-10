@@ -155,6 +155,13 @@ public class RuleBuilder
     return this;
   }
 
+  @Override
+  public IDroptRuleBuilder fallthrough(boolean fallthrough) {
+
+    this.rule.fallthrough = fallthrough;
+    return this;
+  }
+
   public Rule build() {
 
     this.rule.drops = this.dropList.toArray(new RuleDrop[this.dropList.size()]);
