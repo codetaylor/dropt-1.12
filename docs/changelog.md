@@ -1,3 +1,10 @@
+1.19.1
+
+  * **Fixed:**
+    * All rules for any given block will match regardless of criteria
+
+---
+
 1.19.0
 
   * **Added:**

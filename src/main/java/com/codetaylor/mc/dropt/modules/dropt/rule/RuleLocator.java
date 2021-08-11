@@ -126,7 +126,7 @@ public class RuleLocator {
 
     long start = System.currentTimeMillis();
     int checkedRuleCount = 0;
-    List<Rule> matchedRuleList = new ArrayList<>(ruleList);
+    List<Rule> matchedRuleList = new ArrayList<>(ruleList.size());
 
     for (Rule rule : ruleList) {
       boolean debug = rule.debug;
