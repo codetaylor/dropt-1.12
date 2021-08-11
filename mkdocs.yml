@@ -24,6 +24,7 @@ pages:
   - Forced Drops: examples/forced_drops.md
   - Drop All: examples/drop_all.md
   - BlockState Replacement: examples/blockstate_replacement.md
+  - Fallthrough: examples/fallthrough.md
 - ZenScript:
   - Dropt: zs/dropt.md
   - RuleList: zs/rulelist.md
