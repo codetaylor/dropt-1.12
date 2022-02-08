@@ -1,3 +1,10 @@
+1.19.2
+
+  * **Fixed:**
+    * Integer overflow when too far from spawn [(#80)](https://github.com/codetaylor/dropt/issues/80)
+
+---
+
 1.19.1
 
   * **Fixed:**

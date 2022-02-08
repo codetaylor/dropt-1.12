@@ -18,8 +18,8 @@ public class SpawnDistanceMatcher {
     int min = Math.max(ruleMatchSpawnDistance.min, 0);
     int max = ruleMatchSpawnDistance.max == -1 ? Integer.MAX_VALUE : Math.max(0, ruleMatchSpawnDistance.max);
 
-    int diffX = spawnPoint.getX() - position.getX();
-    int diffZ = spawnPoint.getZ() - position.getZ();
+    double diffX = spawnPoint.getX() - position.getX();
+    double diffZ = spawnPoint.getZ() - position.getZ();
     double distance = Math.sqrt(diffX * diffX + diffZ * diffZ);
 
     if (distance <= max && distance >= min) {
