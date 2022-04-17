@@ -52,40 +52,7 @@ public class HarvesterMatcher {
 
       if (harvester != null) {
 
-        if (debug) {
-          logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
-        }
-
-        boolean result = this.heldItemMatcher.matches(
-            ruleMatchHarvester.heldItemMainHand,
-            heldItemCache.get(harvester.getName()),
-            blockState,
-            harvester,
-            logFile,
-            debug
-        );
-        result = result && this.heldItemMatcher.matches(
-            ruleMatchHarvester.heldItemOffHand,
-            harvester.getHeldItemOffhand(),
-            blockState,
-            harvester,
-            logFile,
-            debug
-        );
-        result = result && this.playerNameMatcher.matches(ruleMatchHarvester.playerName, harvester.getName(), logFile, debug);
-        result = result && this.gameStageMatcher.matches(ruleMatchHarvester.gamestages, harvester, logFile, debug);
-
-        if (debug) {
-
-          if (result) {
-            logFile.debug("[MATCH] [OK] Harvester matching passed");
-
-          } else {
-            logFile.debug("[MATCH] [!!] Harvester matching failed");
-          }
-        }
-
-        return result;
+        return this.checkHarvesterConditions(ruleMatchHarvester, heldItemCache, harvester, blockState, logFile, debug);
 
       } else {
 
@@ -121,32 +88,7 @@ public class HarvesterMatcher {
         return false;
       }
 
-      if (debug) {
-        logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
-      }
-
-      boolean result = this.heldItemMatcher.matches(
-          ruleMatchHarvester.heldItemMainHand,
-          heldItemCache.get(harvester.getName()),
-          blockState,
-          harvester,
-          logFile,
-          debug
-      )
-          && this.playerNameMatcher.matches(ruleMatchHarvester.playerName, harvester.getName(), logFile, debug)
-          && this.gameStageMatcher.matches(ruleMatchHarvester.gamestages, harvester, logFile, debug);
-
-      if (debug) {
-
-        if (result) {
-          logFile.debug("[MATCH] [OK] Harvester matching passed");
-
-        } else {
-          logFile.debug("[MATCH] [!!] Harvester matching failed");
-        }
-      }
-
-      return result;
+      return this.checkHarvesterConditions(ruleMatchHarvester, heldItemCache, harvester, blockState, logFile, debug);
 
     } else if (ruleMatchHarvester.type == EnumHarvesterType.EXPLOSION) {
 
@@ -184,7 +126,8 @@ public class HarvesterMatcher {
         }
       }
 
-      return realPlayer;
+      return realPlayer
+          && this.checkHarvesterConditions(ruleMatchHarvester, heldItemCache, harvester, blockState, logFile, debug);
 
     } else if (ruleMatchHarvester.type == EnumHarvesterType.FAKE_PLAYER) {
 
@@ -212,6 +155,41 @@ public class HarvesterMatcher {
     }
 
     return false;
+  }
+
+  /**
+   * Returns true if all the player conditions match.
+   *
+   * @param ruleMatchHarvester
+   * @param heldItemCache
+   * @param harvester
+   * @param blockState
+   * @param logFile
+   * @param debug
+   * @return
+   */
+  private boolean checkHarvesterConditions(RuleMatchHarvester ruleMatchHarvester, HeldItemCache heldItemCache, EntityPlayer harvester, IBlockState blockState, DebugFileWrapper logFile, boolean debug) {
+
+    if (debug) {
+      logFile.debug("[MATCH] [--] Harvester detected, checking harvester: " + harvester);
+    }
+
+    boolean result = this.heldItemMatcher.matches(ruleMatchHarvester.heldItemMainHand, heldItemCache.get(harvester.getName()), blockState, harvester, logFile, debug)
+        && this.heldItemMatcher.matches(ruleMatchHarvester.heldItemOffHand, harvester.getHeldItemOffhand(), blockState, harvester, logFile, debug)
+        && this.playerNameMatcher.matches(ruleMatchHarvester.playerName, harvester.getName(), logFile, debug)
+        && this.gameStageMatcher.matches(ruleMatchHarvester.gamestages, harvester, logFile, debug);
+
+    if (debug) {
+
+      if (result) {
+        logFile.debug("[MATCH] [OK] Harvester matching passed");
+
+      } else {
+        logFile.debug("[MATCH] [!!] Harvester matching failed");
+      }
+    }
+
+    return result;
   }
 
   /**

@@ -1,6 +1,14 @@
+1.19.3
+
+* **Fixed:**
+    * Using `REAL_PLAYER` harvester type doesn't match tools, player name, or game stages [(#82)](https://github.com/codetaylor/dropt/issues/82)
+    * Using `PLAYER` harvester type doesn't match offhand tool
+
+---
+
 1.19.2
 
-  * **Fixed:**
+* **Fixed:**
     * Integer overflow when too far from spawn [(#80)](https://github.com/codetaylor/dropt/issues/80)
 
 ---
