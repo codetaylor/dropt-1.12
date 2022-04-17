@@ -19,9 +19,9 @@ import java.util.UUID;
 
 public class HarvesterMatcher {
 
-  private GameStageMatcher gameStageMatcher;
-  private HeldItemMatcher heldItemMatcher;
-  private PlayerNameMatcher playerNameMatcher;
+  private final GameStageMatcher gameStageMatcher;
+  private final HeldItemMatcher heldItemMatcher;
+  private final PlayerNameMatcher playerNameMatcher;
 
   public HarvesterMatcher(
       GameStageMatcher gameStageMatcher,

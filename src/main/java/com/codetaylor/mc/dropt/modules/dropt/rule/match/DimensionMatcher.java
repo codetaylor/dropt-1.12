@@ -1,8 +1,8 @@
 package com.codetaylor.mc.dropt.modules.dropt.rule.match;
 
-import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 import com.codetaylor.mc.dropt.api.reference.EnumListType;
 import com.codetaylor.mc.dropt.modules.dropt.rule.data.RuleMatchDimension;
+import com.codetaylor.mc.dropt.modules.dropt.rule.log.DebugFileWrapper;
 
 import java.util.Arrays;
 
@@ -27,8 +27,10 @@ public class DimensionMatcher {
       logFile.debug("[MATCH] [--] Dimension list type: " + ruleMatchDimension.type);
     }
 
+    boolean result;
+
     if (ruleMatchDimension.type == EnumListType.WHITELIST) {
-      boolean result = this.contains(ruleMatchDimension.ids, dimension);
+      result = this.contains(ruleMatchDimension.ids, dimension);
 
       if (debug) {
 
@@ -48,11 +50,9 @@ public class DimensionMatcher {
         }
       }
 
-      return result;
-
     } else { // blacklist
 
-      boolean result = !this.contains(ruleMatchDimension.ids, dimension);
+      result = !this.contains(ruleMatchDimension.ids, dimension);
 
       if (debug) {
 
@@ -72,8 +72,9 @@ public class DimensionMatcher {
         }
       }
 
-      return result;
     }
+
+    return result;
   }
 
   private boolean contains(int[] ids, int toMatch) {

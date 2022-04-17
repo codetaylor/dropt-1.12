@@ -9,10 +9,10 @@ import java.util.Arrays;
 
 public class ItemMatchEntry {
 
-  private String domain;
-  private String path;
-  private int meta;
-  private int[] metas;
+  private final String domain;
+  private final String path;
+  private final int meta;
+  private final int[] metas;
 
   public ItemMatchEntry(String domain, String path, int meta, int[] metas) {
 
@@ -29,7 +29,7 @@ public class ItemMatchEntry {
           "%s[--] Attempting to match candidate [%s] with: [%s]",
           logPrefix,
           itemStack,
-          this.toString()
+          this
       ));
     }
 

@@ -29,8 +29,9 @@ public class HeldItemMatcher {
       int harvestLevel = item.getHarvestLevel(heldItemStack, toolClass, harvester, blockState);
 
       // WHITELIST
+      Set<String> toolClasses = item.getToolClasses(heldItemStack);
+
       if (ruleMatchHarvesterHeldItem.type == EnumListType.WHITELIST) {
-        Set<String> toolClasses = item.getToolClasses(heldItemStack);
 
         if (!toolClasses.contains(toolClass)) {
 
@@ -58,7 +59,6 @@ public class HeldItemMatcher {
         }
 
       } else { // BLACKLIST
-        Set<String> toolClasses = item.getToolClasses(heldItemStack);
 
         boolean harvestLevelInRange = harvestLevel >= ruleMatchHarvesterHeldItem._minHarvestLevel
             && harvestLevel <= ruleMatchHarvesterHeldItem._maxHarvestLevel;
@@ -163,7 +163,7 @@ public class HeldItemMatcher {
             logFile.debug(String.format(
                 "[MATCH] [!!] Held item tag mismatch: (match) %s != %s (candidate)",
                 itemStack.getTagCompound(),
-                heldItemStack.getTagCompound()
+                null
             ));
           }
           continue; // item to match has tag, held item does not, keep looking
@@ -265,7 +265,7 @@ public class HeldItemMatcher {
             logFile.debug(String.format(
                 "[MATCH] [OK] Held item tag mismatch: (match) %s != %s (candidate)",
                 itemStack.getTagCompound(),
-                heldItemStack.getTagCompound()
+                null
             ));
           }
           continue; // held item doesn't have a tag, keep looking

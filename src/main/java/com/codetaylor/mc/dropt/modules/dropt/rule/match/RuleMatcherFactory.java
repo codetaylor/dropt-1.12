@@ -10,12 +10,12 @@ import java.util.List;
 
 public class RuleMatcherFactory {
 
-  private BlockMatcher blockMatcher;
-  private DropMatcher dropMatcher;
-  private HarvesterMatcher harvesterMatcher;
-  private BiomeMatcher biomeMatcher;
-  private DimensionMatcher dimensionMatcher;
-  private SpawnDistanceMatcher spawnDistanceMatcher;
+  private final BlockMatcher blockMatcher;
+  private final DropMatcher dropMatcher;
+  private final HarvesterMatcher harvesterMatcher;
+  private final BiomeMatcher biomeMatcher;
+  private final DimensionMatcher dimensionMatcher;
+  private final SpawnDistanceMatcher spawnDistanceMatcher;
 
   public RuleMatcherFactory(
       BlockMatcher blockMatcher,
