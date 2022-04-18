@@ -48,7 +48,10 @@ public class PlayerNameMatcher {
         }
       }
 
-      logFile.debug("[MATCH] [!!] Unable to find playerName match in whitelist");
+      if (debug) {
+        logFile.debug("[MATCH] [!!] Unable to find playerName match in whitelist");
+      }
+
       return false;
 
     } else { // blacklist
@@ -76,7 +79,10 @@ public class PlayerNameMatcher {
         }
       }
 
-      logFile.debug("[MATCH] [OK] Unable to find playerName match in blacklist");
+      if (debug) {
+        logFile.debug("[MATCH] [OK] Unable to find playerName match in blacklist");
+      }
+
       return true;
     }
   }

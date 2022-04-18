@@ -3,6 +3,7 @@
 * **Fixed:**
     * Using `REAL_PLAYER` harvester type doesn't match tools, player name, or game stages [(#82)](https://github.com/codetaylor/dropt/issues/82)
     * Using `PLAYER` harvester type doesn't match offhand tool
+    * Using name matcher without debug enabled throws NPE [(#83)](https://github.com/codetaylor/dropt/issues/83)
 
 ---
 
