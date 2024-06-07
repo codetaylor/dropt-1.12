@@ -1,3 +1,10 @@
+1.19.4
+
+* **Fixed:**
+    * Item quantity for drop items not respected in ZS [(#85)](https://github.com/codetaylor/dropt/issues/85)
+
+---
+
 1.19.3
 
 * **Fixed:**
