@@ -135,11 +135,11 @@ public final class DroptAPI {
    * @param domain the resource location domain
    * @param path   the resource location path
    * @return a ready-to-parse string
-   * @see #itemString(String, String, int, NBTTagCompound)
+   * @see #itemString(String, String, int, int, NBTTagCompound)
    */
   public static String itemString(String domain, String path) {
 
-    return DroptAPI.itemString(domain, path, 0, null);
+    return DroptAPI.itemString(domain, path, 0, 1,null);
   }
 
   /**
@@ -147,11 +147,24 @@ public final class DroptAPI {
    * @param path   the resource location path
    * @param meta   the item's meta
    * @return a ready-to-parse string
-   * @see #itemString(String, String, int, NBTTagCompound)
+   * @see #itemString(String, String, int, int, NBTTagCompound)
    */
   public static String itemString(String domain, String path, int meta) {
 
-    return DroptAPI.itemString(domain, path, meta, null);
+    return DroptAPI.itemString(domain, path, meta, 1,null);
+  }
+
+  /**
+   * @param domain   the resource location domain
+   * @param path     the resource location path
+   * @param meta     the item's meta
+   * @param quantity the item stack quantity
+   * @return a ready-to-parse string
+   * @see #itemString(String, String, int, int, NBTTagCompound)
+   */
+  public static String itemString(String domain, String path, int meta, int quantity) {
+
+    return DroptAPI.itemString(domain, path, meta, quantity, null);
   }
 
   /**
@@ -159,15 +172,16 @@ public final class DroptAPI {
    * <p>
    * <code>domain:path:(*|meta)#nbt</code>
    *
-   * @param domain the resource location domain
-   * @param path   the resource location path
-   * @param meta   the item's meta
-   * @param tag    the item's tag
+   * @param domain   the resource location domain
+   * @param path     the resource location path
+   * @param meta     the item's meta
+   * @param quantity the item stack quantity
+   * @param tag      the item's tag
    * @return a ready-to-parse string
    */
-  public static String itemString(String domain, String path, int meta, @Nullable NBTTagCompound tag) {
+  public static String itemString(String domain, String path, int meta, int quantity, @Nullable NBTTagCompound tag) {
 
-    return domain + ":" + path + ":" + ((meta == OreDictionary.WILDCARD_VALUE) ? "*" : meta) + ((tag != null) ? "#" + tag.toString() : "");
+    return domain + ":" + path + ":" + ((meta == OreDictionary.WILDCARD_VALUE) ? "*" : meta) + ((tag != null) ? "#" + tag : "") + " * " + quantity;
   }
 
   /**
@@ -175,12 +189,12 @@ public final class DroptAPI {
    *
    * @param itemStack the item stack
    * @return a ready-to-parse string
-   * @see #itemString(String, String, int, NBTTagCompound)
+   * @see #itemString(String, String, int, int, NBTTagCompound)
    */
   public static String itemString(ItemStack itemStack) {
 
     ResourceLocation registryName = itemStack.getItem().getRegistryName();
-    return DroptAPI.itemString(registryName.getResourceDomain(), registryName.getResourcePath(), itemStack.getMetadata(), itemStack.getTagCompound());
+    return DroptAPI.itemString(registryName.getResourceDomain(), registryName.getResourcePath(), itemStack.getMetadata(), itemStack.getCount(), itemStack.getTagCompound());
   }
 
 }

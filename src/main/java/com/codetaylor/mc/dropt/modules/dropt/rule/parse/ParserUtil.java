@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,13 +53,19 @@ public class ParserUtil {
 
       return this.parseResult.getQuantity();
     }
+
+    @Override
+    public String toString() {
+
+      return this.getDomain() + ":" + this.getPath() + ":" + this.getMeta() + ((this.tag != null) ? "#" + this.tag : "") + " * " + this.getQuantity();
+    }
   }
 
   public static NBTParseResult parseWithNBT(String itemString, ILogger logger) throws MalformedRecipeItemException {
 
     NBTTagCompound tag = null;
     String[] split = itemString.split("#");
-    ParseResult parse = RecipeItemParser.INSTANCE.parse(split[0]);
+    String actualItemString = split[0];
 
     if (split.length > 1) {
       // this indicates that there is an nbt tag to parse
@@ -80,6 +85,34 @@ public class ParserUtil {
         nbtString = sb.toString();
       }
 
+      String[] nbtSplit = nbtString.split("\\*");
+
+      if (nbtSplit.length > 1) {
+        // this indicates that there is either a * in the NBT or at the end
+        // of the string to indicate quantity
+
+        int nbtSplitLength = nbtSplit.length;
+
+        try {
+          // if this doesn't throw, it's likely that there's a quantity
+          int quantity = Integer.parseInt(nbtSplit[nbtSplit.length - 1].trim());
+          actualItemString += " * " + quantity;
+          nbtSplitLength -= 1;
+        } catch (NumberFormatException ignore) {
+          // ignored
+        }
+
+        // stitch the NBT back together
+
+        StringBuilder sb = new StringBuilder(nbtSplit[0]);
+
+        for (int i = 1; i < nbtSplitLength; i++) {
+          sb.append("*").append(nbtSplit[i]);
+        }
+
+        nbtString = sb.toString();
+      }
+
       try {
         tag = JsonToNBT.getTagFromJson(nbtString);
 
@@ -89,6 +122,7 @@ public class ParserUtil {
       }
     }
 
+    ParseResult parse = RecipeItemParser.INSTANCE.parse(actualItemString);
     return new NBTParseResult(parse, tag);
   }
 
@@ -114,6 +148,55 @@ public class ParserUtil {
 
   private ParserUtil() {
     //
+  }
+
+  public static void main(String[] args) {
+
+    ILogger logger = new ILogger() {
+
+      @Override
+      public void warn(String message) {
+
+        System.out.println(message);
+      }
+
+      @Override
+      public void error(String message) {
+
+        System.out.println(message);
+      }
+
+      @Override
+      public void error(String message, Throwable error) {
+
+        System.out.println(message);
+        System.out.println(error.getMessage());
+        error.printStackTrace();
+      }
+    };
+
+    String[] test = {
+        "minecraft:cobblestone:0#{display:{Name:\"Never * 73     # ** blah\"}}   *    42  ",
+        "minecraft:cobblestone:0#{display:{Name:\"Never * 73     # ** blah\"}} * 42",
+        "minecraft:cobblestone:0   *    42  ",
+        "minecraft:cobblestone:0 * 42"
+    };
+
+    for (int i = 0; i < test.length; i+=2) {
+      String s = test[i];
+
+      try {
+        NBTParseResult result = ParserUtil.parseWithNBT(s, logger);
+
+        if (!result.toString().equals(test[i + 1])) {
+          System.out.println(result + " != " + test[i + 1]);
+        }
+
+      } catch (MalformedRecipeItemException e) {
+        e.printStackTrace();
+        break;
+      }
+    }
   }
 
 }
